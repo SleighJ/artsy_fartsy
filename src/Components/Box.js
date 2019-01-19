@@ -35,7 +35,7 @@ class Box extends PureComponent {
 		const { isPainting } = this.props;
 
 		return (
-			<div id={ 'asdf' } onClick={ ()=>this.handleClick() } className={ 'box-div' } style={ this.state.active ? selectedBox : unselectedBox }></div>
+			<div id={ 'asdf' } onClick={ ()=>this.handleClick() } onDragEnter={ ()=>this.handleClick() } className={ 'box-div' } style={ this.state.active ? selectedBox : unselectedBox }></div>
 		);
 	}
 }
