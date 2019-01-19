@@ -32,10 +32,18 @@ class Box extends PureComponent {
 
 	render() {
 
-		const { isPainting, id } = this.props;
+		const { id } = this.props;
 
 		return (
-			<div id={ id } onClick={ ()=>this.handleClick() } onDragEnter={ ()=>this.handleClick() } className={ 'box-div' } style={ this.state.active ? selectedBox : unselectedBox }></div>
+			<div
+				id={ id }
+				className={ 'box-div' }
+				//not sure how to improve the click handling, possibly additional state manip between parent and child? write unique handler?
+				onMouseDown={ ()=>this.handleClick() }
+				onDragStart={ ()=>this.handleClick() }
+				onDragEnter={ ()=>this.handleClick() }
+				style={ this.state.active ? selectedBox : unselectedBox }>
+			</div>
 		);
 	}
 }

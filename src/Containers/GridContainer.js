@@ -19,9 +19,7 @@ class GridContainer extends PureComponent {
 		let boxArr = [];
 
 		for (let i = 0; i<boxes; i++) {
-			// if (i < ) {
 				boxArr.push(i);
-			// }
 		}
 
 		this.setState({
