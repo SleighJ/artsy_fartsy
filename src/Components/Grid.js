@@ -14,7 +14,7 @@ class Grid extends PureComponent {
 
 	render() {
 
-		const { boxArr } = this.props;
+		const { boxArr, color } = this.props;
 
 		return (
 			<div className={'grid-div'} style={{border: '1px solid green', lineHeight: '0', fontSize: '0'}}>
@@ -22,7 +22,10 @@ class Grid extends PureComponent {
 					boxArr.map((box, i) => {
 						let id = i;
 						return (
-							<Box id={ id } />
+							<Box
+								id={ id }
+								color={ color }
+							/>
 						)
 					})
 				}

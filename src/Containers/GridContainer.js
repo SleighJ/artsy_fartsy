@@ -32,13 +32,18 @@ class GridContainer extends PureComponent {
 
 	render() {
 
+		const { color } = this.props;
+
 		let dynamicContainerStyle = {
 			height: this.state.height, width: this.state.width, border: '2px solid black'
 		};
 
 		return (
 			<div className={'container'} style={ dynamicContainerStyle }>
-				<Grid boxArr={ this.state.boxArr } />
+				<Grid
+					color={ color }
+					boxArr={ this.state.boxArr }
+				/>
 			</div>
 		);
 	}

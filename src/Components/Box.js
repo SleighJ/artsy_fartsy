@@ -1,20 +1,5 @@
 import React, { PureComponent } from 'react';
 
-const unselectedBox = {
-	height: '2px',
-	width: '2px',
-	border: '1px solid black',
-	display: 'inline-block',
-};
-
-const selectedBox = {
-	height: '2px',
-	width: '2px',
-	border: '1px solid black',
-	display: 'inline-block',
-	backgroundColor: 'purple'
-};
-
 class Box extends PureComponent {
 	constructor(props) {
 		super(props);
@@ -32,7 +17,22 @@ class Box extends PureComponent {
 
 	render() {
 
-		const { id } = this.props;
+		const { id, color } = this.props;
+
+		const unselectedBox = {
+			height: '2px',
+			width: '2px',
+			border: '1px solid black',
+			display: 'inline-block',
+		};
+
+		const selectedBox = {
+			height: '2px',
+			width: '2px',
+			border: '1px solid black',
+			display: 'inline-block',
+			backgroundColor: color,
+		};
 
 		return (
 			<div
