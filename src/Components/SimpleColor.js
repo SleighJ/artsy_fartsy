@@ -14,13 +14,11 @@ class SimpleColor extends PureComponent {
 		const { color } = this.state;
 
 		let style = {
-			backgroundColor: `${this.state.color}`,
+			backgroundColor: `${ color }`,
 			border: '2px solid red',
 			height: '20px',
 			width: '20px',
 		};
-
-		console.log(style)
 
 		return (
 			<div className={'palette-container'} style={{height: '100px', width: '100px', border: '1px solid red', alignItems: 'center'}}>
