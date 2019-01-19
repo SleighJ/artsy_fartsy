@@ -1,6 +1,8 @@
 import React, { PureComponent } from 'react';
+import Grid from '../Components/Grid';
 
-class Grid extends PureComponent {
+
+class GridContainer extends PureComponent {
 	constructor(props) {
 		super(props);
 
@@ -11,46 +13,37 @@ class Grid extends PureComponent {
 		};
 	}
 
-
 	componentWillMount() {
 
-		let boxes = Math.floor((window.innerHeight * window.innerWidth) * .01);
+		let boxes = Math.floor((window.innerHeight * window.innerWidth) * .0099367);
 		let boxArr = [];
 
 		for (let i = 0; i<boxes; i++) {
-			if (i < 100) {
+			// if (i < ) {
 				boxArr.push(i);
-			}
+			// }
 		}
 
 		this.setState({
-			height: window.innerHeight,
-			width: window.innerWidth,
+			height: window.innerHeight * .4,
+			width: window.innerWidth * .4,
 			boxes: boxes,
 			boxArr: boxArr,
 		});
 	}
 
-
-
 	render() {
 
-		console.log(this.state.boxArr)
+		let dynamicContainerStyle = {
+			height: this.state.height, width: this.state.width, border: '2px solid black'
+		};
 
 		return (
-			<div style={{width: '100px', height: '100px', border: '1px solid orange'}}>
-				<div style={{display: 'inline-flex'}}>
-					{
-						this.state.boxArr.map((box, i) => {
-							return (
-								<div style={{height: '10px', width: '10px', border: '1px solid black'}}></div>
-							)
-						})
-					}
-				</div>
+			<div className={'container'} style={ dynamicContainerStyle }>
+				<Grid boxArr={ this.state.boxArr } />
 			</div>
 		);
 	}
 }
 
-export default Grid;
+export default GridContainer;
