@@ -6,12 +6,14 @@ class Box extends PureComponent {
 
 		this.state = {
 			active: null,
+			color: null,
 		}
 	}
 
 	handleClick = () => {
 		this.setState({
 			active: true,
+			color: this.props.color,
 		})
 	};
 
@@ -31,7 +33,7 @@ class Box extends PureComponent {
 			width: '2px',
 			border: '1px solid black',
 			display: 'inline-block',
-			backgroundColor: color,
+			backgroundColor: this.state.color,
 		};
 
 		return (
