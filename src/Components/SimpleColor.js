@@ -6,7 +6,7 @@ class SimpleColor extends PureComponent {
 		super(props);
 
 		this.state = {
-			color: 'purple',
+			color: null,
 		}
 	}
 
@@ -22,30 +22,29 @@ class SimpleColor extends PureComponent {
 
 		const { color } = this.state;
 
-		let currentColorStyle = {
-			backgroundColor: `${ color }`,
-			border: '2px solid red',
-			height: '20px',
-			width: '20px',
-		};
-
-		let palletteContainerStyle = {
-			height: 'fit-contents',
-			width: window.innerWidth * .5,
-			display: 'inline-block',
-			position: 'relative',
-			border: '1px solid red',
-			alignItems: 'center',
-		};
+		// let currentColorStyle = {
+		// 	backgroundColor: `${ color }`,
+		// 	border: '2px solid red',
+		// 	height: '20px',
+		// 	width: '20px',
+		// };
+		//
+		// let palletteContainerStyle = {
+		// 	height: 'fit-contents',
+		// 	width: window.innerWidth * .5,
+		// 	display: 'inline-block',
+		// 	position: 'relative',
+		// 	border: '1px solid red',
+		// 	alignItems: 'center',
+		// };
 
 		return (
-			<div className={'palette-container'} style={ palletteContainerStyle }>
-				<div>SimpleColor</div>
-				<div className={ 'current-color' } style={ currentColorStyle }></div>
-				<div style={{lineHeight: '0px', fontSize: '0px'}}>
+			<div className={'simple-palette-container'}>
+				<div className={ 'current-color' }></div>
+				<div style={{lineHeight: '0px', fontSize: '0px', height: '27.75rem', overflow: 'scroll', border: '10px solid lightgrey'}}>
 					{
 						Colors.map(( color, i ) => {
-							let style = { backgroundColor: color, height: '5px', width: '5px', border: '1px solid black', display: 'inline-flex', lineHeight: '0px', fontSize: '0px'};
+							let style = { backgroundColor: color, height: '1.5rem', width: '100%', border: '1px solid black', display: 'inline-flex', lineHeight: '0px', fontSize: '0px'};
 							let id = i;
 							return (
 								<div
@@ -54,6 +53,7 @@ class SimpleColor extends PureComponent {
 									style={ style }
 									onClick={ (e)=>this.provideColorToParent(e) }
 								>
+									{ this.state.color != null ? console.log('color is not null') :  console.log('color is null...') }
 								</div>
 							)
 						})

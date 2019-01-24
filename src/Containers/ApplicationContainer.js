@@ -1,8 +1,9 @@
-import React, { PureComponent } from 'react';
-import GridContainer from './GridContainer';
+import React, { Component, Fragment } from 'react';
+import CanvasContainer from './CanvasContainer';
 import Palette from './Palette';
+import '../CSS/ApplicationContainer.css';
 
-class ApplicationContainer extends PureComponent {
+class ApplicationContainer extends Component {
 	constructor(props) {
 		super(props);
 
@@ -19,17 +20,24 @@ class ApplicationContainer extends PureComponent {
 
 	render() {
 
+		const { color } = this.state;
+
 		return (
 			<div>
-				<div>Whats up G? Dis App Container</div>
-				<div style={{ display: 'inline-block', position: 'relative', textAlign: 'center'}}>
-					<GridContainer
-						color={ this.state.color }
-					/>
-					<Palette
-						getColorFromPalette={ this.getColorFromPalette }
-					/>
-				</div>
+
+				<Fragment>
+					<h3 style={{ textAlign: 'center' }}>Dos Paint</h3>
+					<div className="main">
+						<div className="color-guide">
+							<h5>Color Guide</h5>
+							<Palette getColorFromPalette={ this.getColorFromPalette } />
+							<div className="user user">User</div>
+							<div className="user guest">Guest</div>
+						</div>
+						<CanvasContainer color={ color } />
+					</div>
+				</Fragment>
+
 			</div>
 		);
 	}

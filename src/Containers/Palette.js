@@ -10,9 +10,7 @@ class Palette extends PureComponent {
 
 		this.state = {
 			activePalette: 0,
-			activeSimpleColor: 'purple',
-			height: window.innerHeight * .8,
-			width: window.innerWidth * .8,
+			activeSimpleColor: null,
 		}
 	}
 
@@ -28,13 +26,15 @@ class Palette extends PureComponent {
 
 	render() {
 
-		let paletteContainerStyle = {
-				height: this.state.height,
-				width: this.state.width,
-				display: 'inline-block',
-				position: 'relative',
-				textAlign: 'center'
-		};
+		// let paletteContainerStyle = {
+		// 		height: this.state.height,
+		// 		width: this.state.width,
+		// 		display: 'inline-block',
+		// 		position: 'relative',
+		// 		textAlign: 'center'
+		// };
+
+		console.log(this.state)
 
 		const activePalette = {
 			0: <SimpleColor getColorSimplePalette={ this.getColorSimplePalette } />,
@@ -42,7 +42,7 @@ class Palette extends PureComponent {
 		};
 
 		return (
-			<div className={ 'palette-container' } style={ paletteContainerStyle }>
+			<div className={ 'palette-container' }>
 
 				<button
 					onClick={ ()=>this.setPalette() }

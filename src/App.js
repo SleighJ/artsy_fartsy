@@ -5,8 +5,8 @@ import './App.css';
 class App extends Component {
   render() {
     return (
-      <div style={{ textAlign: 'center' }}>
-          <ApplicationContainer />
+      <div>
+        <ApplicationContainer />
       </div>
     );
   }
