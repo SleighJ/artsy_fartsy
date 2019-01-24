@@ -22,22 +22,6 @@ class SimpleColor extends PureComponent {
 
 		const { color } = this.state;
 
-		// let currentColorStyle = {
-		// 	backgroundColor: `${ color }`,
-		// 	border: '2px solid red',
-		// 	height: '20px',
-		// 	width: '20px',
-		// };
-		//
-		// let palletteContainerStyle = {
-		// 	height: 'fit-contents',
-		// 	width: window.innerWidth * .5,
-		// 	display: 'inline-block',
-		// 	position: 'relative',
-		// 	border: '1px solid red',
-		// 	alignItems: 'center',
-		// };
-
 		return (
 			<div className={'simple-palette-container'}>
 				<div className={ 'current-color' }></div>
