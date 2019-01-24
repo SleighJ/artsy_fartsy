@@ -1,14 +1,18 @@
-import React, { PureComponent } from 'react';
+import React, { Component } from 'react';
 
-class Box extends PureComponent {
+class Box extends Component {
 	constructor(props) {
 		super(props);
 
 		this.state = {
 			active: null,
-			color: null,
+			color: 'blue',
 		}
 	}
+
+	// componentWillMount = () => {
+	//
+	// }
 
 	handleClick = () => {
 		this.setState({
@@ -17,9 +21,21 @@ class Box extends PureComponent {
 		})
 	};
 
+	// shouldComponentUpdate = (nextProps, nextState) => {
+	// 	// console.log(nextProps, nextState)
+	// 	if (this.state.active != nextState.active) {
+	// 		return true;
+	// 	}
+	// 	else {
+	// 		return false;
+	// 	}
+	// }
+
 	render() {
 
-		const { id, color } = this.props;
+		const { id, color, isPainting } = this.props;
+
+		// console.log(isPainting)
 
 		const unselectedBox = {
 			height: '2px',
@@ -40,11 +56,12 @@ class Box extends PureComponent {
 			<div
 				id={ id }
 				className={ 'box-div' }
-				//not sure how to improve the click handling, possibly additional state manip between parent and child? write unique handler?
+				onMouseOver={ this.props.isPainting == true ? ()=>this.handleClick() : null}
 				onMouseDown={ ()=>this.handleClick() }
-				onDragStart={ ()=>this.handleClick() }
-				onDragEnter={ ()=>this.handleClick() }
+				// onDragEnter={ ()=>this.handleClick() }
+				// onDragStart={ ()=>this.handleClick() }
 				style={ this.state.active ? selectedBox : unselectedBox }>
+
 			</div>
 		);
 	}

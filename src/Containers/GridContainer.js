@@ -15,7 +15,7 @@ class GridContainer extends PureComponent {
 
 	componentWillMount() {
 
-		let boxes = Math.floor((window.innerHeight * window.innerWidth) * .0099367);
+		let boxes = Math.floor((window.innerHeight * window.innerWidth) * .04);
 		let boxArr = [];
 
 		for (let i = 0; i<boxes; i++) {
@@ -23,8 +23,8 @@ class GridContainer extends PureComponent {
 		}
 
 		this.setState({
-			height: window.innerHeight * .4,
-			width: window.innerWidth * .4,
+			height: window.innerHeight * .8,
+			width: window.innerWidth * .8,
 			boxes: boxes,
 			boxArr: boxArr,
 		});
@@ -34,12 +34,14 @@ class GridContainer extends PureComponent {
 
 		const { color } = this.props;
 
-		let dynamicContainerStyle = {
-			height: this.state.height, width: this.state.width, border: '2px solid black'
+		let dynamicGridContainerStyle = {
+			height: this.state.height,
+			width: this.state.width,
+			border: '2px solid black'
 		};
 
 		return (
-			<div className={'container'} style={ dynamicContainerStyle }>
+			<div className={'container'} style={ dynamicGridContainerStyle }>
 				<Grid
 					color={ color }
 					boxArr={ this.state.boxArr }

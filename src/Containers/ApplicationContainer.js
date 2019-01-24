@@ -18,11 +18,11 @@ class ApplicationContainer extends PureComponent {
 	};
 
 	render() {
-		console.log(this.state)
+
 		return (
-			<div style={{ alignItems: 'center' }}>
+			<div>
 				<div>Whats up G? Dis App Container</div>
-				<div>
+				<div style={{ display: 'inline-block', position: 'relative', textAlign: 'center'}}>
 					<GridContainer
 						color={ this.state.color }
 					/>

@@ -6,9 +6,13 @@ class Palette extends PureComponent {
 	constructor(props) {
 		super(props);
 
+		this.getColorSimplePalette.passive = true;
+
 		this.state = {
 			activePalette: 0,
-			activeSimpleColor: null,
+			activeSimpleColor: 'purple',
+			height: window.innerHeight * .8,
+			width: window.innerWidth * .8,
 		}
 	}
 
@@ -24,13 +28,21 @@ class Palette extends PureComponent {
 
 	render() {
 
+		let paletteContainerStyle = {
+				height: this.state.height,
+				width: this.state.width,
+				display: 'inline-block',
+				position: 'relative',
+				textAlign: 'center'
+		};
+
 		const activePalette = {
 			0: <SimpleColor getColorSimplePalette={ this.getColorSimplePalette } />,
 			1: <RGBAColor />,
 		};
 
 		return (
-			<div className={'palette-container'} style={{height: '100px', width: '100px', border: '1px solid red', alignItems: 'center'}}>
+			<div className={ 'palette-container' } style={ paletteContainerStyle }>
 
 				<button
 					onClick={ ()=>this.setPalette() }
