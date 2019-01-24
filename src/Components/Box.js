@@ -21,6 +21,10 @@ class Box extends Component {
 		})
 	};
 
+	handleDrag = () => {
+		return false;
+	}
+
 	// shouldComponentUpdate = (nextProps, nextState) => {
 	// 	// console.log(nextProps, nextState)
 	// 	if (this.state.active != nextState.active) {
@@ -40,14 +44,16 @@ class Box extends Component {
 		const unselectedBox = {
 			height: '2px',
 			width: '2px',
-			border: '1px solid black',
+			borderRadius: '30%',
+			border: '1px solid lightgrey',
 			display: 'inline-block',
 		};
 
 		const selectedBox = {
 			height: '2px',
 			width: '2px',
-			border: '1px solid black',
+			borderRadius: '30%',
+			border: `1px solid ${ this.state.color }`,
 			display: 'inline-block',
 			backgroundColor: this.state.color,
 		};
@@ -58,6 +64,7 @@ class Box extends Component {
 				className={ 'box-div' }
 				onMouseOver={ this.props.isPainting == true ? ()=>this.handleClick() : null}
 				onMouseDown={ ()=>this.handleClick() }
+				onDragStart={ ()=>this.handleDrag() }
 				// onDragEnter={ ()=>this.handleClick() }
 				// onDragStart={ ()=>this.handleClick() }
 				style={ this.state.active ? selectedBox : unselectedBox }>
