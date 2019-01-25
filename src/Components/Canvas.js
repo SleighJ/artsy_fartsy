@@ -10,15 +10,18 @@ class Canvas extends Component {
 		}
 	}
 
+	componentDidMount = () => {
+		// Here we set up the properties of the canvas element.
+		this.canvas.width = 1000;
+		this.canvas.height = 800;
+		this.ctx = this.canvas.getContext('2d');
+		this.ctx.lineJoin = 'round';
+		this.ctx.lineCap = 'round';
+		this.ctx.lineWidth = 5;
+	};
+
 	isPainting = false;
 	line = [];
-
-	// Different stroke styles to be used for user and guest
-	userStrokeStyle = '#EE92C2';
-
-	guestStrokeStyle = '#F0C987';
-
-	// v4 creates a unique id for each user. We used this since there's no auth to tell users apart
 	userId = v4();
 	prevPos = { offsetX: 0, offsetY: 0 };
 
@@ -75,33 +78,24 @@ class Canvas extends Component {
 
 	sendPaintData = async () => {
 
-		const body = {
+		let body = {
 			line: this.line,
 			userId: this.userId,
 		};
 
+		body = JSON.stringify(body);
+
 		// We use the native fetch API to make requests to the server
 		const req = await fetch('http://localhost:4000/paint', {
-			method: 'post',
-			body: JSON.stringify(body),
+			method: 'POST',
+			body: body,
 			headers: {
-				'content-type': 'application/json',
+				'Content-Type': 'application/json',
 			},
 		});
 
-		const res = await req.json();
+		const res = await req.text();
 		this.line = [];
-	};
-
-	componentDidMount = () => {
-
-		// Here we set up the properties of the canvas element.
-		this.canvas.width = 1000;
-		this.canvas.height = 800;
-		this.ctx = this.canvas.getContext('2d');
-		this.ctx.lineJoin = 'round';
-		this.ctx.lineCap = 'round';
-		this.ctx.lineWidth = 5;
 	};
 
 	render() {

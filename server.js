@@ -3,6 +3,7 @@ require('dotenv').config();
 const express = require('express');
 const bodyParser = require('body-parser');
 const Pusher = require('pusher');
+const cors = require('cors');
 
 const app = express();
 const port = process.env.PORT || 4000;
@@ -16,6 +17,8 @@ const pusher = new Pusher({
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));
+app.use(cors());
+
 app.use((req, res, next) => {
 	res.header('Access-Control-Allow-Origin', '*');
 	res.header(
@@ -29,7 +32,11 @@ app.listen(port, () => {
 	console.log(`Server started on port ${port}`);
 });
 
+app.get('/paint', (req, res) => {
+	res.send({ express: 'YOUR EXPRESS BACKEND IS CONNECTED TO REACT' });
+});
+
 app.post('/paint', (req, res) => {
 	pusher.trigger('painting', 'draw', req.body);
-	res.json(req.body);
+	res.send(req.body);
 });
