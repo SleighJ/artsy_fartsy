@@ -21,11 +21,6 @@ class Canvas extends PureComponent {
 		this.ctx.lineWidth = this.state.width;
 	};
 
-	// componentWillReceiveProps = (nextProps) => {
-	// 	console.log('comp receive')
-	// 	console.log(this.props, nextProps)
-	// }
-
 	isPainting = false;
 	line = [];
 	userId = v4();
