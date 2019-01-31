@@ -27,6 +27,7 @@ class Canvas extends PureComponent {
 	prevPos = { offsetX: 0, offsetY: 0 };
 
 	onMouseDown = ({ nativeEvent }) => {
+
 		const { offsetX, offsetY } = nativeEvent;
 
 		this.isPainting = true;
