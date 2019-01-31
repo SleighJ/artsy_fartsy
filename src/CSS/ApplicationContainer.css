@@ -1,17 +1,26 @@
 body {
     font-family: 'Roboto Condensed', serif;
 }
+
 .main {
     display: flex;
     justify-content: center;
 }
+
 .color-guide {
     margin: 20px 40px;
     max-width: 5%;
 }
+
+.brush-guide {
+    margin: 20px 40px;
+    max-width: 5%;
+}
+
 h5 {
     margin-bottom: 10px;
 }
+
 .user {
     padding: 7px 15px;
     border-radius: 4px;
@@ -21,6 +30,7 @@ h5 {
     background: #EE92C2;
     margin: 10px 0;
 }
+
 .guest {
     background: #F0C987;
     color: white;

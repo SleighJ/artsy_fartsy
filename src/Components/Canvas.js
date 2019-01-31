@@ -1,12 +1,13 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import { v4 } from 'uuid';
 
-class Canvas extends Component {
+class Canvas extends PureComponent {
 	constructor(props) {
 		super(props);
 
 		this.state = {
 			color: this.props.color != null ? this.props.color : null,
+			width: this.props.width,
 		}
 	}
 
@@ -17,8 +18,13 @@ class Canvas extends Component {
 		this.ctx = this.canvas.getContext('2d');
 		this.ctx.lineJoin = 'round';
 		this.ctx.lineCap = 'round';
-		this.ctx.lineWidth = 5;
+		this.ctx.lineWidth = this.state.width;
 	};
+
+	// componentWillReceiveProps = (nextProps) => {
+	// 	console.log('comp receive')
+	// 	console.log(this.props, nextProps)
+	// }
 
 	isPainting = false;
 	line = [];
@@ -99,7 +105,6 @@ class Canvas extends Component {
 	};
 
 	render() {
-
 		return (
 			<canvas
 				// We use the ref attribute to get direct access to the canvas element.

@@ -7,10 +7,12 @@ class CanvasContainer extends Component {
 	}
 
 	render() {
-		const { color } = this.props;
+
+		const { color , width } = this.props;
+
 		return (
 			<div>
-				<Canvas color={ color } />
+				<Canvas color={ color } width={ width != null ? width : 1 } />
 			</div>
 		);
 	}

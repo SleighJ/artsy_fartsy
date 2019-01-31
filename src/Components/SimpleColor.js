@@ -37,7 +37,6 @@ class SimpleColor extends PureComponent {
 									style={ style }
 									onClick={ (e)=>this.provideColorToParent(e) }
 								>
-									{ this.state.color != null ? console.log('color is not null') :  console.log('color is null...') }
 								</div>
 							)
 						})

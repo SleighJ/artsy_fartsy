@@ -20,7 +20,7 @@ class Palette extends PureComponent {
 
 		return (
 			<div className={ 'palette-container' }>
-				<SimpleColor getColorSimplePalette={ this.getColorSimplePalette } />,
+				<SimpleColor getColorSimplePalette={ this.getColorSimplePalette } />
 			</div>
 		);
 	}
