@@ -9,23 +9,15 @@ class Canvas extends PureComponent {
 			color: this.props.color != null ? this.props.color : null,
 			width: this.props.width != null ? this.props.width: null,
 		};
-
-		console.log(this.props.width)
-		if (this.props.width != null) {
-			this.updateWidth(this.props.width);
-		}
 	}
 
-	shouldComponentUpdate = (nextProps, nextState) => {
-		if (nextProps.width != this.state.width) {
-			console.log('returning true')
-			return true
-		}
-	};
+	isPainting = false;
+	line = [];
+	userId = v4();
+	prevPos = { offsetX: 0, offsetY: 0 };
 
 	componentDidMount = () => {
-		// Here we set up the properties of the canvas element.
-		console.log('componentWillMount setting width '+this.state.width)
+
 		this.canvas.width = 1000;
 		this.canvas.height = 800;
 		this.ctx = this.canvas.getContext('2d');
@@ -35,28 +27,17 @@ class Canvas extends PureComponent {
 	};
 
 	componentDidUpdate = () => {
-		console.log('component did update')
+
 		this.updateWidth(this.props.width)
-		this.canvas.width = 1000;
-		this.canvas.height = 800;
-		this.ctx = this.canvas.getContext('2d');
-		this.ctx.lineJoin = 'round';
-		this.ctx.lineCap = 'round';
-		this.ctx.lineWidth = this.state.width;
-		// this.ctx.lineWidth(this.props.width)
-	}
+		this.ctx.lineWidth = this.props.width;
+	};
 
 	updateWidth = (newWidth) => {
-		console.log(newWidth)
+
 		this.setState({
 			width: newWidth,
 		});
-	}
-
-	isPainting = false;
-	line = [];
-	userId = v4();
-	prevPos = { offsetX: 0, offsetY: 0 };
+	};
 
 	onMouseDown = ({ nativeEvent }) => {
 
@@ -71,13 +52,12 @@ class Canvas extends PureComponent {
 		if (this.isPainting) {
 			const { offsetX, offsetY } = nativeEvent;
 			const offSetData = { offsetX, offsetY };
-			// Set the start and stop position of the paint event.
+
 			const positionData = {
 				start: { ...this.prevPos },
 				stop: { ...offSetData },
 			};
 
-			// Add the position to the line array
 			this.line = this.line.concat(positionData);
 			this.paint(this.prevPos, offSetData, this.props.color);
 		}
@@ -98,14 +78,8 @@ class Canvas extends PureComponent {
 
 		this.ctx.beginPath();
 		this.ctx.strokeStyle = strokeStyle;
-
-		// Move the the prevPosition of the mouse
 		this.ctx.moveTo(x, y);
-
-		// Draw a line to the current position of the mouse
 		this.ctx.lineTo(offsetX, offsetY);
-
-		// Visualize the line using the strokeStyle
 		this.ctx.stroke();
 		this.prevPos = { offsetX, offsetY };
 	};
@@ -119,7 +93,6 @@ class Canvas extends PureComponent {
 
 		body = JSON.stringify(body);
 
-		// We use the native fetch API to make requests to the server
 		const req = await fetch('http://localhost:4000/paint', {
 			method: 'POST',
 			body: body,
@@ -133,9 +106,9 @@ class Canvas extends PureComponent {
 	};
 
 	render() {
+
 		return (
 			<canvas
-				// We use the ref attribute to get direct access to the canvas element.
 				ref={ (ref) => (this.canvas = ref) }
 				style={{ background: 'black' }}
 				onMouseDown={ this.onMouseDown }
