@@ -9,7 +9,7 @@ class ApplicationContainer extends Component {
 		super(props);
 
 		this.state = {
-			color: null,
+			color: 'white',
 			size: null,
 			data: null,
 			guide: 0,
@@ -63,8 +63,6 @@ class ApplicationContainer extends Component {
 
 		const { color, width } = this.state;
 
-		console.log(this.state.guide)
-
 		return (
 			<div>
 
@@ -73,12 +71,12 @@ class ApplicationContainer extends Component {
 
 						<div className='rotating-master-guide'>
 
-							<button onClick={ ()=>this.nextGuide() }>-></button>
+							<button onClick={ ()=>this.nextGuide() }>{ this.state.guide < 1 ? 'Stroke Size' : 'Color Palette' }</button>
 
 							{ this.state.guide == 0 ?
 								<div className="color-guide">
 									<h5>Color Guide</h5>
-									<Palette getColorFromPalette={this.getColorFromPalette}/>
+									<Palette getColorFromPalette={ this.getColorFromPalette }/>
 								</div>
 								:
 								<div className="brush-guide">
