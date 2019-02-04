@@ -13,6 +13,7 @@ class ApplicationContainer extends Component {
 			size: null,
 			data: null,
 			guide: 0,
+			fileManagement: false,
 		}
 	}
 
@@ -59,6 +60,20 @@ class ApplicationContainer extends Component {
 		}
 	};
 
+	openFileManagement = () => {
+		this.setState({
+			fileManagement: true,
+		})
+	};
+
+	addBackground = (e) => {
+		let pic = e.target.files;
+		console.log(pic[0].name)
+		this.setState({
+			pic: pic,
+		})
+	};
+
 	render() {
 
 		const { color, width } = this.state;
@@ -71,11 +86,13 @@ class ApplicationContainer extends Component {
 
 						<div className='rotating-master-guide'>
 
+							<button onClick={ ()=>this.openFileManagement() }>Add Background</button>
+								{ this.state.fileManagement ? <input type={'file'} onChange={ (e)=>this.addBackground(e) }></input> : null }
 							<button onClick={ ()=>this.nextGuide() }>{ this.state.guide < 1 ? 'Stroke Size' : 'Color Palette' }</button>
 
 							{ this.state.guide == 0 ?
 								<div className="color-guide">
-									<h5>Color Guide</h5>
+									<h5>Colors</h5>
 									<Palette getColorFromPalette={ this.getColorFromPalette }/>
 								</div>
 								:
@@ -89,6 +106,7 @@ class ApplicationContainer extends Component {
 
 						<div className={'canvas-container-master'}>
 							<CanvasContainer color={ color } width={ this.state.width } />
+							{this.state.pic ? <img src={this.state.pic}></img> : null}
 						</div>
 
 					</div>

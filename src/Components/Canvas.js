@@ -18,8 +18,8 @@ class Canvas extends PureComponent {
 
 	componentDidMount = () => {
 
-		this.canvas.width = 1000;
-		this.canvas.height = 800;
+		this.canvas.width = 800;
+		this.canvas.height = 600;
 		this.ctx = this.canvas.getContext('2d');
 		this.ctx.lineJoin = 'round';
 		this.ctx.lineCap = 'round';

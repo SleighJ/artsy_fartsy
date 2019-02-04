@@ -9,11 +9,13 @@ body {
 
 .canvas-container-master {
     text-align: center;
+    border: 5px solid pink;
 }
 
 .rotating-master-guide {
     margin: 20px 40px;
     max-width: 5%;
+    text-align: center;
 }
 
 h5 {
