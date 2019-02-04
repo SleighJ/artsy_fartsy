@@ -7,12 +7,25 @@ class Canvas extends PureComponent {
 
 		this.state = {
 			color: this.props.color != null ? this.props.color : null,
-			width: this.props.width,
+			width: this.props.width != null ? this.props.width: null,
+		};
+
+		console.log(this.props.width)
+		if (this.props.width != null) {
+			this.updateWidth(this.props.width);
 		}
 	}
 
+	shouldComponentUpdate = (nextProps, nextState) => {
+		if (nextProps.width != this.state.width) {
+			console.log('returning true')
+			return true
+		}
+	};
+
 	componentDidMount = () => {
 		// Here we set up the properties of the canvas element.
+		console.log('componentWillMount setting width '+this.state.width)
 		this.canvas.width = 1000;
 		this.canvas.height = 800;
 		this.ctx = this.canvas.getContext('2d');
@@ -20,6 +33,25 @@ class Canvas extends PureComponent {
 		this.ctx.lineCap = 'round';
 		this.ctx.lineWidth = this.state.width;
 	};
+
+	componentDidUpdate = () => {
+		console.log('component did update')
+		this.updateWidth(this.props.width)
+		this.canvas.width = 1000;
+		this.canvas.height = 800;
+		this.ctx = this.canvas.getContext('2d');
+		this.ctx.lineJoin = 'round';
+		this.ctx.lineCap = 'round';
+		this.ctx.lineWidth = this.state.width;
+		// this.ctx.lineWidth(this.props.width)
+	}
+
+	updateWidth = (newWidth) => {
+		console.log(newWidth)
+		this.setState({
+			width: newWidth,
+		});
+	}
 
 	isPainting = false;
 	line = [];
