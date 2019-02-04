@@ -3,16 +3,15 @@ body {
 }
 
 .main {
-    display: flex;
-    justify-content: center;
+    display: inline-flex;
+    /*margin: 10%;*/
 }
 
-.color-guide {
-    margin: 20px 40px;
-    max-width: 5%;
+.canvas-container-master {
+    text-align: center;
 }
 
-.brush-guide {
+.rotating-master-guide {
     margin: 20px 40px;
     max-width: 5%;
 }

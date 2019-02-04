@@ -12,6 +12,7 @@ class ApplicationContainer extends Component {
 			color: null,
 			size: null,
 			data: null,
+			guide: 0,
 		}
 	}
 
@@ -44,9 +45,25 @@ class ApplicationContainer extends Component {
 		})
 	};
 
+	nextGuide = () => {
+		let currentGuideState = this.state.guide;
+
+		if (currentGuideState < 1) {
+			this.setState({
+				guide: currentGuideState+1,
+			})
+		} else {
+			this.setState({
+				guide: 0,
+			})
+		}
+	};
+
 	render() {
 
 		const { color, width } = this.state;
+
+		console.log(this.state.guide)
 
 		return (
 			<div>
@@ -54,17 +71,27 @@ class ApplicationContainer extends Component {
 				<Fragment>
 					<div className="main">
 
-						<div className="color-guide">
-							<h5>Color Guide</h5>
-							<Palette getColorFromPalette={ this.getColorFromPalette } />
+						<div className='rotating-master-guide'>
+
+							<button onClick={ ()=>this.nextGuide() }>-></button>
+
+							{ this.state.guide == 0 ?
+								<div className="color-guide">
+									<h5>Color Guide</h5>
+									<Palette getColorFromPalette={this.getColorFromPalette}/>
+								</div>
+								:
+								<div className="brush-guide">
+									<h5>Brushes</h5>
+									<BrushContainer getSizeFromBrush={ this.getSizeFromBrush } />
+								</div>
+							}
+
 						</div>
 
-						<div className="brush-guide">
-							<h5>Brushes</h5>
-							<BrushContainer getSizeFromBrush={ this.getSizeFromBrush } />
+						<div className={'canvas-container-master'}>
+							<CanvasContainer color={ color } width={ this.state.width } />
 						</div>
-
-						<CanvasContainer color={ color } width={ this.state.width } />
 
 					</div>
 				</Fragment>
