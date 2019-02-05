@@ -40,3 +40,12 @@ app.post('/paint', (req, res) => {
 	pusher.trigger('painting', 'draw', req.body);
 	res.send(req.body);
 });
+
+app.get('/paint/background', (req, res) => {
+	res.send({ express: 'you have connected to background route' });
+});
+
+app.post('/paint/background', (req, res) => {
+	console.log('sending background to backend')
+	res.send(req.body)
+});
