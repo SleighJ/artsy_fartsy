@@ -25,6 +25,7 @@ class ApplicationContainer extends Component {
 			.then(res => this.setState({ data: res.express }))
 			.catch(err => console.log(err));
 	}
+
 	// Fetches our GET route from the Express server. (Note the route we are fetching matches the GET route from server.js
 	callBackendAPI = async () => {
 		const response = await fetch('/paint');
@@ -78,28 +79,28 @@ class ApplicationContainer extends Component {
 		fd.append('background', this.state.pic, this.state.pic.name);
 		let body = JSON.stringify(fd);
 
-		const req = await fetch('http://localhost:4000/paint/background', {
-			method: 'POST',
-			body: body,
-			headers: {
-				'Content-Type': 'application/json',
-			},
-		});
-
-		const res = await req;
-
-		console.log('posted')
-
-		const image = await fetch('http://localhost:4000/paint/background', {
-			method: 'GET',
-			headers: {
-				'Content-Type': 'application/json',
-			},
-		});
-
-
-		console.log('returning image')
-		console.log(image)
+		// const req = await fetch('http://localhost:4000/paint/background', {
+		// 	method: 'POST',
+		// 	body: body,
+		// 	headers: {
+		// 		'Content-Type': 'application/json',
+		// 	},
+		// });
+		//
+		// const res = await req;
+		//
+		// console.log('posted')
+		//
+		// const image = await fetch('http://localhost:4000/paint/background', {
+		// 	method: 'GET',
+		// 	headers: {
+		// 		'Content-Type': 'application/json',
+		// 	},
+		// });
+		//
+		//
+		// console.log('returning image')
+		// console.log(image)
 
 	};
 
