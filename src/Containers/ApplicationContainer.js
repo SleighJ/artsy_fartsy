@@ -1,10 +1,15 @@
 import React, { Component, Fragment } from 'react';
 import axios from 'axios';
+// import * as admin from 'firebase-admin';
 
 import CanvasContainer from './CanvasContainer';
+
 import Palette from './Palette';
 import BrushContainer from './BrushContainer';
 import '../CSS/ApplicationContainer.css';
+
+// var admin = require("firebase-admin");
+// var serviceAccount = require("path/to/serviceAccountKey.json");
 
 class ApplicationContainer extends Component {
 	constructor(props) {
@@ -20,7 +25,14 @@ class ApplicationContainer extends Component {
 	}
 
 	componentDidMount() {
-		// Call our fetch function below once the component mounts
+
+		//firebase sdk
+		// admin.initializeApp({
+		// 	credential: admin.credential.cert(serviceAccount),
+		// 	databaseURL: "https://artsyfartsy-2ba80.firebaseio.com"
+		// });
+
+		// canvas api
 		this.callBackendAPI()
 			.then(res => this.setState({ data: res.express }))
 			.catch(err => console.log(err));
@@ -77,31 +89,14 @@ class ApplicationContainer extends Component {
 
 		let fd = new FormData();
 		fd.append('background', this.state.pic, this.state.pic.name);
-		let body = JSON.stringify(fd);
+		// let body = JSON.stringify(fd);
 
-		// const req = await fetch('http://localhost:4000/paint/background', {
-		// 	method: 'POST',
-		// 	body: body,
-		// 	headers: {
-		// 		'Content-Type': 'application/json',
-		// 	},
-		// });
-		//
-		// const res = await req;
-		//
-		// console.log('posted')
-		//
-		// const image = await fetch('http://localhost:4000/paint/background', {
-		// 	method: 'GET',
-		// 	headers: {
-		// 		'Content-Type': 'application/json',
-		// 	},
-		// });
-		//
-		//
-		// console.log('returning image')
-		// console.log(image)
+		axios.post('gs://artsyfartsy-2ba80.appspot.com/', fd)
+			.then(res => {
+				console.log(res)
+			});
 
+		console.log('done')
 	};
 
 	// sendPaintData = async () => {
