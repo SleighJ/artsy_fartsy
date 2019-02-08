@@ -1,15 +1,15 @@
 import React, { Component, Fragment } from 'react';
 import axios from 'axios';
-// import * as admin from 'firebase-admin';
 
+import { storage } from '../Firebase/Firebase';
 import CanvasContainer from './CanvasContainer';
-
 import Palette from './Palette';
 import BrushContainer from './BrushContainer';
 import '../CSS/ApplicationContainer.css';
 
-// var admin = require("firebase-admin");
-// var serviceAccount = require("path/to/serviceAccountKey.json");
+// import firebase from 'firebase/app';
+// import 'firebase/storage';
+
 
 class ApplicationContainer extends Component {
 	constructor(props) {
@@ -25,13 +25,6 @@ class ApplicationContainer extends Component {
 	}
 
 	componentDidMount() {
-
-		//firebase sdk
-		// admin.initializeApp({
-		// 	credential: admin.credential.cert(serviceAccount),
-		// 	databaseURL: "https://artsyfartsy-2ba80.firebaseio.com"
-		// });
-
 		// canvas api
 		this.callBackendAPI()
 			.then(res => this.setState({ data: res.express }))
@@ -87,16 +80,24 @@ class ApplicationContainer extends Component {
 
 	uploadBackground = async () => {
 
-		let fd = new FormData();
-		fd.append('background', this.state.pic, this.state.pic.name);
-		// let body = JSON.stringify(fd);
+		const { pic } = this.state;
 
-		axios.post('gs://artsyfartsy-2ba80.appspot.com/', fd)
-			.then(res => {
-				console.log(res)
-			});
+		// let fd = new FormData();
+		// fd.append('background', this.state.pic, this.state.pic.name);
 
-		console.log('done')
+		const uploadTask = storage.ref(`images/${ pic.name }`).put(pic);
+		uploadTask.on('state_changed', (snapshot) => {
+
+		}, (error) => {
+			console.log(error)
+		}, () => {
+			storage.ref('images').child(pic.name).getDownloadURL().then(url => {
+				console.log(url)
+			})
+		});
+
+
+		// Firebase(fd);
 	};
 
 	// sendPaintData = async () => {
@@ -124,8 +125,6 @@ class ApplicationContainer extends Component {
 	render() {
 
 		const { color, width } = this.state;
-
-		console.log(this.state)
 
 		return (
 			<div>
