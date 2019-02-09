@@ -8,6 +8,7 @@ class Canvas extends PureComponent {
 		this.state = {
 			color: this.props.color != null ? this.props.color : null,
 			width: this.props.width != null ? this.props.width: null,
+			background: this.props.background != null ? this.props.background : null,
 		};
 	}
 
@@ -28,7 +29,7 @@ class Canvas extends PureComponent {
 
 	componentDidUpdate = () => {
 
-		this.updateWidth(this.props.width)
+		this.updateWidth(this.props.width);
 		this.ctx.lineWidth = this.props.width;
 	};
 
@@ -107,10 +108,22 @@ class Canvas extends PureComponent {
 
 	render() {
 
+		const { background } = this.props;
+
+		console.log(this.props)
+		console.log(this.state)
+
+		let noImage = {
+			backgroundColor: 'black'
+		};
+
+		let image = {
+			backgroundColor: 'transparent',
+		};
+
 		return (
 			<canvas
 				ref={ (ref) => (this.canvas = ref) }
-				style={{ background: 'black' }}
 				onMouseDown={ this.onMouseDown }
 				onMouseLeave={ this.endPaintEvent }
 				onMouseUp={ this.endPaintEvent }

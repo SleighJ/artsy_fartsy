@@ -7,20 +7,16 @@ import Palette from './Palette';
 import BrushContainer from './BrushContainer';
 import '../CSS/ApplicationContainer.css';
 
-// import firebase from 'firebase/app';
-// import 'firebase/storage';
-
-
 class ApplicationContainer extends Component {
 	constructor(props) {
 		super(props);
 
 		this.state = {
 			color: 'white',
-			size: null, //needed??
 			guide: 0,
 			fileManagement: false,
 			pic: null,
+			background: null,
 		}
 	}
 
@@ -80,47 +76,25 @@ class ApplicationContainer extends Component {
 
 	uploadBackground = async () => {
 
-		const { pic } = this.state;
+		console.log('called')
 
-		// let fd = new FormData();
-		// fd.append('background', this.state.pic, this.state.pic.name);
+		const { pic } = this.state;
 
 		const uploadTask = storage.ref(`images/${ pic.name }`).put(pic);
 		uploadTask.on('state_changed', (snapshot) => {
+			console.log('loading')
 
 		}, (error) => {
 			console.log(error)
 		}, () => {
 			storage.ref('images').child(pic.name).getDownloadURL().then(url => {
 				console.log(url)
+				this.setState({
+					background: url,
+				})
 			})
 		});
-
-
-		// Firebase(fd);
 	};
-
-	// sendPaintData = async () => {
-	//
-	// 	let body = {
-	// 		line: this.line,
-	// 		userId: this.userId,
-	// 	};
-	//
-	// 	body = JSON.stringify(body);
-	//
-	// 	const req = await fetch('http://localhost:4000/paint', {
-	// 		method: 'POST',
-	// 		body: body,
-	// 		headers: {
-	// 			'Content-Type': 'application/json',
-	// 		},
-	// 	});
-	//
-	// 	const res = await req.text();
-	// 	this.line = [];
-	// };
-
 
 	render() {
 
@@ -154,11 +128,11 @@ class ApplicationContainer extends Component {
 						</div>
 
 						<div className={'canvas-container-master'}>
-							<CanvasContainer color={ color } width={ this.state.width } />
+							<CanvasContainer color={ color } width={ this.state.width } background={ this.state.background } />
 						</div>
 
 						<div style={{border: '1px solid black', width: '100px', height: '100px'}}>
-						{this.state.pic ? <img src={this.state.picLocation}></img> : null}
+						{this.state.background ? <img src={this.state.background}></img> : null}
 						</div>
 					</div>
 				</Fragment>
