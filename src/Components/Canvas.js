@@ -119,11 +119,13 @@ class Canvas extends PureComponent {
 
 		let image = {
 			backgroundColor: 'transparent',
+			backgroundImage: `url(${ this.props.background })`
 		};
 
 		return (
 			<canvas
 				ref={ (ref) => (this.canvas = ref) }
+				style={ this.props.background ? image : noImage }
 				onMouseDown={ this.onMouseDown }
 				onMouseLeave={ this.endPaintEvent }
 				onMouseUp={ this.endPaintEvent }
