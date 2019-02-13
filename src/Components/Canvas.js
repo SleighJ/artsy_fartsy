@@ -1,4 +1,5 @@
 import React, { PureComponent } from 'react';
+
 import { v4 } from 'uuid';
 
 class Canvas extends PureComponent {
@@ -87,6 +88,8 @@ class Canvas extends PureComponent {
 
 	sendPaintData = async () => {
 
+
+		console.log('calling send paint data')
 		let body = {
 			line: this.line,
 			userId: this.userId,
@@ -106,12 +109,15 @@ class Canvas extends PureComponent {
 		this.line = [];
 	};
 
+	incomingImage = () => {
+		this.setState({
+			incomingImage: true,
+		})
+	};
+
 	render() {
 
 		const { background } = this.props;
-
-		console.log(this.props)
-		console.log(this.state)
 
 		let noImage = {
 			backgroundColor: 'black'
@@ -119,7 +125,7 @@ class Canvas extends PureComponent {
 
 		let image = {
 			backgroundColor: 'transparent',
-			backgroundImage: `url(${ this.props.background })`
+			backgroundImage: `url(${ background })`
 		};
 
 		return (

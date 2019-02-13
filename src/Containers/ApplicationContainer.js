@@ -7,6 +7,8 @@ import Palette from './Palette';
 import BrushContainer from './BrushContainer';
 import '../CSS/ApplicationContainer.css';
 
+import ReactCrop from 'react-image-crop';
+
 class ApplicationContainer extends Component {
 	constructor(props) {
 		super(props);
@@ -76,19 +78,19 @@ class ApplicationContainer extends Component {
 
 	uploadBackground = async () => {
 
-		console.log('called')
+		console.log('calling')
 
 		const { pic } = this.state;
+		// let name = JSON.stringify(pic.name);
 
 		const uploadTask = storage.ref(`images/${ pic.name }`).put(pic);
 		uploadTask.on('state_changed', (snapshot) => {
 			console.log('loading')
-
 		}, (error) => {
 			console.log(error)
 		}, () => {
 			storage.ref('images').child(pic.name).getDownloadURL().then(url => {
-				console.log(url)
+
 				this.setState({
 					background: url,
 				})
@@ -110,7 +112,7 @@ class ApplicationContainer extends Component {
 
 							{ !this.state.fileManagement ? <button onClick={ ()=>this.openFileManagement() }>Add Background</button> : <button onClick={ ()=>this.uploadBackground() }>Upload</button>}
 
-								{ this.state.fileManagement ? <input type={'file'} onChange={ (e)=>this.addBackground(e.target.files[0]) }></input> : null }
+								{ this.state.fileManagement ? <input type={'file'} onChange={ (e)=>this.addBackground(e.target.files[0]) } multiple={ false }></input> : null }
 							<button onClick={ ()=>this.nextGuide() }>{ this.state.guide < 1 ? 'Stroke Size' : 'Color Palette' }</button>
 
 							{ this.state.guide == 0 ?
@@ -131,9 +133,6 @@ class ApplicationContainer extends Component {
 							<CanvasContainer color={ color } width={ this.state.width } background={ this.state.background } />
 						</div>
 
-						<div style={{border: '1px solid black', width: '100px', height: '100px'}}>
-						{this.state.background ? <img src={this.state.background}></img> : null}
-						</div>
 					</div>
 				</Fragment>
 
