@@ -78,10 +78,9 @@ class ApplicationContainer extends Component {
 
 	uploadBackground = async () => {
 
-		console.log('calling')
-
 		const { pic } = this.state;
-		// let name = JSON.stringify(pic.name);
+
+		console.log(pic)
 
 		const uploadTask = storage.ref(`images/${ pic.name }`).put(pic);
 		uploadTask.on('state_changed', (snapshot) => {
@@ -90,12 +89,17 @@ class ApplicationContainer extends Component {
 			console.log(error)
 		}, () => {
 			storage.ref('images').child(pic.name).getDownloadURL().then(url => {
-
-				this.setState({
-					background: url,
-				})
+				const reader = new FileReader();
+				reader.addEventListener('load', ()=> {
+					this.setState({
+						blobArray: reader.result,
+						background: url,
+					})
+				}, false);
+				reader.readAsArrayBuffer(pic);
 			})
 		});
+
 	};
 
 	render() {
@@ -112,7 +116,7 @@ class ApplicationContainer extends Component {
 
 							{ !this.state.fileManagement ? <button onClick={ ()=>this.openFileManagement() }>Add Background</button> : <button onClick={ ()=>this.uploadBackground() }>Upload</button>}
 
-								{ this.state.fileManagement ? <input type={'file'} onChange={ (e)=>this.addBackground(e.target.files[0]) } multiple={ false }></input> : null }
+								{ this.state.fileManagement ? <input type={'file'} onChange={ (e)=>this.addBackground(e.target.files[0]) } multiple={ false } accept={ '.png' }></input> : null }
 							<button onClick={ ()=>this.nextGuide() }>{ this.state.guide < 1 ? 'Stroke Size' : 'Color Palette' }</button>
 
 							{ this.state.guide == 0 ?
@@ -130,7 +134,7 @@ class ApplicationContainer extends Component {
 						</div>
 
 						<div className={'canvas-container-master'}>
-							<CanvasContainer color={ color } width={ this.state.width } background={ this.state.background } />
+							<CanvasContainer color={ color } width={ this.state.width } background={ this.state.background } blobArray={ this.state.blobArray } />
 						</div>
 
 					</div>

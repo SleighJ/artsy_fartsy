@@ -87,8 +87,6 @@ class Canvas extends PureComponent {
 	};
 
 	sendPaintData = async () => {
-
-
 		console.log('calling send paint data')
 		let body = {
 			line: this.line,
@@ -107,12 +105,6 @@ class Canvas extends PureComponent {
 
 		const res = await req.text();
 		this.line = [];
-	};
-
-	incomingImage = () => {
-		this.setState({
-			incomingImage: true,
-		})
 	};
 
 	render() {
