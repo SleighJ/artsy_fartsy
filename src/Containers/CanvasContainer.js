@@ -4,11 +4,12 @@ import {
 	image64toCanvasRef,
 	base64StringtoFile,
 	extractImageFileExtensionFromBase64,
-	arrayBufferToBase64,
+	arrayBufferToBase64, downloadBase64File,
 } from "../Static/Base64";
 
 import ReactCrop from 'react-image-crop';
 import 'react-image-crop/dist/ReactCrop.css';
+import {storage} from "../Firebase/Firebase";
 
 class CanvasContainer extends Component {
 	constructor(props) {
@@ -18,11 +19,22 @@ class CanvasContainer extends Component {
 
 		this.state = {
 			imgSrc: null,
+			croppedUrl: null,
+			background: null,
 			crop: {
 				aspect: 1/1,
 			}
 		}
 	}
+
+	// componentDidUpdate = (prevProps) => {
+	// 	if ( this.props.background != prevProps.background ) {
+	// 		console.log(this.state.croppedUrl, this.props.croppedUrl)
+	// 		this.setState({
+	// 			background: this.props.background,
+	// 		})
+	// 	}
+	// };
 
 	backgroundResize = (crop) => {
 		this.setState({
@@ -44,99 +56,27 @@ class CanvasContainer extends Component {
 		image64toCanvasRef(canvasRef, imageSrc, pixelCrop)
 	};
 
-	handleDownloadImage = (event) => {
-		event.preventDefault();
+	handleDone = () => {
 
-		// let type;
-		// let fileExt;
-		// let fileName;
-		//
-		// const canvasRef = this.imagePreviewCanvasRef.current;
-		// const imageSrc = this.state.imgSrc;
-		// const base64 = arrayBufferToBase64(this.props.blobArray);
-		//
-		// let indexPNG = imageSrc.indexOf('.png');
-		// let indexJPEG = imageSrc.indexOf('.jpeg');
-		//
-		// if (indexPNG != -1) {
-		// 	fileExt = 'png';
-		// 	// fileExt = extractImageFileExtensionFromBase64(imageSrc, type);
-		// }
-		// else if (indexJPEG != -1) {
-		// 	fileExt = 'jpeg';
-		// 	// fileExt = extractImageFileExtensionFromBase64(imageSrc, type);
-		// }
-		// else {
-		// 	alert('invalid file type, please select JPEG or PNG')
-		// }
+		const canvasRef = this.imagePreviewCanvasRef.current;
+		// console.log(canvasRef.readAsDataURL())
+		const { imgSrc } = this.state;
 
-		// fileName = `preview.${ fileExt }`;
-		// console.log('filename')
-		// console.log(fileName)
-		// const croppedFile = base64StringtoFile(base64, fileName);
-		// console.log(croppedFile)
-		// base64StringtoFile(imageSrc, fileName)
+		const fileExt = extractImageFileExtensionFromBase64(imgSrc);
+		const img64 = canvasRef.toDataURL('image/' + fileExt);
+		const fileName = 'preview.'+fileExt;
 
-		console.log(this.props.blobArray)
+		const croppedFile = base64StringtoFile(img64, fileName);
 
-		// const sampleArr = base64ToArrayBuffer(data);
-		this.saveByteArray("Sample Report", this.props.blobArray);
+		console.log(croppedFile)
+
+		downloadBase64File(img64, fileName)
 
 	};
-
-	saveByteArray = (reportName, byte) => {
-
-
-		var bytes = new Uint8Array(byte);
-		console.log(bytes)
-		var blob = new Blob([bytes], {type: "application/pdf"});
-		var link = document.createElement('a');
-		let url = this.state.imgSrc;
-		console.log(url)
-		console.log(typeof url)
-		console.log(blob)
-
-		link.href = window.webkitURL.createObjectURL(blob);
-
-		var fileName = reportName;
-		link.download = fileName;
-		link.click();
-	};
-
-	oldHandleDownloadImage = () => {
-		// event.preventDefault();
-
-		// const fileExt = extractImageFileExtensionFromBase64(imageBlob);
-
-		// console.log(fileExt)
-
-		// let indexPNG = imageSrc.indexOf('.png');
-		// let indexJPEG = imageSrc.indexOf('.jpeg');
-		//
-		//
-		// if (indexPNG != -1) {
-		// 	type = 'png';
-		// 	fileExt = extractImageFileExtensionFromBase64(imageSrc, type);
-		// }
-		// else if (indexJPEG != -1) {
-		// 	type = 'jpeg';
-		// 	fileExt = extractImageFileExtensionFromBase64(imageSrc, type);
-		// }
-		// else {
-		// 	alert('invalid file type, please select JPEG or PNG')
-		// }
-		//
-		// fileName = `preview.${ fileExt }`;
-		// console.log('filename')
-		// console.log(fileName)
-		// const croppedFile = base64StringtoFile(imageSrc, fileName);
-		// console.log(croppedFile)
-		// base64StringtoFile(imageSrc, fileName)
-	}
 
 	render() {
 
-		const { color , width, background, blob } = this.props;
+		const { color , width, background, blobArray } = this.props;
 
 		return (
 			<div>
@@ -144,7 +84,7 @@ class CanvasContainer extends Component {
 					this.props.background ?
 						<div style={{ maxWidth: '500px', maxHeight: '500px' }}>
 							<ReactCrop
-								src={ this.props.background }
+								src={ this.props.blobArray }
 								onChange={ this.backgroundResize }
 								crop={ this.state.crop }
 								onImageLoaded={ this.handleImageLoaded }
@@ -155,8 +95,9 @@ class CanvasContainer extends Component {
 							<br></br>
 
 							<p>Preview Canvas Crop</p>
-							<canvas ref={ this.imagePreviewCanvasRef }></canvas>
-							<button onClick={ this.handleDownloadImage }>download</button>
+							<canvas id={'canvas'} crossOrigin="Anonymous" ref={ this.imagePreviewCanvasRef }></canvas>
+							{/*<button onClick={ this.handleDownloadImage }>download</button>*/}
+							<button onClick={ this.handleDone }>Done</button>
 						</div>
 						:
 						<Canvas color={ color } width={ width != null ? width : 1 } background={ background } />

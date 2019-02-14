@@ -1,11 +1,12 @@
 // Convert a Base64-encoded string to a File object
 export function base64StringtoFile (base64String, filename) {
-	// var arr = base64String.split(','), mime = arr[0].match(/:(.*?);/)[1],
-	// 	bstr = atob(arr[1]), n = bstr.length, u8arr = new Uint8Array(n)
-	// while (n--) {
-	// 	u8arr[n] = bstr.charCodeAt(n)
-	// }
-	// return new File([u8arr], filename, {type: mime})
+	console.log('called')
+	var arr = base64String.split(','), mime = arr[0].match(/:(.*?);/)[1],
+		bstr = atob(arr[1]), n = bstr.length, u8arr = new Uint8Array(n)
+	while (n--) {
+		u8arr[n] = bstr.charCodeAt(n)
+	}
+	return new File([u8arr], filename, {type: mime})
 }
 
 // Download a Base64-encoded file
@@ -89,6 +90,7 @@ export function image64toCanvasRef (canvasRef, image64, pixelCrop) {
 	image.src = image64;
 
 	image.onload = function () {
+		console.log('wtf mate, wtf is going on in here')
 		ctx.drawImage(
 			image,
 			pixelCrop.x,
@@ -101,4 +103,5 @@ export function image64toCanvasRef (canvasRef, image64, pixelCrop) {
 			pixelCrop.height
 		)
 	}
+	console.log(image.onload)
 }
