@@ -109,7 +109,7 @@ class Canvas extends PureComponent {
 
 	render() {
 
-		const { croppedUrl } = this.props;
+		const { croppedFile } = this.props;
 
 		let noImage = {
 			backgroundColor: 'black'
@@ -117,7 +117,7 @@ class Canvas extends PureComponent {
 
 		let image = {
 			backgroundColor: 'transparent',
-			backgroundImage: `url(${ croppedUrl })`
+			backgroundImage: `url(${ croppedFile })`
 		};
 
 		return (

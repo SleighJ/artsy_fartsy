@@ -7,8 +7,6 @@ import Palette from './Palette';
 import BrushContainer from './BrushContainer';
 import '../CSS/ApplicationContainer.css';
 
-import ReactCrop from 'react-image-crop';
-
 class ApplicationContainer extends Component {
 	constructor(props) {
 		super(props);
@@ -24,7 +22,6 @@ class ApplicationContainer extends Component {
 	}
 
 	componentDidMount() {
-		// canvas api
 		this.callBackendAPI()
 			.then(res => this.setState({ data: res.express }))
 			.catch(err => console.log(err));
@@ -79,6 +76,8 @@ class ApplicationContainer extends Component {
 	uploadBackground = async () => {
 
 		const { pic } = this.state;
+
+		console.log(pic)
 
 		const uploadTask = storage.ref(`images/${ pic.name }`).put(pic);
 		uploadTask.on('state_changed', (snapshot) => {

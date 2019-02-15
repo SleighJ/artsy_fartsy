@@ -9,7 +9,7 @@ import {
 
 import ReactCrop from 'react-image-crop';
 import 'react-image-crop/dist/ReactCrop.css';
-import {storage} from "../Firebase/Firebase";
+import { storage } from "../Firebase/Firebase";
 
 class CanvasContainer extends Component {
 	constructor(props) {
@@ -27,14 +27,14 @@ class CanvasContainer extends Component {
 		}
 	}
 
-	// componentDidUpdate = (prevProps) => {
-	// 	if ( this.props.background != prevProps.background ) {
-	// 		console.log(this.state.croppedUrl, this.props.croppedUrl)
-	// 		this.setState({
-	// 			background: this.props.background,
-	// 		})
-	// 	}
-	// };
+	componentDidUpdate = (prevProps) => {
+		if ( this.state.background != this.props.background ) {
+			console.log(this.state.croppedUrl, this.props.croppedUrl)
+			this.setState({
+				background: this.props.background,
+			})
+		}
+	};
 
 	backgroundResize = (crop) => {
 		this.setState({
@@ -59,29 +59,69 @@ class CanvasContainer extends Component {
 	handleDone = () => {
 
 		const canvasRef = this.imagePreviewCanvasRef.current;
-		// console.log(canvasRef.readAsDataURL())
 		const { imgSrc } = this.state;
-
 		const fileExt = extractImageFileExtensionFromBase64(imgSrc);
 		const img64 = canvasRef.toDataURL('image/' + fileExt);
 		const fileName = 'preview.'+fileExt;
 
 		const croppedFile = base64StringtoFile(img64, fileName);
+		console.log(croppedFile);
+
+		let binaryData = [];
+		binaryData.push(croppedFile);
+		let newURL = window.URL.createObjectURL(new Blob(binaryData, {type: "application/zip"}))
+
+		this.setState({
+			croppedFile: newURL,
+			background: null,
+		})
+	};
+
+	uploadCroppedImage = async (croppedFile) => {
 
 		console.log(croppedFile)
+		console.log(croppedFile.name)
 
-		downloadBase64File(img64, fileName)
+		const uploadTask = storage.ref(`images/${ croppedFile.name }`).put(croppedFile);
+		uploadTask.on('state_changed', (snapshot) => {
+
+			console.log('loading')
+		}, (error) => {
+
+			console.log(error)
+		}, () => {
+
+			storage.ref('images').child(croppedFile).getDownloadURL().then(url => {
+				console.log('past child statement')
+				console.log(url)
+				const reader = new FileReader();
+				reader.addEventListener('load', ()=> {
+					this.setState({
+						// blobArray: reader.result,
+						croppedFile: url,
+						background: null,
+					})
+
+				}, false);
+
+				reader.readAsDataURL(croppedFile);
+				// reader.readAsArrayBuffer(croppedFile);
+			})
+		});
 
 	};
+
 
 	render() {
 
 		const { color , width, background, blobArray } = this.props;
 
+		console.log(this.state.background)
+
 		return (
 			<div>
 				{
-					this.props.background ?
+					this.state.background ?
 						<div style={{ maxWidth: '500px', maxHeight: '500px' }}>
 							<ReactCrop
 								src={ this.props.blobArray }
@@ -96,11 +136,10 @@ class CanvasContainer extends Component {
 
 							<p>Preview Canvas Crop</p>
 							<canvas id={'canvas'} crossOrigin="Anonymous" ref={ this.imagePreviewCanvasRef }></canvas>
-							{/*<button onClick={ this.handleDownloadImage }>download</button>*/}
 							<button onClick={ this.handleDone }>Done</button>
 						</div>
 						:
-						<Canvas color={ color } width={ width != null ? width : 1 } background={ background } />
+						<Canvas color={ color } width={ width != null ? width : 1 } croppedFile={ this.state.croppedFile } />
 				}
 			</div>
 		);
