@@ -21,6 +21,7 @@ class CanvasContainer extends Component {
 			imgSrc: null,
 			croppedUrl: null,
 			background: null,
+			loadingBackground: null,
 			crop: {
 				aspect: 1/1,
 			}
@@ -28,10 +29,22 @@ class CanvasContainer extends Component {
 	}
 
 	componentDidUpdate = (prevProps) => {
-		if ( this.state.background != this.props.background ) {
-			console.log(this.state.croppedUrl, this.props.croppedUrl)
+		console.log('componentDidUpdate')
+		if ( this.props.background && !this.state.background ) {
+
+			if (!this.state.croppedUrl) {
+				this.setState({
+					background: this.props.background,
+					loadingBackground: true,
+				})
+			}
+		}
+
+		if (this.state.croppedUrl && this.state.background) {
+			console.log('we have a croppedURL in the state, I will now set the background to null')
 			this.setState({
-				background: this.props.background,
+				background: null,
+				loadingBackground: false,
 			})
 		}
 	};
@@ -65,58 +78,60 @@ class CanvasContainer extends Component {
 		const fileName = 'preview.'+fileExt;
 
 		const croppedFile = base64StringtoFile(img64, fileName);
-		console.log(croppedFile);
 
 		let binaryData = [];
 		binaryData.push(croppedFile);
-		let newURL = window.URL.createObjectURL(new Blob(binaryData, {type: "application/zip"}))
+		let newURL = URL.createObjectURL(new Blob(binaryData, {type: "image/png"}))
+
+		console.log('new url from handleDone')
+		console.log(newURL)
 
 		this.setState({
-			croppedFile: newURL,
-			background: null,
+			croppedUrl: newURL,
+			// background: null,
 		})
 	};
 
-	uploadCroppedImage = async (croppedFile) => {
-
-		console.log(croppedFile)
-		console.log(croppedFile.name)
-
-		const uploadTask = storage.ref(`images/${ croppedFile.name }`).put(croppedFile);
-		uploadTask.on('state_changed', (snapshot) => {
-
-			console.log('loading')
-		}, (error) => {
-
-			console.log(error)
-		}, () => {
-
-			storage.ref('images').child(croppedFile).getDownloadURL().then(url => {
-				console.log('past child statement')
-				console.log(url)
-				const reader = new FileReader();
-				reader.addEventListener('load', ()=> {
-					this.setState({
-						// blobArray: reader.result,
-						croppedFile: url,
-						background: null,
-					})
-
-				}, false);
-
-				reader.readAsDataURL(croppedFile);
-				// reader.readAsArrayBuffer(croppedFile);
-			})
-		});
-
-	};
+	// uploadCroppedImage = async (croppedFile) => {
+	//
+	// 	console.log(croppedFile)
+	// 	console.log(croppedFile.name)
+	//
+	// 	const uploadTask = storage.ref(`images/${ croppedFile.name }`).put(croppedFile);
+	// 	uploadTask.on('state_changed', (snapshot) => {
+	//
+	// 		console.log('loading')
+	// 	}, (error) => {
+	//
+	// 		console.log(error)
+	// 	}, () => {
+	//
+	// 		storage.ref('images').child(croppedFile).getDownloadURL().then(url => {
+	// 			console.log('past child statement')
+	// 			console.log(url)
+	// 			const reader = new FileReader();
+	// 			reader.addEventListener('load', ()=> {
+	// 				this.setState({
+	// 					// blobArray: reader.result,
+	// 					croppedFile: url,
+	// 					background: null,
+	// 				})
+	//
+	// 			}, false);
+	//
+	// 			reader.readAsDataURL(croppedFile);
+	// 			// reader.readAsArrayBuffer(croppedFile);
+	// 		})
+	// 	});
+	//
+	// };
 
 
 	render() {
 
 		const { color , width, background, blobArray } = this.props;
 
-		console.log(this.state.background)
+		// console.log(this.state.croppedUrl)
 
 		return (
 			<div>
@@ -139,7 +154,7 @@ class CanvasContainer extends Component {
 							<button onClick={ this.handleDone }>Done</button>
 						</div>
 						:
-						<Canvas color={ color } width={ width != null ? width : 1 } croppedFile={ this.state.croppedFile } />
+						<Canvas color={ color } width={ width != null ? width : 1 } croppedUrl={ this.state.croppedUrl } />
 				}
 			</div>
 		);

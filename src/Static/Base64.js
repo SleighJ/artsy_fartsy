@@ -81,6 +81,8 @@ export function extractImageFileExtensionFromBase64 (base64Data) {
 // Base64 Image to Canvas with a Crop
 export function image64toCanvasRef (canvasRef, image64, pixelCrop) {
 
+	console.log(canvasRef, image64, pixelCrop)
+
 	const canvas = canvasRef;
 	canvas.width = pixelCrop.width;
 	canvas.height = pixelCrop.height;
