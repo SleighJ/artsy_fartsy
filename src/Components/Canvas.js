@@ -109,7 +109,7 @@ class Canvas extends PureComponent {
 
 	render() {
 
-		const { croppedFile } = this.props;
+		const { croppedUrl } = this.props;
 
 		let noImage = {
 			backgroundColor: 'black'
@@ -117,13 +117,15 @@ class Canvas extends PureComponent {
 
 		let image = {
 			backgroundColor: 'transparent',
-			backgroundImage: `url(${ croppedFile })`
+			backgroundImage: `url(${ croppedUrl })`
 		};
+
+		console.log(this.props)
 
 		return (
 			<canvas
 				ref={ (ref) => (this.canvas = ref) }
-				style={ this.props.background ? image : noImage }
+				style={ this.props.croppedUrl ? image : noImage }
 				onMouseDown={ this.onMouseDown }
 				onMouseLeave={ this.endPaintEvent }
 				onMouseUp={ this.endPaintEvent }
