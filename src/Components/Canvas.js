@@ -19,7 +19,6 @@ class Canvas extends PureComponent {
 	prevPos = { offsetX: 0, offsetY: 0 };
 
 	componentDidMount = () => {
-
 		this.canvas.width = 800;
 		this.canvas.height = 600;
 		this.ctx = this.canvas.getContext('2d');
@@ -29,20 +28,17 @@ class Canvas extends PureComponent {
 	};
 
 	componentDidUpdate = () => {
-
 		this.updateWidth(this.props.width);
 		this.ctx.lineWidth = this.props.width;
 	};
 
 	updateWidth = (newWidth) => {
-
 		this.setState({
 			width: newWidth,
 		});
 	};
 
 	onMouseDown = ({ nativeEvent }) => {
-
 		const { offsetX, offsetY } = nativeEvent;
 
 		this.isPainting = true;
@@ -50,7 +46,6 @@ class Canvas extends PureComponent {
 	};
 
 	onMouseMove = ({ nativeEvent }) => {
-
 		if (this.isPainting) {
 			const { offsetX, offsetY } = nativeEvent;
 			const offSetData = { offsetX, offsetY };
@@ -66,7 +61,6 @@ class Canvas extends PureComponent {
 	};
 
 	endPaintEvent = () => {
-
 		if (this.isPainting) {
 			this.isPainting = false;
 			this.sendPaintData();
@@ -87,7 +81,6 @@ class Canvas extends PureComponent {
 	};
 
 	sendPaintData = async () => {
-		console.log('calling send paint data')
 		let body = {
 			line: this.line,
 			userId: this.userId,
@@ -117,10 +110,10 @@ class Canvas extends PureComponent {
 
 		let image = {
 			backgroundColor: 'transparent',
-			backgroundImage: `url(${ croppedUrl })`
+			backgroundImage: `url(${ croppedUrl })`,
+			backgroundRepeat: 'no-repeat',
+			backgroundPosition: 'center',
 		};
-
-		console.log(this.props)
 
 		return (
 			<canvas

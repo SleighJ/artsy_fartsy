@@ -74,43 +74,31 @@ class ApplicationContainer extends Component {
 	};
 
 	uploadBackground = async () => {
-
 		const { pic } = this.state;
-
-		console.log(pic)
 
 		const uploadTask = storage.ref(`images/${ pic.name }`).put(pic);
 		uploadTask.on('state_changed', (snapshot) => {
-
 			console.log('loading')
 		}, (error) => {
-
 			console.log(error)
 		}, () => {
-
 			storage.ref('images').child(pic.name).getDownloadURL().then(url => {
 				const reader = new FileReader();
 				reader.addEventListener('load', ()=> {
-
 					this.setState({
 						blobArray: reader.result,
 						background: url,
 					})
 
 				}, false);
-
 				reader.readAsDataURL(pic);
-				// reader.readAsArrayBuffer(pic);
 			})
 		});
-
 	};
 
 	render() {
 
 		const { color, width } = this.state;
-
-		console.log(this.state);
 
 		return (
 			<div>
