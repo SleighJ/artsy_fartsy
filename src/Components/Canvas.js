@@ -13,6 +13,7 @@ class Canvas extends PureComponent {
 			textEditOpen: null,
 			hasInput: null,
 			textInputId: 0,
+			input: null,
 		};
 	}
 
@@ -79,16 +80,21 @@ class Canvas extends PureComponent {
 	handleTextClick = (e) => {
 		const keyCode = e.keyCode;
 
-		console.log(this.state)
-
 		if (keyCode === 13) {
 			const input = document.getElementById(`addTextInput-${ this.state.textInputId }`);
-			this.drawText(e.target.value, parseInt(e.target.offsetLeft, 10), parseInt(e.target.offsetTop, 10));
-			e.target.parentNode.removeChild(input);
-
+			const increment = this.state.textInputId+1;
 			this.setState({
 				hasInput: false,
+				textInputId: increment,
+				input: {
+					text: e.target.value,
+					x: parseInt(e.target.offsetTop, 10),
+					y: parseInt(e.target.offsetLeft, 10),
+				}
 			})
+
+			// this.drawText(e.target.value, parseInt(e.target.offsetLeft, 10), parseInt(e.target.offsetTop, 10));
+			e.target.parentNode.removeChild(input);
 		}
 	};
 
@@ -97,6 +103,14 @@ class Canvas extends PureComponent {
 		this.ctx.textAlign = 'left';
 		this.ctx.font = '14px sans-serif';
 		this.ctx.fillText(txt, x - 4, y - 4);
+
+		this.setState({
+			input: {
+				text: txt,
+				x: x,
+				y: y,
+			}
+		})
 	};
 
 	onMouseMove = ({ nativeEvent }) => {
@@ -153,6 +167,21 @@ class Canvas extends PureComponent {
 		this.line = [];
 	};
 
+	setDragText = ({ nativeEvent }) => {
+		const { x, y } = nativeEvent;
+
+		//TODO: figure out why DOM wants x and y switched for drag event
+		if (x != 0 || y !=0) {
+			this.setState({
+				input: {
+					text: nativeEvent.target.nodeValue,
+					x: parseInt(y, 10) + 'px',
+					y: parseInt(x, 10) + 'px',
+				}
+			})
+		}
+	};
+
 	render() {
 
 		const { croppedUrl } = this.props;
@@ -169,8 +198,11 @@ class Canvas extends PureComponent {
 			backgroundSize: 'cover',
 		};
 
+		console.log(this.state)
+
 		return (
 			<div>
+				{ this.state.input ? <div onDrag={ this.setDragText } style={{ position: 'fixed', top: this.state.input.x, left: this.state.input.y }}>{ this.state.input.text }</div> : null }
 				<canvas
 					ref={ (ref) => (this.canvas = ref) }
 					style={ this.props.croppedUrl ? image : noImage }
