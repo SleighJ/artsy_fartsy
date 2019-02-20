@@ -34,11 +34,9 @@ class Canvas extends PureComponent {
 		this.updateWidth(this.props.width);
 		this.ctx.lineWidth = this.props.width;
 
-		if (this.props.textEditOpen && !this.state.textEditOpen) {
-			this.setState({
-				textEditOpen: this.props.textEditOpen,
-			})
-		}
+		this.setState({
+			textEditOpen: this.props.textEditOpen,
+		})
 	};
 
 	updateWidth = (newWidth) => {
@@ -60,27 +58,28 @@ class Canvas extends PureComponent {
 
 	addText = (offsetX, offsetY) => {
 
-		const input = document.createElement('input');
-		input.type = 'text';
-		input.id = `addTextInput-${ this.state.textInputId }`;
-		input.style.position = 'fixed';
-		input.style.left = (offsetX - 4) + 'px';
-		input.style.top = (offsetY - 4) + 'px';
+		if (!this.state.hasInput) {
+			let input = document.createElement('input');
+			input.type = 'text';
+			input.id = `addTextInput-${ this.state.textInputId }`;
+			input.style.position = 'fixed';
+			input.style.left = (offsetX - 4) + 'px';
+			input.style.top = (offsetY - 4) + 'px';
+			input.onkeydown = this.handleTextClick;
+			document.body.appendChild(input);
 
-		input.onkeydown = this.handleTextClick;
+			this.setState({
+				hasInput: true,
+			});
 
-		document.body.appendChild(input);
-
-		input.focus();
-		console.log(input.id)
-
-		this.setState({
-			hasInput: true,
-		})
+			input.focus();
+		}
 	};
 
 	handleTextClick = (e) => {
 		const keyCode = e.keyCode;
+
+		console.log(this.state)
 
 		if (keyCode === 13) {
 			const input = document.getElementById(`addTextInput-${ this.state.textInputId }`);
@@ -156,8 +155,6 @@ class Canvas extends PureComponent {
 
 	render() {
 
-		console.log(this.state)
-
 		const { croppedUrl } = this.props;
 
 		let noImage = {
@@ -182,7 +179,6 @@ class Canvas extends PureComponent {
 					onMouseUp={ this.endPaintEvent }
 					onMouseMove={ this.onMouseMove }
 				/>
-				{/*{ this.state.hasInput ? <textarea onBlur={()=>console.log('submitting')} id="go"></textarea> : null }*/}
 			</div>
 		);
 	}

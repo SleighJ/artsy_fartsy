@@ -19,7 +19,7 @@ class ApplicationContainer extends Component {
 			pic: null,
 			background: null,
 			croppedUrl: null,
-			textEditOpen: null,
+			textEditOpen: false,
 		}
 	}
 
@@ -99,9 +99,8 @@ class ApplicationContainer extends Component {
 	};
 
 	setTextState =() => {
-		console.log('setTextState called')
 		this.setState({
-			textEditOpen: true,
+			textEditOpen: !this.state.textEditOpen,
 		})
 	};
 
@@ -110,7 +109,6 @@ class ApplicationContainer extends Component {
 		const { color, width } = this.state;
 
 		return (
-			//{/*<div style={{backgroundImage: `url(${ EaselPicture }`}}>*/}
 			<div>
 
 				<Fragment>
