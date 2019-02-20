@@ -82,7 +82,10 @@ class CanvasContainer extends Component {
 
 	render() {
 
-		const { color , width, textEditOpen } = this.props;
+		const { color , width, textEditOpen, resetTextState } = this.props;
+
+		console.log(this.props)
+		console.log(resetTextState)
 
 		return (
 			<div>
@@ -105,7 +108,13 @@ class CanvasContainer extends Component {
 							<button onClick={ this.handleDone }>Done</button>
 						</div>
 						:
-						<Canvas color={ color } width={ width != null ? width : 1 } croppedUrl={ this.state.croppedUrl } textEditOpen={ textEditOpen } />
+						<Canvas
+							color={ color }
+							width={ width != null ? width : 1 }
+							croppedUrl={ this.state.croppedUrl }
+							textEditOpen={ textEditOpen }
+							resetTextState={ resetTextState }
+						/>
 				}
 			</div>
 		);

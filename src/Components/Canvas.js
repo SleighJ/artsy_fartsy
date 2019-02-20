@@ -71,6 +71,7 @@ class Canvas extends PureComponent {
 
 			this.setState({
 				hasInput: true,
+				textEditOpen: false,
 			});
 
 			input.focus();
@@ -91,7 +92,7 @@ class Canvas extends PureComponent {
 					x: parseInt(e.target.offsetTop, 10),
 					y: parseInt(e.target.offsetLeft, 10),
 				}
-			})
+			}, ()=>this.props.resetTextState(false))
 
 			// this.drawText(e.target.value, parseInt(e.target.offsetLeft, 10), parseInt(e.target.offsetTop, 10));
 			e.target.parentNode.removeChild(input);
@@ -184,7 +185,9 @@ class Canvas extends PureComponent {
 
 	render() {
 
-		const { croppedUrl } = this.props;
+		const { croppedUrl, resetTextState } = this.props;
+
+		console.log(resetTextState)
 
 		let noImage = {
 			backgroundColor: 'transparent'
@@ -197,8 +200,6 @@ class Canvas extends PureComponent {
 			backgroundPosition: 'center',
 			backgroundSize: 'cover',
 		};
-
-		console.log(this.state)
 
 		return (
 			<div>

@@ -98,9 +98,16 @@ class ApplicationContainer extends Component {
 		});
 	};
 
-	setTextState =() => {
+	setTextState = () => {
+		console.log('setTextState called')
 		this.setState({
 			textEditOpen: !this.state.textEditOpen,
+		})
+	};
+
+	resetTextState = (bool) => {
+		this.setState({
+			textEditOpen: bool,
 		})
 	};
 
@@ -144,6 +151,7 @@ class ApplicationContainer extends Component {
 								background={ this.state.background }
 								blobArray={ this.state.blobArray }
 								textEditOpen={ this.state.textEditOpen }
+								resetTextState={ this.resetTextState }
 							/>
 						</div>
 
