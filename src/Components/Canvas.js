@@ -11,6 +11,7 @@ class Canvas extends PureComponent {
 			width: this.props.width != null ? this.props.width: null,
 			background: this.props.background != null ? this.props.background : null,
 			textEditOpen: null,
+			hasInput: null,
 		};
 	}
 
@@ -61,6 +62,7 @@ class Canvas extends PureComponent {
 
 		const input = document.createElement('input');
 		input.type = 'text';
+		input.id = 'addTextInput';
 		input.style.position = 'fixed';
 		input.style.left = (offsetX - 4) + 'px';
 		input.style.top = (offsetY - 4) + 'px';
@@ -76,8 +78,35 @@ class Canvas extends PureComponent {
 		})
 	};
 
-	handleTextClick = () => {
-		console.log('handle text click')
+	handleTextClick = (e) => {
+		console.log('handle text click');
+		console.log(e)
+
+		// offsetHeight: 18
+		// offsetLeft: 301
+		// offsetParent: null
+		// offsetTop: 176
+		// offsetWidth: 122
+
+			const keyCode = e.keyCode;
+			if (keyCode === 13) {
+				console.log(e)
+				console.log(e.target)
+				const input = document.getElementById('addTextInput');
+				this.drawText(e.target.value, parseInt(e.target.offsetLeft, 10), parseInt(e.target.offsetTop, 10));
+				// document.body.removeChild(input);
+
+				this.setState({
+					hasInput: false,
+				})
+			}
+	};
+
+	drawText = (txt, x, y) => {
+		this.ctx.textBaseline = 'top';
+		this.ctx.textAlign = 'left';
+		this.ctx.font = '14px sans-serif';
+		this.ctx.fillText(txt, x - 4, y - 4);
 	};
 
 	onMouseMove = ({ nativeEvent }) => {
@@ -153,14 +182,17 @@ class Canvas extends PureComponent {
 		};
 
 		return (
-			<canvas
-				ref={ (ref) => (this.canvas = ref) }
-				style={ this.props.croppedUrl ? image : noImage }
-				onMouseDown={ this.onMouseDown }
-				onMouseLeave={ this.endPaintEvent }
-				onMouseUp={ this.endPaintEvent }
-				onMouseMove={ this.onMouseMove }
-			/>
+			<div>
+				<canvas
+					ref={ (ref) => (this.canvas = ref) }
+					style={ this.props.croppedUrl ? image : noImage }
+					onMouseDown={ this.onMouseDown }
+					onMouseLeave={ this.endPaintEvent }
+					onMouseUp={ this.endPaintEvent }
+					onMouseMove={ this.onMouseMove }
+				/>
+				{/*{ this.state.hasInput ? <textarea onBlur={()=>console.log('submitting')} id="go"></textarea> : null }*/}
+			</div>
 		);
 	}
 }
