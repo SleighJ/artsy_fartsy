@@ -10,6 +10,7 @@ class Canvas extends PureComponent {
 			color: this.props.color != null ? this.props.color : null,
 			width: this.props.width != null ? this.props.width: null,
 			background: this.props.background != null ? this.props.background : null,
+			textEditOpen: null,
 		};
 	}
 
@@ -30,6 +31,12 @@ class Canvas extends PureComponent {
 	componentDidUpdate = () => {
 		this.updateWidth(this.props.width);
 		this.ctx.lineWidth = this.props.width;
+
+		if (this.props.textEditOpen && !this.state.textEditOpen) {
+			this.setState({
+				textEditOpen: this.props.textEditOpen,
+			})
+		}
 	};
 
 	updateWidth = (newWidth) => {
@@ -41,8 +48,36 @@ class Canvas extends PureComponent {
 	onMouseDown = ({ nativeEvent }) => {
 		const { offsetX, offsetY } = nativeEvent;
 
-		this.isPainting = true;
-		this.prevPos = { offsetX, offsetY };
+		if ( !this.state.textEditOpen ) {
+			this.isPainting = true;
+			this.prevPos = { offsetX, offsetY };
+		} else {
+			this.addText(offsetX, offsetY);
+		}
+	};
+
+	addText = (offsetX, offsetY) => {
+		console.log('addTextCalled ', offsetX, offsetY)
+
+		const input = document.createElement('input');
+		input.type = 'text';
+		input.style.position = 'fixed';
+		input.style.left = (offsetX - 4) + 'px';
+		input.style.top = (offsetY - 4) + 'px';
+
+		input.onkeydown = this.handleTextClick;
+
+		document.body.appendChild(input);
+
+		input.focus();
+
+		this.setState({
+			hasInput: true,
+		})
+	};
+
+	handleTextClick = () => {
+		console.log('handle text click')
 	};
 
 	onMouseMove = ({ nativeEvent }) => {
@@ -68,7 +103,6 @@ class Canvas extends PureComponent {
 	};
 
 	paint = (prevPos, currPos, strokeStyle) => {
-
 		const { offsetX, offsetY } = currPos;
 		const { offsetX: x, offsetY: y } = prevPos;
 
@@ -102,10 +136,12 @@ class Canvas extends PureComponent {
 
 	render() {
 
+		console.log(this.state)
+
 		const { croppedUrl } = this.props;
 
 		let noImage = {
-			backgroundColor: 'black'
+			backgroundColor: 'transparent'
 		};
 
 		let image = {
@@ -113,6 +149,7 @@ class Canvas extends PureComponent {
 			backgroundImage: `url(${ croppedUrl })`,
 			backgroundRepeat: 'no-repeat',
 			backgroundPosition: 'center',
+			backgroundSize: 'cover',
 		};
 
 		return (

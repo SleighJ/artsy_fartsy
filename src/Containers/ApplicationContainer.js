@@ -1,11 +1,12 @@
 import React, { Component, Fragment } from 'react';
-import axios from 'axios';
 
-import { storage } from '../Firebase/Firebase';
 import CanvasContainer from './CanvasContainer';
 import Palette from './Palette';
 import BrushContainer from './BrushContainer';
+import EaselPicture from '../Pictures/easel.png';
 import '../CSS/ApplicationContainer.css';
+
+import { storage } from '../Firebase/Firebase';
 
 class ApplicationContainer extends Component {
 	constructor(props) {
@@ -18,6 +19,7 @@ class ApplicationContainer extends Component {
 			pic: null,
 			background: null,
 			croppedUrl: null,
+			textEditOpen: null,
 		}
 	}
 
@@ -96,17 +98,27 @@ class ApplicationContainer extends Component {
 		});
 	};
 
+	setTextState =() => {
+		console.log('setTextState called')
+		this.setState({
+			textEditOpen: true,
+		})
+	};
+
 	render() {
 
 		const { color, width } = this.state;
 
 		return (
+			//{/*<div style={{backgroundImage: `url(${ EaselPicture }`}}>*/}
 			<div>
 
 				<Fragment>
 					<div className="main">
 
 						<div className='rotating-master-guide'>
+
+							<button onClick={ ()=>this.setTextState() }>Text</button>
 
 							{ !this.state.fileManagement ? <button onClick={ ()=>this.openFileManagement() }>Add Background</button> : <button onClick={ ()=>this.uploadBackground() }>Upload</button>}
 
@@ -128,7 +140,13 @@ class ApplicationContainer extends Component {
 						</div>
 
 						<div className={'canvas-container-master'}>
-							<CanvasContainer color={ color } width={ this.state.width } background={ this.state.background } blobArray={ this.state.blobArray } />
+							<CanvasContainer
+								color={ color }
+								width={ this.state.width }
+								background={ this.state.background }
+								blobArray={ this.state.blobArray }
+								textEditOpen={ this.state.textEditOpen }
+							/>
 						</div>
 
 					</div>
