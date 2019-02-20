@@ -12,6 +12,7 @@ class Canvas extends PureComponent {
 			background: this.props.background != null ? this.props.background : null,
 			textEditOpen: null,
 			hasInput: null,
+			textInputId: 0,
 		};
 	}
 
@@ -58,11 +59,10 @@ class Canvas extends PureComponent {
 	};
 
 	addText = (offsetX, offsetY) => {
-		console.log('addTextCalled ', offsetX, offsetY)
 
 		const input = document.createElement('input');
 		input.type = 'text';
-		input.id = 'addTextInput';
+		input.id = `addTextInput-${ this.state.textInputId }`;
 		input.style.position = 'fixed';
 		input.style.left = (offsetX - 4) + 'px';
 		input.style.top = (offsetY - 4) + 'px';
@@ -72,6 +72,7 @@ class Canvas extends PureComponent {
 		document.body.appendChild(input);
 
 		input.focus();
+		console.log(input.id)
 
 		this.setState({
 			hasInput: true,
@@ -79,27 +80,17 @@ class Canvas extends PureComponent {
 	};
 
 	handleTextClick = (e) => {
-		console.log('handle text click');
-		console.log(e)
+		const keyCode = e.keyCode;
 
-		// offsetHeight: 18
-		// offsetLeft: 301
-		// offsetParent: null
-		// offsetTop: 176
-		// offsetWidth: 122
+		if (keyCode === 13) {
+			const input = document.getElementById(`addTextInput-${ this.state.textInputId }`);
+			this.drawText(e.target.value, parseInt(e.target.offsetLeft, 10), parseInt(e.target.offsetTop, 10));
+			e.target.parentNode.removeChild(input);
 
-			const keyCode = e.keyCode;
-			if (keyCode === 13) {
-				console.log(e)
-				console.log(e.target)
-				const input = document.getElementById('addTextInput');
-				this.drawText(e.target.value, parseInt(e.target.offsetLeft, 10), parseInt(e.target.offsetTop, 10));
-				// document.body.removeChild(input);
-
-				this.setState({
-					hasInput: false,
-				})
-			}
+			this.setState({
+				hasInput: false,
+			})
+		}
 	};
 
 	drawText = (txt, x, y) => {
