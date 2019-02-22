@@ -54,6 +54,8 @@ class Sidebar extends Component {
 	constructor(props) {
 		super(props);
 
+		console.log(this.props)
+
 		this.state = {
 			hovered: null,
 			clicked: null,
@@ -68,7 +70,7 @@ class Sidebar extends Component {
 				},
 				{
 					name: 'Background',
-					component: 'OH NOOOOOOO'
+					component: <input type={'file'} id={ 'backgroundInput' } onChange={ (e)=>this.props.addBackground(e.target.files[0]) } multiple={ false } accept={ '.png' }></input>,
 				},
 				{
 					name: 'Text',
@@ -93,16 +95,20 @@ class Sidebar extends Component {
 		})
 	};
 
-	buttonClickSelect = (id) => {
+	buttonClickSelect = (target, id) => {
 		const textComponentId = 3;
 
+		if ( target == 'backgroundInput' ) {
+			return;
+		}
+
 		if (id != this.state.clicked) {
-			id == textComponentId ? this.props.setTextState() : console.log('hi');
+			id == textComponentId ? this.props.setTextState() : console.log('setting clicked to id');
 			this.setState({
 				clicked: id,
 			})
 		} else {
-			id == textComponentId ? this.props.setTextState() : console.log('hi');
+			id == textComponentId ? this.props.setTextState() : console.log(id, this.state.clicked);
 			this.setState({
 				clicked: null,
 			})
@@ -118,9 +124,11 @@ class Sidebar extends Component {
 						let id = i;
 						return (
 							<div
+								id={ id }
+								key={ i }
 								onMouseOver={ ()=>this.buttonContainerSelect(id) }
 								onMouseLeave={ ()=>this.buttonContainerUnSelect() }
-								onClick={ ()=>this.buttonClickSelect(id) }
+								onClick={ (e)=>this.buttonClickSelect(e.target.id, id) }
 								style={ this.state.clicked == id ? clickedButtonContainerStyle : this.state.hovered == id ? hoveredButtonContainerStyle : buttonContainerStyle }
 							>
 								<button id={ id } style={ buttonStyle }>{ component.name }</button>

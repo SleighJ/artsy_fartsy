@@ -72,11 +72,12 @@ class ApplicationContainer extends Component {
 	};
 
 	addBackground = (pic) => {
+		console.log('background called')
+		this.uploadBackground(pic);
 		this.setState({ pic })
 	};
 
-	uploadBackground = async () => {
-		const { pic } = this.state;
+	uploadBackground = async (pic) => {
 
 		const uploadTask = storage.ref(`images/${ pic.name }`).put(pic);
 		uploadTask.on('state_changed', (snapshot) => {
@@ -123,6 +124,8 @@ class ApplicationContainer extends Component {
 							getSizeFromBrush={ this.getSizeFromBrush }
 							getColorFromPalette={ this.getColorFromPalette }
 							setTextState={ this.setTextState }
+							addBackground={ this.addBackground }
+							uploadBackground={ this.uploadBackground }
 						/>
 					</div>
 				</Fragment>
