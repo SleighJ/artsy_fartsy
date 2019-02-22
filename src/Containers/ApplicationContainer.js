@@ -23,13 +23,14 @@ class ApplicationContainer extends Component {
 		}
 	}
 
-	componentDidMount() {
+	componentDidMount = () => {
 		this.callBackendAPI()
 			.then(res => this.setState({ data: res.express }))
 			.catch(err => console.log(err));
-	}
+	};
 
 	callBackendAPI = async () => {
+		console.log('callbackendAPI???')
 		const response = await fetch('/paint');
 		const body = await response.json();
 
@@ -98,15 +99,13 @@ class ApplicationContainer extends Component {
 			<div>
 
 				<Fragment>
-					<div>
-						<Sidebar
-							getSizeFromBrush={ this.getSizeFromBrush }
-							getColorFromPalette={ this.getColorFromPalette }
-							setTextState={ this.setTextState }
-							addBackground={ this.addBackground }
-							uploadBackground={ this.uploadBackground }
-						/>
-					</div>
+					<Sidebar
+						getSizeFromBrush={ this.getSizeFromBrush }
+						getColorFromPalette={ this.getColorFromPalette }
+						setTextState={ this.setTextState }
+						addBackground={ this.addBackground }
+						uploadBackground={ this.uploadBackground }
+					/>
 				</Fragment>
 
 				<Fragment>
