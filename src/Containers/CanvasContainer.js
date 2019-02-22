@@ -88,7 +88,7 @@ class CanvasContainer extends Component {
 			<div>
 				{
 					this.state.background ?
-						<div style={{ maxWidth: '500px', maxHeight: '500px' }}>
+						<div style={{ maxWidth: '500px', maxHeight: '500px', marginLeft: '20%' }}>
 							<ReactCrop
 								src={ this.props.blobArray }
 								onChange={ this.backgroundResize }

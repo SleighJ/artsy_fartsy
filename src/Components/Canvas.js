@@ -184,12 +184,27 @@ class Canvas extends PureComponent {
 			backgroundSize: 'cover',
 		};
 
+		let asdf = {
+			marginLeft: '13%',
+			border: '3px solid pink',
+			backgroundColor: 'transparent',
+			backgroundImage: `url(${ croppedUrl })`,
+			backgroundRepeat: 'no-repeat',
+			backgroundPosition: 'center',
+			backgroundSize: 'cover',
+		};
+
+		let fdsa = {
+			marginLeft: '13%',
+			border: '3px solid pink',
+		};
+
 		return (
-			<div style={{ marginLeft: '13%', border: '3px solid pink' }}>
+			<div style={ this.props.croppedUrl ? asdf : fdsa }>
 				{ this.state.input ? <div onDrag={ this.setDragText } style={{ position: 'fixed', top: this.state.input.x, left: this.state.input.y }}>{ this.state.input.text }</div> : null }
 				<canvas
 					ref={ (ref) => (this.canvas = ref) }
-					style={ this.props.croppedUrl ? image : noImage }
+					// style={ this.props.croppedUrl ? image : noImage }
 					onMouseDown={ this.onMouseDown }
 					onMouseLeave={ this.endPaintEvent }
 					onMouseUp={ this.endPaintEvent }
