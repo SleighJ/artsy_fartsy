@@ -1,6 +1,7 @@
 import React, { Component, Fragment } from 'react';
 
 import CanvasContainer from './CanvasContainer';
+import Sidebar from './Sidebar';
 import Palette from './Palette';
 import BrushContainer from './BrushContainer';
 import EaselPicture from '../Pictures/easel.png';
@@ -117,6 +118,12 @@ class ApplicationContainer extends Component {
 
 		return (
 			<div>
+
+				<Fragment>
+					<div>
+						<Sidebar />
+					</div>
+				</Fragment>
 
 				<Fragment>
 					<div className="main">
