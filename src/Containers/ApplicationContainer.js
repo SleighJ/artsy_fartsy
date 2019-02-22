@@ -51,28 +51,7 @@ class ApplicationContainer extends Component {
 		})
 	};
 
-	nextGuide = () => {
-		let currentGuideState = this.state.guide;
-
-		if (currentGuideState < 1) {
-			this.setState({
-				guide: currentGuideState+1,
-			})
-		} else {
-			this.setState({
-				guide: 0,
-			})
-		}
-	};
-
-	openFileManagement = () => {
-		this.setState({
-			fileManagement: true,
-		})
-	};
-
 	addBackground = (pic) => {
-		console.log('background called')
 		this.uploadBackground(pic);
 		this.setState({ pic })
 	};
@@ -131,41 +110,14 @@ class ApplicationContainer extends Component {
 				</Fragment>
 
 				<Fragment>
-					<div className="main">
-
-						<div className='rotating-master-guide'>
-
-							{ !this.state.fileManagement ? <button onClick={ ()=>this.openFileManagement() }>Add Background</button> : <button onClick={ ()=>this.uploadBackground() }>Upload</button>}
-
-								{ this.state.fileManagement ? <input type={'file'} onChange={ (e)=>this.addBackground(e.target.files[0]) } multiple={ false } accept={ '.png' }></input> : null }
-							<button onClick={ ()=>this.nextGuide() }>{ this.state.guide < 1 ? 'Stroke Size' : 'Color Palette' }</button>
-
-							{ this.state.guide == 0 ?
-								<div className="color-guide">
-									<h5>Colors</h5>
-									<Palette getColorFromPalette={ this.getColorFromPalette }/>
-								</div>
-								:
-								<div className="brush-guide">
-									<h5>Brushes</h5>
-									<BrushContainer getSizeFromBrush={ this.getSizeFromBrush } />
-								</div>
-							}
-
-						</div>
-
-						<div className={'canvas-container-master'}>
-							<CanvasContainer
-								color={ color }
-								width={ this.state.width }
-								background={ this.state.background }
-								blobArray={ this.state.blobArray }
-								textEditOpen={ this.state.textEditOpen }
-								resetTextState={ this.resetTextState }
-							/>
-						</div>
-
-					</div>
+					<CanvasContainer
+						color={ color }
+						width={ this.state.width }
+						background={ this.state.background }
+						blobArray={ this.state.blobArray }
+						textEditOpen={ this.state.textEditOpen }
+						resetTextState={ this.resetTextState }
+					/>
 				</Fragment>
 
 			</div>

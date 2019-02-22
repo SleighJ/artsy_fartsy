@@ -185,7 +185,7 @@ class Canvas extends PureComponent {
 		};
 
 		return (
-			<div>
+			<div style={{ marginLeft: '13%', border: '3px solid pink' }}>
 				{ this.state.input ? <div onDrag={ this.setDragText } style={{ position: 'fixed', top: this.state.input.x, left: this.state.input.y }}>{ this.state.input.text }</div> : null }
 				<canvas
 					ref={ (ref) => (this.canvas = ref) }
