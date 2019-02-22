@@ -3,20 +3,6 @@ import Palette from './Palette';
 import BrushContainer from './BrushContainer';
 import 'react-image-crop/dist/ReactCrop.css';
 
-// const componentArray = [
-// 	'Palette',
-// 	'Brushes',
-// 	'Background',
-// 	'Text',
-// ];
-
-const componentArray = [
-	{name: 'Palette', component: <Palette/>},
-	{name: 'Brushes', component: <BrushContainer/>},
-	{name: 'Background', component: 'OH NOOOOOOO'},
-	{name: 'Text', component: 'UGGGGGHHHHH'},
-];
-
 const buttonStyle = {
 	border: 'none',
 	backgroundColor: 'inherit',
@@ -39,17 +25,61 @@ const hoveredButtonContainerStyle = {
 	backgroundColor: 'grey',
 };
 
+const clickedButtonContainerStyle = {
+	border: 'none',
+	backgroundColor: 'grey',
+	color: 'white',
+	fontFamily: 'helvetica',
+	fontSize:' 12px',
+	fontStyle: 'italic',
+	fontWeight: 'bold',
+	margin: '10%',
+};
+
+const componentContainerStyle = {
+	width: 'inherit',
+	height: 'fit-content',
+	backgroundColor: 'lightGrey',
+	color: 'white',
+};
+
+const sideBarContainer = {
+	backgroundColor: 'lightGrey',
+	width: '13%',
+	height: '100%',
+	position: 'fixed',
+};
+
 class Sidebar extends Component {
 	constructor(props) {
 		super(props);
 
 		this.state = {
 			hovered: null,
+			clicked: null,
+			componentArray: [
+				{
+					name: 'Palette',
+					component: <Palette getColorFromPalette={ this.props.getColorFromPalette } />
+				},
+				{
+					name: 'Brushes',
+					component: <BrushContainer getSizeFromBrush={ this.props.getSizeFromBrush } />
+				},
+				{
+					name: 'Background',
+					component: 'OH NOOOOOOO'
+				},
+				{
+					name: 'Text',
+					component: null,
+				},
+			]
 		}
 	}
 
 	buttonContainerSelect = (id) => {
-		let component = componentArray[id].component;
+		let component = this.state.componentArray[id].component;
 
 		this.setState({
 			hovered: id,
@@ -63,43 +93,39 @@ class Sidebar extends Component {
 		})
 	};
 
-	// buttonContainerClicked = (id) => {
-	// 	this.setState({
-	// 		clicked: id,
-	// 	})
-	// };
+	buttonClickSelect = (id) => {
+		const textComponentId = 3;
+
+		if (id != this.state.clicked) {
+			id == textComponentId ? this.props.setTextState() : console.log('hi');
+			this.setState({
+				clicked: id,
+			})
+		} else {
+			id == textComponentId ? this.props.setTextState() : console.log('hi');
+			this.setState({
+				clicked: null,
+			})
+		}
+	};
 
 	render() {
 
-		console.log(this.state)
 		return (
-			<div style={{ backgroundColor: 'lightGrey', width: '13%', height: '100%', position: 'fixed' }}>
+			<div style={ sideBarContainer }>
 				{
-					componentArray.map((component, i) => {
+					this.state.componentArray.map((component, i) => {
 						let id = i;
 						return (
 							<div
-								// onClick={ ()=>this.buttonContainerClicked(component) }
 								onMouseOver={ ()=>this.buttonContainerSelect(id) }
 								onMouseLeave={ ()=>this.buttonContainerUnSelect() }
-								style={
-									this.state.hovered == id ?
-									hoveredButtonContainerStyle :
-									buttonContainerStyle
-								}
+								onClick={ ()=>this.buttonClickSelect(id) }
+								style={ this.state.clicked == id ? clickedButtonContainerStyle : this.state.hovered == id ? hoveredButtonContainerStyle : buttonContainerStyle }
 							>
 								<button id={ id } style={ buttonStyle }>{ component.name }</button>
 
-								{
-									this.state.hovered == id ?
-									<div
-										style={{width: 'inherit', height: 'fit-content', border: '1px solid black' }}
-									>
-										{ component.name }
-										{ component.component }
-									</div> :
-									null
-								}
+								{ this.state.clicked == id ? <div style={ componentContainerStyle }>{ component.component }</div> : null }
 
 							</div>
 						)

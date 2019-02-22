@@ -4,7 +4,6 @@ import CanvasContainer from './CanvasContainer';
 import Sidebar from './Sidebar';
 import Palette from './Palette';
 import BrushContainer from './BrushContainer';
-import EaselPicture from '../Pictures/easel.png';
 import '../CSS/ApplicationContainer.css';
 
 import { storage } from '../Firebase/Firebase';
@@ -100,7 +99,6 @@ class ApplicationContainer extends Component {
 	};
 
 	setTextState = () => {
-		console.log('setTextState called')
 		this.setState({
 			textEditOpen: !this.state.textEditOpen,
 		})
@@ -121,7 +119,11 @@ class ApplicationContainer extends Component {
 
 				<Fragment>
 					<div>
-						<Sidebar />
+						<Sidebar
+							getSizeFromBrush={ this.getSizeFromBrush }
+							getColorFromPalette={ this.getColorFromPalette }
+							setTextState={ this.setTextState }
+						/>
 					</div>
 				</Fragment>
 
@@ -129,8 +131,6 @@ class ApplicationContainer extends Component {
 					<div className="main">
 
 						<div className='rotating-master-guide'>
-
-							<button onClick={ ()=>this.setTextState() }>Text</button>
 
 							{ !this.state.fileManagement ? <button onClick={ ()=>this.openFileManagement() }>Add Background</button> : <button onClick={ ()=>this.uploadBackground() }>Upload</button>}
 

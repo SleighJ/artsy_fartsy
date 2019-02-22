@@ -99,21 +99,6 @@ class Canvas extends PureComponent {
 		}
 	};
 
-	drawText = (txt, x, y) => {
-		this.ctx.textBaseline = 'top';
-		this.ctx.textAlign = 'left';
-		this.ctx.font = '14px sans-serif';
-		this.ctx.fillText(txt, x - 4, y - 4);
-
-		this.setState({
-			input: {
-				text: txt,
-				x: x,
-				y: y,
-			}
-		})
-	};
-
 	onMouseMove = ({ nativeEvent }) => {
 		if (this.isPainting) {
 			const { offsetX, offsetY } = nativeEvent;
@@ -186,8 +171,6 @@ class Canvas extends PureComponent {
 	render() {
 
 		const { croppedUrl, resetTextState } = this.props;
-
-		console.log(resetTextState)
 
 		let noImage = {
 			backgroundColor: 'transparent'
