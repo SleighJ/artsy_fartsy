@@ -59,13 +59,16 @@ class Canvas extends PureComponent {
 
 	addText = (offsetX, offsetY) => {
 
+		console.log(offsetX, offsetY);
 		if (!this.state.hasInput) {
 			let input = document.createElement('input');
 			input.type = 'text';
 			input.id = `addTextInput-${ this.state.textInputId }`;
 			input.style.position = 'fixed';
-			input.style.left = (offsetX - 4) + 'px';
-			input.style.top = (offsetY - 4) + 'px';
+			input.style.left = (offsetX) + 'px';
+			input.style.top = (offsetY) + 'px';
+			input.style.marginLeft = '13%';
+			input.autofocus = true;
 			input.onkeydown = this.handleTextClick;
 			document.body.appendChild(input);
 
@@ -134,6 +137,9 @@ class Canvas extends PureComponent {
 	};
 
 	sendPaintData = async () => {
+
+		console.log('sendPaintData? in Canvas');
+
 		let body = {
 			line: this.line,
 			userId: this.userId,
@@ -199,9 +205,12 @@ class Canvas extends PureComponent {
 			border: '3px solid pink',
 		};
 
+		console.log(this.state);
+
 		return (
 			<div style={ this.props.croppedUrl ? asdf : fdsa }>
-				{ this.state.input ? <div onDrag={ this.setDragText } style={{ position: 'fixed', top: this.state.input.x, left: this.state.input.y }}>{ this.state.input.text }</div> : null }
+				{this.state.textEditOpen && this.state.hasInput ? console.log(document.getElementById(`addTextInput-${ this.state.textInputId }`) ) : console.log('not selected')}
+				{ this.state.input ? <div onDrag={ this.setDragText } onClick={(e)=>console.log(e.target)} style={{ position: 'fixed', top: this.state.input.x, left: this.state.input.y }}>{ this.state.input.text }</div> : null }
 				<canvas
 					ref={ (ref) => (this.canvas = ref) }
 					// style={ this.props.croppedUrl ? image : noImage }
