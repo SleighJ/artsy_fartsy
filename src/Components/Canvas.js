@@ -59,7 +59,6 @@ class Canvas extends PureComponent {
 
 	addText = (offsetX, offsetY) => {
 
-		console.log(offsetX, offsetY);
 		if (!this.state.hasInput) {
 			let input = document.createElement('input');
 			input.type = 'text';
@@ -205,12 +204,9 @@ class Canvas extends PureComponent {
 			border: '3px solid pink',
 		};
 
-		console.log(this.state);
-
 		return (
 			<div style={ this.props.croppedUrl ? asdf : fdsa }>
-				{this.state.textEditOpen && this.state.hasInput ? console.log(document.getElementById(`addTextInput-${ this.state.textInputId }`) ) : console.log('not selected')}
-				{ this.state.input ? <div onDrag={ this.setDragText } onClick={(e)=>console.log(e.target)} style={{ position: 'fixed', top: this.state.input.x, left: this.state.input.y }}>{ this.state.input.text }</div> : null }
+				{ this.state.input ? <div onDrag={ this.setDragText } style={{ position: 'fixed', top: this.state.input.x, left: this.state.input.y }}>{ this.state.input.text }</div> : null }
 				<canvas
 					ref={ (ref) => (this.canvas = ref) }
 					// style={ this.props.croppedUrl ? image : noImage }

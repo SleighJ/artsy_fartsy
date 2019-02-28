@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Palette from './Palette';
 import BrushContainer from './BrushContainer';
+import Text from '../Components/Text';
 import 'react-image-crop/dist/ReactCrop.css';
 
 const buttonStyle = {
@@ -74,7 +75,7 @@ class Sidebar extends Component {
 				},
 				{
 					name: 'Text',
-					component: null,
+					component: <Text />,
 				},
 			]
 		}
@@ -98,16 +99,15 @@ class Sidebar extends Component {
 	buttonClickSelect = (target, id) => {
 		const textComponentId = 3;
 
-		if ( target == 'backgroundInput' ) {
-			return;
-		}
-
 		if (id != this.state.clicked) {
 			id == textComponentId ? this.props.setTextState() : console.log('setting clicked to id');
 			this.setState({
 				clicked: id,
 			})
-		} else {
+		} else if (id == 3 && !target) {
+			return;
+		}
+		 else {
 			id == textComponentId ? this.props.setTextState() : console.log(id, this.state.clicked);
 			this.setState({
 				clicked: null,
