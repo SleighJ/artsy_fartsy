@@ -6,12 +6,12 @@ class Text extends PureComponent {
 		super(props);
 
 		this.state = {
-			size: null,
+			fontSize: 20,
 			font: null,
 			textEditOpen: null,
 			hasInput: null,
 			textInputId: 0,
-			input: null,
+			input: [],
 		}
 	}
 
@@ -29,7 +29,7 @@ class Text extends PureComponent {
 
 	componentDidUpdate = () => {
 		this.setState({
-			size: this.props.fontSize,
+			fontSize: this.props.fontSize,
 		})
 	};
 
@@ -67,15 +67,18 @@ class Text extends PureComponent {
 		if (keyCode === 13) {
 			const input = document.getElementById(`addTextInput-${ this.state.textInputId }`);
 			const increment = this.state.textInputId+1;
-			this.setState({
-				hasInput: false,
-				textInputId: increment,
-				input: {
+			let inputObj = {
 					text: e.target.value,
 					x: parseInt(e.target.offsetTop, 10),
 					y: parseInt(e.target.offsetLeft, 10),
-				}
-			}, ()=>this.props.resetTextState(false))
+					fontSize: this.state.fontSize,
+			};
+
+			this.setState(prevState => ({
+				hasInput: false,
+				textInputId: increment,
+				input: [...prevState.input, inputObj],
+			}), ()=>this.props.resetTextState(false));
 
 			// this.drawText(e.target.value, parseInt(e.target.offsetLeft, 10), parseInt(e.target.offsetTop, 10));
 			e.target.parentNode.removeChild(input);
@@ -85,13 +88,13 @@ class Text extends PureComponent {
 	setDragText = ({ nativeEvent }) => {
 		const { x, y } = nativeEvent;
 
-		//TODO: figure out why DOM wants x and y switched for drag event
 		if (x != 0 || y !=0) {
 			this.setState({
 				input: {
 					text: nativeEvent.target.nodeValue,
 					x: parseInt(y, 10) + 'px',
 					y: parseInt(x, 10) + 'px',
+					// fontSize: this.state.fontSize,
 				}
 			})
 		}
@@ -99,14 +102,25 @@ class Text extends PureComponent {
 
 	render() {
 
-		console.log(this.state.size)
-
 		const { croppedUrl } = this.props;
+		const { input } = this.state;
 
 		return (
 			<div style={{ position: 'fixed', height: ' 100%', width: '100%'}} onClick={ this.onMouseDown }>
 
-				{ this.state.input ? <div onDrag={ this.setDragText } style={{ position: 'fixed', top: this.state.input.x, left: this.state.input.y, fontSize: `${this.state.size}px` }}>{ this.state.input.text }</div> : null }
+				{ input
+					?
+
+					input.map((inputEntry, i) => {
+						console.log(inputEntry)
+						return (
+							<div onDrag={ this.setDragText } style={{ position: 'fixed', top: inputEntry.x, left: inputEntry.y, fontSize: `${ inputEntry.fontSize }px` }}>{ inputEntry.text }</div>
+						)
+					})
+
+					:
+					null
+				}
 
 				{/*<input*/}
 					{/*onChange={ (e)=>this.setSizeInputState(e.target.value)}*/}

@@ -20,6 +20,7 @@ class ApplicationContainer extends Component {
 			background: null,
 			croppedUrl: null,
 			textEditOpen: false,
+			fontSize: 20,
 		}
 	}
 
@@ -92,8 +93,6 @@ class ApplicationContainer extends Component {
 	};
 
 	setFontSize = (fontSize) => {
-		console.log('fontsize from parent')
-		console.log(fontSize)
 		this.setState({
 			fontSize: fontSize
 		})
@@ -114,6 +113,7 @@ class ApplicationContainer extends Component {
 						addBackground={ this.addBackground }
 						uploadBackground={ this.uploadBackground }
 						setFontSize={ this.setFontSize }
+						fontSize={ this.state.fontSize }
 					/>
 				</Fragment>
 
