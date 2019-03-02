@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import Canvas from '../Components/Canvas';
+import Text from '../Components/Text';
+
 import {
 	image64toCanvasRef,
 	base64StringtoFile,
@@ -82,7 +84,7 @@ class CanvasContainer extends Component {
 
 	render() {
 
-		const { color , width, textEditOpen, resetTextState } = this.props;
+		const { color , width, textEditOpen, resetTextState, fontSize} = this.props;
 
 		return (
 			<div>
@@ -105,13 +107,18 @@ class CanvasContainer extends Component {
 							<button onClick={ this.handleDone }>Done</button>
 						</div>
 						:
-						<Canvas
-							color={ color }
-							width={ width != null ? width : 1 }
-							croppedUrl={ this.state.croppedUrl }
-							textEditOpen={ textEditOpen }
-							resetTextState={ resetTextState }
-						/>
+						<div style={{ marginLeft: '13%', marginRight: 'none'}}>
+							<Text
+								resetTextState={ resetTextState }
+								fontSize={ fontSize }
+							/>
+							<Canvas
+								color={ color }
+								width={ width != null ? width : 1 }
+								croppedUrl={ this.state.croppedUrl }
+								textEditOpen={ textEditOpen }
+							/>
+						</div>
 				}
 			</div>
 		);

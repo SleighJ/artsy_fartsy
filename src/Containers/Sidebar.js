@@ -44,9 +44,16 @@ const componentContainerStyle = {
 	color: 'white',
 };
 
-const sideBarContainer = {
+const sidebarOpen = {
 	backgroundColor: 'lightGrey',
 	width: '13%',
+	height: '100%',
+	position: 'fixed',
+};
+
+const sidebarClosed = {
+	backgroundColor: 'lightGrey',
+	width: '3%',
 	height: '100%',
 	position: 'fixed',
 };
@@ -55,11 +62,11 @@ class Sidebar extends Component {
 	constructor(props) {
 		super(props);
 
-		console.log(this.props)
-
 		this.state = {
+			sidebarOpen: true,
 			hovered: null,
 			clicked: null,
+			fontSize: null,
 			componentArray: [
 				{
 					name: 'Palette',
@@ -75,7 +82,8 @@ class Sidebar extends Component {
 				},
 				{
 					name: 'Text',
-					component: <Text />,
+					component: <Text fontSize={ this.props.fontSize } />,
+					subcomponent: <div style={{ display: 'flex', color: 'black', textAlign: 'center', width: '70%'}}>Size :<input style={{ width: '50%' }} type={'number'} onChange={ (e)=>this.props.setFontSize(e.target.value) }></input>  </div>,
 				},
 			]
 		}
@@ -115,10 +123,19 @@ class Sidebar extends Component {
 		}
 	};
 
+	closeSideBar =	() => {
+		this.setState({
+			sidebarOpen: !this.state.sidebarOpen,
+		})
+	};
+
 	render() {
 
+		const { clicked } = this.state;
+
 		return (
-			<div style={ sideBarContainer }>
+			<div style={ this.state.sidebarOpen ? sidebarOpen : sidebarClosed }>
+				<button onClick={ ()=>this.closeSideBar() }>Open/Close</button>
 				{
 					this.state.componentArray.map((component, i) => {
 						let id = i;
@@ -133,7 +150,7 @@ class Sidebar extends Component {
 							>
 								<button id={ id } style={ buttonStyle }>{ component.name }</button>
 
-								{ this.state.clicked == id ? <div style={ componentContainerStyle }>{ component.component }</div> : null }
+								{ clicked == id ? <div style={ componentContainerStyle }>{  component.subcomponent ? component.subcomponent : component.component }</div> : null }
 
 							</div>
 						)

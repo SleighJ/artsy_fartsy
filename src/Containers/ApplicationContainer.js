@@ -91,6 +91,14 @@ class ApplicationContainer extends Component {
 		})
 	};
 
+	setFontSize = (fontSize) => {
+		console.log('fontsize from parent')
+		console.log(fontSize)
+		this.setState({
+			fontSize: fontSize
+		})
+	};
+
 	render() {
 
 		const { color, width } = this.state;
@@ -105,6 +113,7 @@ class ApplicationContainer extends Component {
 						setTextState={ this.setTextState }
 						addBackground={ this.addBackground }
 						uploadBackground={ this.uploadBackground }
+						setFontSize={ this.setFontSize }
 					/>
 				</Fragment>
 
@@ -116,6 +125,7 @@ class ApplicationContainer extends Component {
 						blobArray={ this.state.blobArray }
 						textEditOpen={ this.state.textEditOpen }
 						resetTextState={ this.resetTextState }
+						fontSize={ this.state.fontSize }
 					/>
 				</Fragment>
 

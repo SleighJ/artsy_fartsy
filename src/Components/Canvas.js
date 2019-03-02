@@ -1,4 +1,5 @@
 import React, { PureComponent } from 'react';
+import Text from './Text';
 
 import { v4 } from 'uuid';
 
@@ -7,13 +8,9 @@ class Canvas extends PureComponent {
 		super(props);
 
 		this.state = {
-			color: this.props.color != null ? this.props.color : null,
-			width: this.props.width != null ? this.props.width: null,
-			background: this.props.background != null ? this.props.background : null,
-			textEditOpen: null,
-			hasInput: null,
-			textInputId: 0,
-			input: null,
+			color: null,
+			width: null,
+			background: null,
 		};
 	}
 
@@ -34,10 +31,6 @@ class Canvas extends PureComponent {
 	componentDidUpdate = () => {
 		this.updateWidth(this.props.width);
 		this.ctx.lineWidth = this.props.width;
-
-		this.setState({
-			textEditOpen: this.props.textEditOpen,
-		})
 	};
 
 	updateWidth = (newWidth) => {
@@ -51,53 +44,7 @@ class Canvas extends PureComponent {
 
 		if ( !this.state.textEditOpen ) {
 			this.isPainting = true;
-			this.prevPos = { offsetX, offsetY };
-		} else {
-			this.addText(offsetX, offsetY);
-		}
-	};
-
-	addText = (offsetX, offsetY) => {
-
-		if (!this.state.hasInput) {
-			let input = document.createElement('input');
-			input.type = 'text';
-			input.id = `addTextInput-${ this.state.textInputId }`;
-			input.style.position = 'fixed';
-			input.style.left = (offsetX) + 'px';
-			input.style.top = (offsetY) + 'px';
-			input.style.marginLeft = '13%';
-			input.autofocus = true;
-			input.onkeydown = this.handleTextClick;
-			document.body.appendChild(input);
-
-			this.setState({
-				hasInput: true,
-				textEditOpen: false,
-			});
-
-			input.focus();
-		}
-	};
-
-	handleTextClick = (e) => {
-		const keyCode = e.keyCode;
-
-		if (keyCode === 13) {
-			const input = document.getElementById(`addTextInput-${ this.state.textInputId }`);
-			const increment = this.state.textInputId+1;
-			this.setState({
-				hasInput: false,
-				textInputId: increment,
-				input: {
-					text: e.target.value,
-					x: parseInt(e.target.offsetTop, 10),
-					y: parseInt(e.target.offsetLeft, 10),
-				}
-			}, ()=>this.props.resetTextState(false))
-
-			// this.drawText(e.target.value, parseInt(e.target.offsetLeft, 10), parseInt(e.target.offsetTop, 10));
-			e.target.parentNode.removeChild(input);
+			this.prevPos = {offsetX, offsetY};
 		}
 	};
 
@@ -158,21 +105,6 @@ class Canvas extends PureComponent {
 		this.line = [];
 	};
 
-	setDragText = ({ nativeEvent }) => {
-		const { x, y } = nativeEvent;
-
-		//TODO: figure out why DOM wants x and y switched for drag event
-		if (x != 0 || y !=0) {
-			this.setState({
-				input: {
-					text: nativeEvent.target.nodeValue,
-					x: parseInt(y, 10) + 'px',
-					y: parseInt(x, 10) + 'px',
-				}
-			})
-		}
-	};
-
 	render() {
 
 		const { croppedUrl, resetTextState } = this.props;
@@ -190,7 +122,6 @@ class Canvas extends PureComponent {
 		};
 
 		let asdf = {
-			marginLeft: '13%',
 			border: '3px solid pink',
 			backgroundColor: 'transparent',
 			backgroundImage: `url(${ croppedUrl })`,
@@ -200,16 +131,13 @@ class Canvas extends PureComponent {
 		};
 
 		let fdsa = {
-			marginLeft: '13%',
 			border: '3px solid pink',
 		};
 
 		return (
 			<div style={ this.props.croppedUrl ? asdf : fdsa }>
-				{ this.state.input ? <div onDrag={ this.setDragText } style={{ position: 'fixed', top: this.state.input.x, left: this.state.input.y }}>{ this.state.input.text }</div> : null }
 				<canvas
 					ref={ (ref) => (this.canvas = ref) }
-					// style={ this.props.croppedUrl ? image : noImage }
 					onMouseDown={ this.onMouseDown }
 					onMouseLeave={ this.endPaintEvent }
 					onMouseUp={ this.endPaintEvent }
