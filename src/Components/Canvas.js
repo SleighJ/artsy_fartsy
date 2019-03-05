@@ -134,6 +134,8 @@ class Canvas extends PureComponent {
 			border: '3px solid pink',
 		};
 
+
+		console.log(this.state)
 		return (
 			<div style={ this.props.croppedUrl ? asdf : fdsa }>
 				<canvas

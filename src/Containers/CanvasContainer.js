@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Canvas from '../Components/Canvas';
 import Text from '../Components/Text';
+import Background from '../Components/Background';
 
 import {
 	image64toCanvasRef,
@@ -86,11 +87,14 @@ class CanvasContainer extends Component {
 
 		const { color , width, textEditOpen, resetTextState, fontSize, selectedFont } = this.props;
 
+		console.log(this.state)
+
 		return (
 			<div>
 				{
 					this.state.background ?
 						<div style={{ maxWidth: '500px', maxHeight: '500px', marginLeft: '20%' }}>
+							<Background/>
 							<ReactCrop
 								src={ this.props.blobArray }
 								onChange={ this.backgroundResize }
