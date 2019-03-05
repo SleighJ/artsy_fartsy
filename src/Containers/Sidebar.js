@@ -110,7 +110,6 @@ class Sidebar extends Component {
 	};
 
 	buttonClickSelect = (target, id) => {
-		console.log(target, id)
 		const textComponentId = 3;
 
 		if (id != this.state.clicked) {
@@ -144,8 +143,6 @@ class Sidebar extends Component {
 	render() {
 
 		const { clicked } = this.state;
-
-		console.log(this.state)
 
 		return (
 			<div style={ this.state.sidebarOpen ? sidebarOpen : sidebarClosed }>

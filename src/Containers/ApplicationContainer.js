@@ -55,8 +55,6 @@ class ApplicationContainer extends Component {
 	};
 
 	addBackground = (pic) => {
-		console.log('backgroun receiving pic')
-		console.log(pic)
 		this.uploadBackground(pic);
 		this.setState({ pic })
 	};
@@ -110,8 +108,6 @@ class ApplicationContainer extends Component {
 	render() {
 
 		const { color, width } = this.state;
-
-		console.log(this.state)
 
 		return (
 			<div>

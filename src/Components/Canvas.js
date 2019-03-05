@@ -29,6 +29,12 @@ class Canvas extends PureComponent {
 	};
 
 	componentDidUpdate = () => {
+
+		this.setState({
+			color: this.props.color,
+			width:this.props.width,
+		});
+
 		this.updateWidth(this.props.width);
 		this.ctx.lineWidth = this.props.width;
 	};
@@ -40,6 +46,7 @@ class Canvas extends PureComponent {
 	};
 
 	onMouseDown = ({ nativeEvent }) => {
+		console.log('mouseDown in Canvas')
 		const { offsetX, offsetY } = nativeEvent;
 
 		if ( !this.state.textEditOpen ) {
@@ -108,6 +115,7 @@ class Canvas extends PureComponent {
 	render() {
 
 		const { croppedUrl, resetTextState } = this.props;
+		const { color, width } = this.state;
 
 		let noImage = {
 			backgroundColor: 'transparent'
@@ -134,11 +142,14 @@ class Canvas extends PureComponent {
 			border: '3px solid pink',
 		};
 
-
+		console.log('props and state from CANVAS')
+		console.log(this.props)
 		console.log(this.state)
+
 		return (
 			<div style={ this.props.croppedUrl ? asdf : fdsa }>
 				<canvas
+					onClick={()=>console.log('you clicked the canvas')}
 					ref={ (ref) => (this.canvas = ref) }
 					onMouseDown={ this.onMouseDown }
 					onMouseLeave={ this.endPaintEvent }

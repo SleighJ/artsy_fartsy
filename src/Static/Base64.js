@@ -31,7 +31,6 @@ export function image64toCanvasRef (canvasRef, image64, pixelCrop) {
 	image.src = image64;
 
 	image.onload = function () {
-		console.log('wtf mate, wtf is going on in here')
 		ctx.drawImage(
 			image,
 			pixelCrop.x,

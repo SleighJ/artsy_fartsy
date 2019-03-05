@@ -87,6 +87,8 @@ class CanvasContainer extends Component {
 
 		const { color , width, textEditOpen, resetTextState, fontSize, selectedFont } = this.props;
 
+		console.log('props and state form container')
+		console.log(this.props)
 		console.log(this.state)
 
 		return (
