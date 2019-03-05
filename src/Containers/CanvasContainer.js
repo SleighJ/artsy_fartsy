@@ -92,7 +92,7 @@ class CanvasContainer extends Component {
 		console.log(this.state)
 
 		return (
-			<div>
+			<div onClick={()=>console.log('you clicked the wrapper div in CanvasContainer.js')}>
 				{
 					this.state.background ?
 						<div style={{ maxWidth: '500px', maxHeight: '500px', marginLeft: '20%' }}>
@@ -113,13 +113,15 @@ class CanvasContainer extends Component {
 							<button onClick={ this.handleDone }>Done</button>
 						</div>
 						:
-						<div style={{ marginLeft: '13%', marginRight: 'none'}}>
+						<div onClick={()=>console.log('you clicked the canvas/text wrapper div in CanvasConatiner')} style={{ marginLeft: '13%', marginRight: 'none'}}>
 							<Text
+								onClick={()=>console.log('you clicked the the text component????')}
 								resetTextState={ resetTextState }
 								fontSize={ fontSize }
 								selectedFont={ selectedFont }
 							/>
 							<Canvas
+								onClick={()=>console.log('you clicked the Canvas Component!')}
 								color={ color }
 								width={ width != null ? width : 1 }
 								croppedUrl={ this.state.croppedUrl }

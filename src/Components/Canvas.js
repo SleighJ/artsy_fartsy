@@ -147,7 +147,7 @@ class Canvas extends PureComponent {
 		console.log(this.state)
 
 		return (
-			<div style={ this.props.croppedUrl ? asdf : fdsa }>
+			<div onClick={()=>console.log('you clicked a wrapper div in canvas.js')} style={ this.props.croppedUrl ? asdf : fdsa }>
 				<canvas
 					onClick={()=>console.log('you clicked the canvas')}
 					ref={ (ref) => (this.canvas = ref) }
