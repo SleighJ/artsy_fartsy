@@ -21,6 +21,7 @@ class ApplicationContainer extends Component {
 			croppedUrl: null,
 			textEditOpen: false,
 			fontSize: 20,
+			selectedFont: 'Roboto',
 		}
 	}
 
@@ -98,6 +99,12 @@ class ApplicationContainer extends Component {
 		})
 	};
 
+	setFont = (font) => {
+		this.setState({
+			selectedFont: font,
+		})
+	};
+
 	render() {
 
 		const { color, width } = this.state;
@@ -114,6 +121,7 @@ class ApplicationContainer extends Component {
 						uploadBackground={ this.uploadBackground }
 						setFontSize={ this.setFontSize }
 						fontSize={ this.state.fontSize }
+						setFont={ this.setFont }
 					/>
 				</Fragment>
 
@@ -126,6 +134,7 @@ class ApplicationContainer extends Component {
 						textEditOpen={ this.state.textEditOpen }
 						resetTextState={ this.resetTextState }
 						fontSize={ this.state.fontSize }
+						selectedFont={ this.state.selectedFont }
 					/>
 				</Fragment>
 

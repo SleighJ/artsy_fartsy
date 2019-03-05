@@ -1,7 +1,11 @@
 import React, { Component } from 'react';
+
 import Palette from './Palette';
 import BrushContainer from './BrushContainer';
 import Text from '../Components/Text';
+import Fonts from '../Static/Fonts';
+import TextSubComponent from "../SubComponents/TextSubComponent";
+
 import 'react-image-crop/dist/ReactCrop.css';
 
 const buttonStyle = {
@@ -82,8 +86,9 @@ class Sidebar extends Component {
 				},
 				{
 					name: 'Text',
-					component: <Text fontSize={ this.props.fontSize } />,
-					subcomponent: <div style={{ display: 'flex', color: 'black', textAlign: 'center', width: '70%'}}>Size :<input style={{ width: '50%' }} type={'number'} onChange={ (e)=>this.props.setFontSize(e.target.value) }></input>  </div>,
+					component: <Text fontSize={ this.props.fontSize } fontFamily={ this.props.fontFamily } />,
+					subcomponent: <TextSubComponent setFont={ this.props.setFont } setFontSize={ this.props.setFontSize } />
+
 				},
 			]
 		}
@@ -126,6 +131,12 @@ class Sidebar extends Component {
 	closeSideBar =	() => {
 		this.setState({
 			sidebarOpen: !this.state.sidebarOpen,
+		})
+	};
+
+	getFontFromTextSubComponent = (font) => {
+		this.setState({
+			selectedFont: font,
 		})
 	};
 

@@ -84,7 +84,7 @@ class CanvasContainer extends Component {
 
 	render() {
 
-		const { color , width, textEditOpen, resetTextState, fontSize} = this.props;
+		const { color , width, textEditOpen, resetTextState, fontSize, selectedFont } = this.props;
 
 		return (
 			<div>
@@ -111,6 +111,7 @@ class CanvasContainer extends Component {
 							<Text
 								resetTextState={ resetTextState }
 								fontSize={ fontSize }
+								selectedFont={ selectedFont }
 							/>
 							<Canvas
 								color={ color }

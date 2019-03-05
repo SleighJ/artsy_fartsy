@@ -7,6 +7,7 @@ class Text extends PureComponent {
 
 		this.state = {
 			fontSize: 20,
+			fontFamily: 'Roboto',
 			font: null,
 			textEditOpen: null,
 			hasInput: null,
@@ -15,21 +16,10 @@ class Text extends PureComponent {
 		}
 	}
 
-	// setSizeInputState = (value) => {
-	// 	this.setState({
-	// 		size: value,
-	// 	})
-	// };
-	//
-	// setFontInputState = (value) => {
-	// 	this.setState({
-	// 		font: value
-	// 	})
-	// };
-
 	componentDidUpdate = () => {
 		this.setState({
 			fontSize: this.props.fontSize,
+			fontFamily: this.props.selectedFont,
 		})
 	};
 
@@ -72,6 +62,7 @@ class Text extends PureComponent {
 					x: parseInt(e.target.offsetTop, 10),
 					y: parseInt(e.target.offsetLeft, 10),
 					fontSize: this.state.fontSize,
+					fontFamily: this.state.fontFamily,
 			};
 
 			this.setState(prevState => ({
@@ -88,16 +79,11 @@ class Text extends PureComponent {
 	setDragText = ({ nativeEvent }) => {
 		const { x, y } = nativeEvent;
 
-		if (x != 0 || y !=0) {
-			this.setState({
-				input: {
-					text: nativeEvent.target.nodeValue,
-					x: parseInt(y, 10) + 'px',
-					y: parseInt(x, 10) + 'px',
-					// fontSize: this.state.fontSize,
-				}
-			})
-		}
+		let inputObj = {
+			text: nativeEvent.target.nodeValue,
+			x: parseInt(y, 10) + 'px',
+			y: parseInt(x, 10) + 'px',
+		};
 	};
 
 	render() {
@@ -112,25 +98,14 @@ class Text extends PureComponent {
 					?
 
 					input.map((inputEntry, i) => {
-						console.log(inputEntry)
 						return (
-							<div onDrag={ this.setDragText } style={{ position: 'fixed', top: inputEntry.x, left: inputEntry.y, fontSize: `${ inputEntry.fontSize }px` }}>{ inputEntry.text }</div>
+							<div onDrag={ this.setDragText } style={{ position: 'fixed', top: inputEntry.x, left: inputEntry.y, fontSize: `${ inputEntry.fontSize }px`, fontFamily: `${ inputEntry.fontFamily }` }}>{ inputEntry.text }</div>
 						)
 					})
 
 					:
 					null
 				}
-
-				{/*<input*/}
-					{/*onChange={ (e)=>this.setSizeInputState(e.target.value)}*/}
-					{/*placeholder={'Size'}*/}
-					{/*type={'number'}*/}
-				{/*/>*/}
-				{/*<input*/}
-					{/*onChange={ (e)=>this.setFontInputState(e.target.value) }*/}
-					{/*placeholder={'Font'}*/}
-				{/*/>*/}
 			</div>
 		);
 	}
