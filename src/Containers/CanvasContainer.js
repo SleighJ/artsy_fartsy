@@ -85,7 +85,7 @@ class CanvasContainer extends Component {
 
 	render() {
 
-		const { color , width, textEditOpen, resetTextState, fontSize, selectedFont } = this.props;
+		const { color , width, textEditOpen, fontSize, selectedFont,setTextState } = this.props;
 
 		console.log('props and state form container')
 
@@ -114,10 +114,10 @@ class CanvasContainer extends Component {
 						<div onClick={()=>console.log('you clicked the canvas/text wrapper div in CanvasConatiner')} style={{ marginLeft: '13%', marginRight: 'none'}}>
 							<Text
 								onClick={()=>console.log('you clicked the the text component????')}
-								resetTextState={ resetTextState }
 								fontSize={ fontSize }
 								selectedFont={ selectedFont }
 								textEditOpen={ textEditOpen }
+								setTextState={ setTextState }
 							/>
 							<Canvas
 								onClick={()=>console.log('you clicked the Canvas Component!')}

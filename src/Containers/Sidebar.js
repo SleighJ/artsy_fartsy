@@ -112,6 +112,12 @@ class Sidebar extends Component {
 		const textComponentId = 3;
 
 		if (id == textComponentId) {
+			console.log(this.state.clicked)
+			if (this.state.clicked == textComponentId) {
+				this.setState({
+					clicked: null,
+				})
+			}
 			this.props.setTextState()
 		}
 
@@ -119,10 +125,13 @@ class Sidebar extends Component {
 			this.setState({
 				clicked: id,
 			});
-		} else if (id != target) {
+		}
+
+		if (id != target) {
 			return;
 		}
-		 else {
+
+		 if (id == this.state.clicked) {
 			this.setState({
 				clicked: null,
 			})
@@ -139,7 +148,8 @@ class Sidebar extends Component {
 
 		const { clicked } = this.state;
 
-		console.log(this.props.setTextState)
+		console.log(clicked)
+
 		return (
 			<div style={ this.state.sidebarOpen ? sidebarOpen : sidebarClosed }>
 				<button onClick={ ()=>this.closeSideBar() }>Open/Close</button>
@@ -157,7 +167,7 @@ class Sidebar extends Component {
 							>
 								<button id={ id } style={ buttonStyle }>{ component.name }</button>
 
-								{ clicked == id ? <div style={ componentContainerStyle }>{  component.subcomponent ? component.subcomponent : component.component }</div> : null }
+								{ this.props.textEditOpen && clicked == id ? <div style={ componentContainerStyle }>{  component.subcomponent ? component.subcomponent : component.component }</div> : null }
 
 							</div>
 						)

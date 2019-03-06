@@ -1,5 +1,4 @@
 import React, { PureComponent } from 'react';
-import Text from './Text';
 
 import { v4 } from 'uuid';
 
@@ -111,7 +110,7 @@ class Canvas extends PureComponent {
 
 	render() {
 
-		const { croppedUrl, resetTextState } = this.props;
+		const { croppedUrl } = this.props;
 		const { color, width } = this.state;
 
 		let noImage = {

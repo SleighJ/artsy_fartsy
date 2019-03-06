@@ -86,12 +86,6 @@ class ApplicationContainer extends Component {
 		})
 	};
 
-	resetTextState = (bool) => {
-		this.setState({
-			textEditOpen: bool,
-		})
-	};
-
 	setFontSize = (fontSize) => {
 		this.setState({
 			fontSize: fontSize
@@ -108,6 +102,8 @@ class ApplicationContainer extends Component {
 
 		const { color, width, textEditOpen } = this.state;
 
+		console.log(this.state)
+
 		return (
 			<div>
 
@@ -121,6 +117,7 @@ class ApplicationContainer extends Component {
 						setFontSize={ this.setFontSize }
 						fontSize={ this.state.fontSize }
 						setFont={ this.setFont }
+						textEditOpen={ this.state.textEditOpen }
 					/>
 				</Fragment>
 
@@ -131,7 +128,7 @@ class ApplicationContainer extends Component {
 						background={ this.state.background }
 						blobArray={ this.state.blobArray }
 						textEditOpen={ this.state.textEditOpen }
-						resetTextState={ this.resetTextState }
+						setTextState={ this.setTextState }
 						fontSize={ this.state.fontSize }
 						selectedFont={ this.state.selectedFont }
 					/>
