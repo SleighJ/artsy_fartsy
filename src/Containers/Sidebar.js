@@ -3,7 +3,6 @@ import React, { Component } from 'react';
 import Palette from './Palette';
 import BrushContainer from './BrushContainer';
 import Text from '../Components/Text';
-import Fonts from '../Static/Fonts';
 import TextSubComponent from "../SubComponents/TextSubComponent";
 
 import 'react-image-crop/dist/ReactCrop.css';
@@ -86,8 +85,8 @@ class Sidebar extends Component {
 				},
 				{
 					name: 'Text',
-					component: <Text fontSize={ this.props.fontSize } fontFamily={ this.props.fontFamily } />,
-					subcomponent: <TextSubComponent setFont={ this.props.setFont } setFontSize={ this.props.setFontSize } />
+					component: <Text fontSize={ this.props.fontSize } fontFamily={ this.props.fontFamily } setTextState={ this.props.setTextState } />,
+					subcomponent: <TextSubComponent setFont={ this.props.setFont } setFontSize={ this.props.setFontSize } setTextState={ this.props.setTextState } />
 
 				},
 			]
@@ -112,16 +111,18 @@ class Sidebar extends Component {
 	buttonClickSelect = (target, id) => {
 		const textComponentId = 3;
 
+		if (id == textComponentId) {
+			this.props.setTextState()
+		}
+
 		if (id != this.state.clicked) {
-			id == textComponentId ? this.props.setTextState() : console.log('setting clicked to id');
 			this.setState({
 				clicked: id,
-			})
+			});
 		} else if (id != target) {
 			return;
 		}
 		 else {
-			id == textComponentId ? this.props.setTextState() : console.log(id, this.state.clicked);
 			this.setState({
 				clicked: null,
 			})
@@ -134,16 +135,11 @@ class Sidebar extends Component {
 		})
 	};
 
-	getFontFromTextSubComponent = (font) => {
-		this.setState({
-			selectedFont: font,
-		})
-	};
-
 	render() {
 
 		const { clicked } = this.state;
 
+		console.log(this.props.setTextState)
 		return (
 			<div style={ this.state.sidebarOpen ? sidebarOpen : sidebarClosed }>
 				<button onClick={ ()=>this.closeSideBar() }>Open/Close</button>

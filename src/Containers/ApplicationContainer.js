@@ -32,7 +32,6 @@ class ApplicationContainer extends Component {
 	};
 
 	callBackendAPI = async () => {
-		console.log('callbackendAPI???')
 		const response = await fetch('/paint');
 		const body = await response.json();
 
@@ -107,7 +106,7 @@ class ApplicationContainer extends Component {
 
 	render() {
 
-		const { color, width } = this.state;
+		const { color, width, textEditOpen } = this.state;
 
 		return (
 			<div>

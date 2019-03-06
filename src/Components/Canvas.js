@@ -46,7 +46,6 @@ class Canvas extends PureComponent {
 	};
 
 	onMouseDown = ({ nativeEvent }) => {
-		console.log('mouseDown in Canvas')
 		const { offsetX, offsetY } = nativeEvent;
 
 		if ( !this.state.textEditOpen ) {
@@ -90,8 +89,6 @@ class Canvas extends PureComponent {
 	};
 
 	sendPaintData = async () => {
-
-		console.log('sendPaintData? in Canvas');
 
 		let body = {
 			line: this.line,
@@ -141,10 +138,6 @@ class Canvas extends PureComponent {
 		let fdsa = {
 			border: '3px solid pink',
 		};
-
-		console.log('props and state from CANVAS')
-		console.log(this.props)
-		console.log(this.state)
 
 		return (
 			<div onClick={()=>console.log('you clicked a wrapper div in canvas.js')} style={ this.props.croppedUrl ? asdf : fdsa }>

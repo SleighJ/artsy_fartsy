@@ -13,6 +13,7 @@ class Text extends PureComponent {
 			hasInput: null,
 			textInputId: 0,
 			input: [],
+			clickedText: null,
 		}
 	}
 
@@ -20,6 +21,7 @@ class Text extends PureComponent {
 		this.setState({
 			fontSize: this.props.fontSize,
 			fontFamily: this.props.selectedFont,
+			textEditOpen: this.props.textEditOpen,
 		})
 	};
 
@@ -33,7 +35,7 @@ class Text extends PureComponent {
 
 	addText = (offsetX, offsetY) => {
 
-		if (!this.state.hasInput) {
+		if (!this.state.hasInput && !this.state.clickedText) {
 			let input = document.createElement('input');
 			input.type = 'text';
 			input.id = `addTextInput-${ this.state.textInputId }`;
@@ -61,6 +63,7 @@ class Text extends PureComponent {
 			const input = document.getElementById(`addTextInput-${ this.state.textInputId }`);
 			const increment = this.state.textInputId+1;
 			let inputObj = {
+					id: `draggableDiv-${increment}`,
 					text: e.target.value,
 					x: parseInt(e.target.offsetTop, 10),
 					y: parseInt(e.target.offsetLeft, 10),
@@ -72,40 +75,66 @@ class Text extends PureComponent {
 				hasInput: false,
 				textInputId: increment,
 				input: [...prevState.input, inputObj],
-			}), ()=>this.props.resetTextState(false));
+			}));
 
-			// this.drawText(e.target.value, parseInt(e.target.offsetLeft, 10), parseInt(e.target.offsetTop, 10));
 			e.target.parentNode.removeChild(input);
 		}
 	};
 
 	setDragText = ({ nativeEvent }) => {
-		const { x, y } = nativeEvent;
 
-		let inputObj = {
-			text: nativeEvent.target.nodeValue,
-			x: parseInt(y, 10) + 'px',
-			y: parseInt(x, 10) + 'px',
-		};
+		const { x, y } = nativeEvent;
+		let inputArrayCopy = this.state.input;
+
+		if (x == 0 && y == 0) {
+			return
+		}
+
+		for (let i = 0; i < inputArrayCopy.length; i++) {
+
+			let currentEntry = inputArrayCopy[i];
+			let id = currentEntry.id;
+
+			if (id == this.state.clickedText) {
+
+				let inputObj = {
+					id: this.state.clickedText,
+					text: nativeEvent.target.nodeValue,
+					x: parseInt(y, 10),
+					y: parseInt(x, 10),
+					fontSize: this.state.fontSize,
+					fontFamily: this.state.fontFamily,
+				};
+
+				inputArrayCopy.splice(i, 1, inputObj);
+				this.setState({
+					input: inputArrayCopy,
+				}, this.props.resetTextState(true))
+			}
+		}
+	};
+
+	setIdToDragState = (id) => {
+		this.setState({
+			clickedText: id,
+		})
 	};
 
 	render() {
 
-		const { croppedUrl } = this.props;
 		const { input } = this.state;
+
+		console.log(this.props)
 
 		return (
 			<div style={{ position: 'fixed', height: ' 100%', width: '100%'}} onClick={ this.onMouseDown }>
-
 				{ input
 					?
-
 					input.map((inputEntry, i) => {
 						return (
-							<div onDrag={ this.setDragText } style={{ position: 'fixed', top: inputEntry.x, left: inputEntry.y, fontSize: `${ inputEntry.fontSize }px`, fontFamily: `${ inputEntry.fontFamily }` }}>{ inputEntry.text }</div>
+							<div id={ inputEntry.id } key={ i } onMouseDown={ ()=>this.setIdToDragState(inputEntry.id) } onMouseUp={ ()=>this.setIdToDragState(null) } onDrag={ this.setDragText } style={{ position: 'fixed', top: inputEntry.x, left: inputEntry.y, fontSize: `${ inputEntry.fontSize }px`, fontFamily: `${ inputEntry.fontFamily }` }}>{ inputEntry.text }</div>
 						)
 					})
-
 					:
 					null
 				}
