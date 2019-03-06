@@ -167,7 +167,7 @@ class Sidebar extends Component {
 							>
 								<button id={ id } style={ buttonStyle }>{ component.name }</button>
 
-								{ this.props.textEditOpen && clicked == id ? <div style={ componentContainerStyle }>{  component.subcomponent ? component.subcomponent : component.component }</div> : null }
+								{ clicked == id ? <div style={ componentContainerStyle }>{  component.subcomponent && this.props.textEditOpen ? component.subcomponent : component.component }</div> : null }
 
 							</div>
 						)

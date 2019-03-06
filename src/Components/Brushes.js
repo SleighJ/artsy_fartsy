@@ -44,7 +44,7 @@ class SimpleColor extends PureComponent {
 								height: `${entry}rem`, width: '100%', marginTop: '1.5rem', marginBottom: '1.5rem'
 							};
 						return (
-							<div id={ id } onClick={ ()=>this.provideSizeToParent(id) }>
+							<div key={ i } id={ id } onClick={ ()=>this.provideSizeToParent(id) }>
 								<FontAwesomeIcon id={ id } style={ style } icon={ faPaintBrush } onClick={ ()=>this.provideSizeToParent(id) } />
 							</div>
 						)
