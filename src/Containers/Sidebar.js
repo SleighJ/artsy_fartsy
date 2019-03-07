@@ -85,8 +85,8 @@ class Sidebar extends Component {
 				},
 				{
 					name: 'Text',
-					component: <Text fontSize={ this.props.fontSize } fontFamily={ this.props.fontFamily } setTextState={ this.props.setTextState } />,
-					subcomponent: <TextSubComponent setFont={ this.props.setFont } setFontSize={ this.props.setFontSize } setTextState={ this.props.setTextState } />
+					component: <Text fontSize={ this.props.fontSize } fontFamily={ this.props.fontFamily } />,
+					subcomponent: <TextSubComponent setFont={ this.props.setFont } setFontSize={ this.props.setFontSize } />
 
 				},
 			]
@@ -147,8 +147,6 @@ class Sidebar extends Component {
 	render() {
 
 		const { clicked } = this.state;
-
-		console.log(clicked)
 
 		return (
 			<div style={ this.state.sidebarOpen ? sidebarOpen : sidebarClosed }>

@@ -1,5 +1,18 @@
 import React, { PureComponent } from 'react';
-import Brushes from '../Components/Brushes';
+
+const textWrapperStyle = {
+ 	position: 'fixed',
+	height: ' 100%',
+	width: '100%',
+};
+
+const clickedTextWrapperStyle = {
+	border: '1px solid black',
+	cursor: 'move',
+	position: 'fixed',
+	height: ' 100%',
+	width: '100%'
+};
 
 class Text extends PureComponent {
 	constructor(props) {
@@ -13,11 +26,11 @@ class Text extends PureComponent {
 			textInputId: 0,
 			input: [],
 			clickedText: null,
+			dragging: null,
 		}
 	}
 
 	componentDidUpdate = () => {
-		console.log('component Updating Props!!!! '+this.props.textEditOpen)
 		this.setState({
 			fontSize: this.props.fontSize,
 			fontFamily: this.props.selectedFont,
@@ -34,8 +47,6 @@ class Text extends PureComponent {
 	};
 
 	addText = (offsetX, offsetY) => {
-		console.log('THIS')
-		console.log(this.state)
 		if (!this.state.hasInput && !this.state.clickedText) {
 			let input = document.createElement('input');
 			input.type = 'text';
@@ -77,7 +88,6 @@ class Text extends PureComponent {
 				textInputId: increment,
 				input: [...prevState.input, inputObj],
 			}) );
-			// }), this.props.setTextState());
 
 			e.target.parentNode.removeChild(input);
 		}
@@ -119,6 +129,7 @@ class Text extends PureComponent {
 	onDragEnd = () => {
 		this.setState({
 			clickedText: null,
+			dragging: null,
 		})
 	};
 
@@ -128,20 +139,41 @@ class Text extends PureComponent {
 		})
 	};
 
+	onDragStart = (id) => {
+		this.setState({
+			dragging: id,
+		})
+	};
+
 	render() {
 
 		const { input } = this.state;
 
 		return (
-			<div style={{ position: 'fixed', height: ' 100%', width: '100%'}} onClick={ this.onMouseDown }>
-				{ input
-					?
+			<div style={ textWrapperStyle } onClick={ this.onMouseDown }>
+				{ input ?
 					input.map((inputEntry, i) => {
+						let id = inputEntry.id;
 						return (
-							<div id={ inputEntry.id } key={ i } onMouseDown={ ()=>this.setDragIdToState(inputEntry.id) } onDrag={ this.setDragText } onDragEnd={ this.onDragEnd } style={{ position: 'fixed', top: inputEntry.x, left: inputEntry.y, fontSize: `${ inputEntry.fontSize }px`, fontFamily: `${ inputEntry.fontFamily }` }}>{ inputEntry.text }</div>
+							<div
+								id={ id }
+								key={ i }
+								onMouseDown={ ()=>this.setDragIdToState(inputEntry.id) }
+								onDragStart={ ()=>this.onDragStart(id) }
+								onDrag={ this.setDragText }
+								onDragEnd={ this.onDragEnd }
+								style={{
+									position: 'fixed',
+									backgroundColor: `${this.state.dragging == id ? 'black' : 'transparent'}`,
+									cursor: `${this.state.dragging == id ? 'move' : 'arrow'}`,
+									top: inputEntry.x,
+									left: inputEntry.y,
+									fontSize: `${ inputEntry.fontSize }px`,
+									fontFamily: `${ inputEntry.fontFamily }` }}
+							>{ inputEntry.text }
+							</div>
 						)
-					})
-					:
+					}) :
 					null
 				}
 			</div>
