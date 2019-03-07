@@ -45,6 +45,7 @@ class Canvas extends PureComponent {
 	};
 
 	onMouseDown = ({ nativeEvent }) => {
+		console.log('mousedown')
 		const { offsetX, offsetY } = nativeEvent;
 
 		if ( !this.state.textEditOpen ) {
@@ -111,21 +112,9 @@ class Canvas extends PureComponent {
 	render() {
 
 		const { croppedUrl } = this.props;
-		const { color, width } = this.state;
-
-		let noImage = {
-			backgroundColor: 'transparent'
-		};
-
-		let image = {
-			backgroundColor: 'transparent',
-			backgroundImage: `url(${ croppedUrl })`,
-			backgroundRepeat: 'no-repeat',
-			backgroundPosition: 'center',
-			backgroundSize: 'cover',
-		};
 
 		let asdf = {
+			pointerEvents: 'none',
 			border: '3px solid pink',
 			backgroundColor: 'transparent',
 			backgroundImage: `url(${ croppedUrl })`,
@@ -135,13 +124,14 @@ class Canvas extends PureComponent {
 		};
 
 		let fdsa = {
+			pointerEvents: 'none',
 			border: '3px solid pink',
 		};
 
 		return (
-			<div onClick={()=>console.log('you clicked a wrapper div in canvas.js')} style={ this.props.croppedUrl ? asdf : fdsa }>
+			<div onClick={()=>console.log('YESSSSSS')} style={ this.props.croppedUrl ? asdf : fdsa }>
 				<canvas
-					onClick={()=>console.log('you clicked the canvas')}
+					style={{background: 'orange', pointerEvents: 'auto'}}
 					ref={ (ref) => (this.canvas = ref) }
 					onMouseDown={ this.onMouseDown }
 					onMouseLeave={ this.endPaintEvent }

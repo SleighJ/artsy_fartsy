@@ -31,10 +31,6 @@ class ApplicationContainer extends Component {
 			.catch(err => console.log(err));
 	};
 
-	componentDidUpdate = (prevState) => {
-
-	};
-
 	callBackendAPI = async () => {
 		const response = await fetch('/paint');
 		const body = await response.json();
@@ -84,7 +80,8 @@ class ApplicationContainer extends Component {
 		});
 	};
 
-	setTextState = () => {
+	setTextState = (calledFrom) => {
+		console.log('setTextState has been called from '+calledFrom);
 		this.setState({
 			textEditOpen: !this.state.textEditOpen,
 		})

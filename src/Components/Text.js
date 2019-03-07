@@ -4,6 +4,7 @@ const textWrapperStyle = {
  	position: 'fixed',
 	height: ' 100%',
 	width: '100%',
+	pointerEvents: 'auto',
 };
 
 const clickedTextWrapperStyle = {
@@ -41,7 +42,6 @@ class Text extends PureComponent {
 	onMouseDown = ({ nativeEvent }) => {
 		const { offsetX, offsetY } = nativeEvent;
 
-		console.log('mouseDown '+this.state.textEditOpen);
 		if (this.state.textEditOpen) {
 			this.addText(offsetX, offsetY)
 		}

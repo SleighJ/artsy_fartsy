@@ -94,12 +94,6 @@ class Sidebar extends Component {
 		}
 	}
 
-	componentDidUpdate = (prevProps, prevState) => {
-		if (prevState.clicked == 3 && this.state.clicked != 3) {
-			this.props.setTextState();
-		}
-	};
-
 	buttonContainerSelect = (id) => {
 		let component = this.state.componentArray[id].component;
 
@@ -118,31 +112,44 @@ class Sidebar extends Component {
 	buttonClickSelect = (target, id) => {
 		const textComponentId = 3;
 
-		if (id == textComponentId) {
-			if (this.state.clicked == textComponentId) {
+		//if anything has been clicked
+		if (this.state.clicked) {
+			//if this command is coming from the text component, turn on text
+			if (textComponentId == id) {
+				this.props.setTextState()
+			}
+			//if what was passed to me is what was previously clicked, set clicked to null and close it
+			if (this.state.clicked == id) {
 				this.setState({
 					clicked: null,
 				})
 			}
-			this.props.setTextState()
+			//if what was passed to me is not what was previously clicked, set what was passed to me to be clicked/open
+			else {
+				this.setState({
+					clicked: id,
+				});
+			}
+		}
+		//if nothing has been clicked
+		else {
+			//if I get here because I don't know the difference between '0' and 'false', set clicked to null and close the div
+			if (this.state.clicked === 0) {
+				this.setState(({
+					clicked: null,
+				}))
+			//if I get here because I'm supposed to get here set clicked to the id and open the subComponent
+			} else {
+				//if this command is coming from the text component turn on text
+				if (textComponentId == id) {
+					this.props.setTextState()
+				}
+				this.setState({
+					clicked: id,
+				})
+			}
 		}
 
-		if (id != this.state.clicked) {
-
-			this.setState({
-				clicked: id,
-			});
-		}
-
-		if (id != target) {
-			return;
-		}
-
-		 if (id == this.state.clicked) {
-			this.setState({
-				clicked: null,
-			})
-		}
 	};
 
 	closeSideBar =	() => {
