@@ -70,6 +70,7 @@ class Sidebar extends Component {
 			hovered: null,
 			clicked: null,
 			fontSize: null,
+			textEditOpen: null,
 			componentArray: [
 				{
 					name: 'Palette',
@@ -112,8 +113,8 @@ class Sidebar extends Component {
 		const textComponentId = 3;
 
 		if (id == textComponentId) {
-			console.log(this.state.clicked)
 			if (this.state.clicked == textComponentId) {
+				console.log('1')
 				this.setState({
 					clicked: null,
 				})
@@ -122,6 +123,12 @@ class Sidebar extends Component {
 		}
 
 		if (id != this.state.clicked) {
+			//
+			// console.log('2')
+			// if (this.state.clicked == textComponentId) {
+			// 	console.log('asdf')
+			// }
+
 			this.setState({
 				clicked: id,
 			});
@@ -147,6 +154,8 @@ class Sidebar extends Component {
 	render() {
 
 		const { clicked } = this.state;
+
+		console.log(this.state.textEditOpen);
 
 		return (
 			<div style={ this.state.sidebarOpen ? sidebarOpen : sidebarClosed }>

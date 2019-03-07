@@ -117,6 +117,7 @@ class ApplicationContainer extends Component {
 						setFontSize={ this.setFontSize }
 						fontSize={ this.state.fontSize }
 						setFont={ this.setFont }
+						setTextState={ this.setTextState }
 						textEditOpen={ this.state.textEditOpen }
 					/>
 				</Fragment>

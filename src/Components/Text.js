@@ -41,6 +41,7 @@ class Text extends PureComponent {
 	onMouseDown = ({ nativeEvent }) => {
 		const { offsetX, offsetY } = nativeEvent;
 
+		console.log('mouseDown '+this.state.textEditOpen);
 		if (this.state.textEditOpen) {
 			this.addText(offsetX, offsetY)
 		}
