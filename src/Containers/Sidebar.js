@@ -114,18 +114,31 @@ class Sidebar extends Component {
 
 		//if anything has been clicked
 		if (this.state.clicked) {
+			console.log('here 2')
 			//if this command is coming from the text component, turn on text
 			if (textComponentId == id) {
-				this.props.setTextState()
+				console.log('here 2.1')
+				this.props.setTextState('sidebar buttonClickSelect 2.1')
 			}
-			//if what was passed to me is what was previously clicked, set clicked to null and close it
+
+			//if what was passed to me is what was previously clicked
 			if (this.state.clicked == id) {
+				console.log('here 2.2')
+
+				//if this command is coming from the text component, turn off text
+				// if (textComponentId == id) {
+				// 	console.log('here 2.3')
+				// 	this.props.setTextState()
+				// }
+				//set clicked to null and close it
 				this.setState({
 					clicked: null,
 				})
 			}
-			//if what was passed to me is not what was previously clicked, set what was passed to me to be clicked/open
+			//if what was passed to me is not what was previously clicked
 			else {
+				console.log('here 2.4')
+				//set what was passed to me to be clicked
 				this.setState({
 					clicked: id,
 				});
@@ -133,20 +146,28 @@ class Sidebar extends Component {
 		}
 		//if nothing has been clicked
 		else {
-			//if I get here because I don't know the difference between '0' and 'false', set clicked to null and close the div
+			console.log('here')
+			console.log(this.state.clicked, target, id)
+
+			//if I get here because I don't know the difference between '0' and 'false'
 			if (this.state.clicked === 0) {
+				console.log('clicked is 0, ohhhhh nooooo')
+				//set clicked to null and close the div
 				this.setState(({
 					clicked: null,
 				}))
-			//if I get here because I'm supposed to get here set clicked to the id and open the subComponent
+			//if I get here because I'm supposed to get here
 			} else {
-				//if this command is coming from the text component turn on text
+				//if this command is coming from the text component
 				if (textComponentId == id) {
-					this.props.setTextState()
+					console.log('here 0.1')
+					//turn on text
+					this.props.setTextState('sidebar buttonClickSelect 0.1')
 				}
+				//set clicked to the id and open the subComponent
 				this.setState({
 					clicked: id,
-				})
+				}, ()=>console.log('here  0.2 & textEditOpen is ' + JSON.stringify(this.props), id))
 			}
 		}
 

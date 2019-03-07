@@ -81,7 +81,7 @@ class ApplicationContainer extends Component {
 	};
 
 	setTextState = (calledFrom) => {
-		console.log('setTextState has been called from '+calledFrom);
+		console.log('setTextState has been called from '+calledFrom)
 		this.setState({
 			textEditOpen: !this.state.textEditOpen,
 		})
