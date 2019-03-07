@@ -94,6 +94,12 @@ class Sidebar extends Component {
 		}
 	}
 
+	componentDidUpdate = (prevProps, prevState) => {
+		if (prevState.clicked == 3 && this.state.clicked != 3) {
+			this.props.setTextState();
+		}
+	};
+
 	buttonContainerSelect = (id) => {
 		let component = this.state.componentArray[id].component;
 
@@ -114,7 +120,6 @@ class Sidebar extends Component {
 
 		if (id == textComponentId) {
 			if (this.state.clicked == textComponentId) {
-				console.log('1')
 				this.setState({
 					clicked: null,
 				})
@@ -123,11 +128,6 @@ class Sidebar extends Component {
 		}
 
 		if (id != this.state.clicked) {
-			//
-			// console.log('2')
-			// if (this.state.clicked == textComponentId) {
-			// 	console.log('asdf')
-			// }
 
 			this.setState({
 				clicked: id,
@@ -154,8 +154,6 @@ class Sidebar extends Component {
 	render() {
 
 		const { clicked } = this.state;
-
-		console.log(this.state.textEditOpen);
 
 		return (
 			<div style={ this.state.sidebarOpen ? sidebarOpen : sidebarClosed }>

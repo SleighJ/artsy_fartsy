@@ -31,6 +31,10 @@ class ApplicationContainer extends Component {
 			.catch(err => console.log(err));
 	};
 
+	componentDidUpdate = (prevState) => {
+
+	};
+
 	callBackendAPI = async () => {
 		const response = await fetch('/paint');
 		const body = await response.json();
