@@ -2,6 +2,15 @@ import React, { PureComponent } from 'react';
 
 import { v4 } from 'uuid';
 
+let textOpenStyle = {
+	pointerEvents: 'auto',
+};
+
+let textClosedStyle = {
+	pointerEvents: 'auto',
+	position: 'absolute',
+};
+
 class Canvas extends PureComponent {
 	constructor(props) {
 		super(props);
@@ -132,20 +141,8 @@ class Canvas extends PureComponent {
 			border: '3px solid pink',
 		};
 
-		let textOpenStyle = {
-			pointerEvents: 'auto',
-		};
-
-		let textClosedStyle = {
-			pointerEvents: 'auto',
-			position: 'absolute',
-		};
-
-		console.log('!!!!!!!!!')
-		console.log(this.props)
-
 		return (
-			<div onClick={()=>console.log('YESSSSSS')} style={ this.props.croppedUrl ? asdf : fdsa }>
+			<div style={ this.props.croppedUrl ? asdf : fdsa }>
 				<canvas
 					style={ this.props.textEditOpen ? textOpenStyle : textClosedStyle }
 					ref={ (ref) => (this.canvas = ref) }

@@ -9,7 +9,7 @@ const textWrapperStyle = {
 
 const clickedTextWrapperStyle = {
 	border: '1px solid black',
-	cursor: 'move',
+	backgroundColor: 'yellow',
 	position: 'fixed',
 	height: ' 100%',
 	width: '100%'
@@ -28,6 +28,7 @@ class Text extends PureComponent {
 			input: [],
 			clickedText: null,
 			dragging: null,
+			editing: null,
 		}
 	}
 
@@ -146,12 +147,26 @@ class Text extends PureComponent {
 		})
 	};
 
+	onDoubleClick = (e) => {
+		let id = e.target.id;
+
+		if (id == this.state.editing) {
+			this.setState({
+				editing: null,
+			})
+		} else {
+			this.setState({
+				editing: id,
+			})
+		}
+	};
+
 	render() {
 
 		const { input } = this.state;
 
 		return (
-			<div style={ textWrapperStyle } onClick={ this.onMouseDown }>
+			<div id={'text-wrapper'} style={ textWrapperStyle } onClick={ this.onMouseDown }>
 				{ input ?
 					input.map((inputEntry, i) => {
 						let id = inputEntry.id;
@@ -163,15 +178,17 @@ class Text extends PureComponent {
 								onDragStart={ ()=>this.onDragStart(id) }
 								onDrag={ this.setDragText }
 								onDragEnd={ this.onDragEnd }
+								onDoubleClick={ (e)=>this.onDoubleClick(e) }
 								style={{
 									position: 'fixed',
 									pointerEvents: `${ !this.props.textEditOpen ? 'none' : 'auto' }`,
-									backgroundColor: `${this.state.dragging == id ? 'black' : 'transparent'}`,
+									backgroundColor: `${this.state.editing == id ? 'yellow' : 'transparent'}`,
 									cursor: `${this.state.dragging == id ? 'move' : 'arrow'}`,
 									top: inputEntry.x,
 									left: inputEntry.y,
-									fontSize: `${ inputEntry.fontSize }px`,
-									fontFamily: `${ inputEntry.fontFamily }` }}
+									fontSize: `${ this.state.editing == id ? `${ this.state.fontSize }px` : `${ inputEntry.fontSize }px` }`,
+									fontFamily:  `${ this.state.editing == id ? `${ this.state.fontFamily }` : `${ inputEntry.fontFamily }` }`,
+								}}
 							>{ inputEntry.text }
 							</div>
 						)
