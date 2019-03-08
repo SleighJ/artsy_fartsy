@@ -114,6 +114,8 @@ class Canvas extends PureComponent {
 		const { croppedUrl } = this.props;
 
 		let asdf = {
+			width: '800px',
+			height: '600px',
 			pointerEvents: 'none',
 			border: '3px solid pink',
 			backgroundColor: 'transparent',
@@ -124,14 +126,28 @@ class Canvas extends PureComponent {
 		};
 
 		let fdsa = {
+			width: '800px',
+			height: '600px',
 			pointerEvents: 'none',
 			border: '3px solid pink',
 		};
 
+		let textOpenStyle = {
+			pointerEvents: 'auto',
+		};
+
+		let textClosedStyle = {
+			pointerEvents: 'auto',
+			position: 'absolute',
+		};
+
+		console.log('!!!!!!!!!')
+		console.log(this.props)
+
 		return (
 			<div onClick={()=>console.log('YESSSSSS')} style={ this.props.croppedUrl ? asdf : fdsa }>
 				<canvas
-					style={{ pointerEvents: 'auto'}}
+					style={ this.props.textEditOpen ? textOpenStyle : textClosedStyle }
 					ref={ (ref) => (this.canvas = ref) }
 					onMouseDown={ this.onMouseDown }
 					onMouseLeave={ this.endPaintEvent }
