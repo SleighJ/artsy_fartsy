@@ -42,7 +42,6 @@ const clickedButtonContainerStyle = {
 };
 
 const componentContainerStyle = {
-	// pointerEvents: 'auto',
 	width: 'inherit',
 	height: 'fit-content',
 	backgroundColor: 'lightGrey',
@@ -118,7 +117,7 @@ class Sidebar extends Component {
 		if (this.state.clicked) {
 			console.log('here 2')
 			//if this command is coming from the text component, turn on text
-			if (textComponentId == id) {
+			if (textComponentId == id || this.state.clicked == textComponentId) {
 				console.log('here 2.1')
 				this.props.setTextState('sidebar buttonClickSelect 2.1')
 			}
