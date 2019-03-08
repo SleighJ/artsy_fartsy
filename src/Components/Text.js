@@ -165,6 +165,7 @@ class Text extends PureComponent {
 								onDragEnd={ this.onDragEnd }
 								style={{
 									position: 'fixed',
+									pointerEvents: `${ !this.props.textEditOpen ? 'none' : 'auto' }`,
 									backgroundColor: `${this.state.dragging == id ? 'black' : 'transparent'}`,
 									cursor: `${this.state.dragging == id ? 'move' : 'arrow'}`,
 									top: inputEntry.x,

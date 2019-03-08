@@ -131,7 +131,7 @@ class Canvas extends PureComponent {
 		return (
 			<div onClick={()=>console.log('YESSSSSS')} style={ this.props.croppedUrl ? asdf : fdsa }>
 				<canvas
-					style={{background: 'orange', pointerEvents: 'auto'}}
+					style={{ pointerEvents: 'auto'}}
 					ref={ (ref) => (this.canvas = ref) }
 					onMouseDown={ this.onMouseDown }
 					onMouseLeave={ this.endPaintEvent }

@@ -87,8 +87,6 @@ class CanvasContainer extends Component {
 
 		const { color , width, textEditOpen, fontSize, selectedFont, setTextState } = this.props;
 
-		console.log('props and state form container')
-
 		return (
 			<div>
 				{
@@ -111,7 +109,7 @@ class CanvasContainer extends Component {
 							<button onClick={ this.handleDone }>Done</button>
 						</div>
 						:
-						<div id={'text-canvas-wrapper'} style={{ marginLeft: '13%', marginRight: 'none', pointerEvents: 'none' }}>
+						<div id={'text-canvas-wrapper'} style={{ marginLeft: '13%', marginRight: 'none', backgroundColor: 'rbga(0, 0, 0, 0.5)', pointerEvents: 'none' }}>
 							<Text
 								fontSize={ fontSize }
 								selectedFont={ selectedFont }

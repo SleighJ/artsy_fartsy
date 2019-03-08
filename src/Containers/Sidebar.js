@@ -82,8 +82,7 @@ class Sidebar extends Component {
 				},
 				{
 					name: 'Background',
-					component: <Background />,
-					// component: <input type={'file'} id={ 'backgroundInput' } onChange={ (e)=>this.props.addBackground(e.target.files[0]) } multiple={ false } accept={ '.png' }></input>,
+					component: <Background addBackground={ this.props.addBackground } />,
 				},
 				{
 					name: 'Text',
@@ -147,7 +146,6 @@ class Sidebar extends Component {
 
 			//if I get here because I don't know the difference between '0' and 'false'
 			if (this.state.clicked === 0) {
-				console.log('clicked is 0, ohhhhh nooooo')
 				//set clicked to null and close the div
 				this.setState(({
 					clicked: null,
