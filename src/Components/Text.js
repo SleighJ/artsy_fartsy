@@ -151,13 +151,39 @@ class Text extends PureComponent {
 		let id = e.target.id;
 
 		if (id == this.state.editing) {
-			this.setState({
-				editing: null,
-			})
+			this.setEditedTextToState(id);
 		} else {
 			this.setState({
 				editing: id,
 			})
+		}
+	};
+
+	setEditedTextToState = (id) => {
+		let inputArrayCopy = this.state.input;
+
+		for (let i = 0; i < inputArrayCopy.length; i++) {
+
+			let currentEntry = inputArrayCopy[i];
+			let targetId = currentEntry.id;
+
+			if (id == targetId) {
+
+				let inputObj = {
+					id: targetId,
+					text: currentEntry.text,
+					x: currentEntry.x,
+					y: currentEntry.y,
+					fontSize: this.state.fontSize,
+					fontFamily: this.state.fontFamily,
+				};
+
+				inputArrayCopy.splice(i, 1, inputObj);
+				this.setState({
+					input: inputArrayCopy,
+					editing: null,
+				})
+			}
 		}
 	};
 
