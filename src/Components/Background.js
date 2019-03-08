@@ -13,7 +13,7 @@ class Background extends PureComponent {
 
 		return (
 			<div>
-				{/*<input type={'file'} id={ 'backgroundInput' } onChange={ (e)=>this.props.addBackground(e.target.files[0]) } multiple={ false } accept={ '.png' }></input>*/}
+				<input type={'file'} id={ 'backgroundInput' } onChange={ (e)=>this.props.addBackground(e.target.files[0]) } multiple={ false } accept={ '.png' }></input>
 			</div>
 		);
 	}

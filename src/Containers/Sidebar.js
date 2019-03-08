@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 import Palette from './Palette';
 import BrushContainer from './BrushContainer';
 import Text from '../Components/Text';
+import Background from '../Components/Background';
 import TextSubComponent from "../SubComponents/TextSubComponent";
 
 import 'react-image-crop/dist/ReactCrop.css';
@@ -41,6 +42,7 @@ const clickedButtonContainerStyle = {
 };
 
 const componentContainerStyle = {
+	// pointerEvents: 'auto',
 	width: 'inherit',
 	height: 'fit-content',
 	backgroundColor: 'lightGrey',
@@ -70,7 +72,6 @@ class Sidebar extends Component {
 			hovered: null,
 			clicked: null,
 			fontSize: null,
-			textEditOpen: null,
 			componentArray: [
 				{
 					name: 'Palette',
@@ -82,12 +83,13 @@ class Sidebar extends Component {
 				},
 				{
 					name: 'Background',
-					component: <input type={'file'} id={ 'backgroundInput' } onChange={ (e)=>this.props.addBackground(e.target.files[0]) } multiple={ false } accept={ '.png' }></input>,
+					component: <Background />,
+					// component: <input type={'file'} id={ 'backgroundInput' } onChange={ (e)=>this.props.addBackground(e.target.files[0]) } multiple={ false } accept={ '.png' }></input>,
 				},
 				{
 					name: 'Text',
-					component: <Text fontSize={ this.props.fontSize } fontFamily={ this.props.fontFamily } />,
-					subcomponent: <TextSubComponent setFont={ this.props.setFont } setFontSize={ this.props.setFontSize } />
+					component: <Text fontSize={ this.props.fontSize } fontFamily={ this.props.fontFamily } />, //?????
+					subcomponent: <TextSubComponent id={'textSubComponent'} setFont={ this.props.setFont } setFontSize={ this.props.setFontSize } textEditOpen={ this.props.textEditOpen } />
 
 				},
 			]
@@ -125,11 +127,6 @@ class Sidebar extends Component {
 			if (this.state.clicked == id) {
 				console.log('here 2.2')
 
-				//if this command is coming from the text component, turn off text
-				// if (textComponentId == id) {
-				// 	console.log('here 2.3')
-				// 	this.props.setTextState()
-				// }
 				//set clicked to null and close it
 				this.setState({
 					clicked: null,
@@ -167,7 +164,7 @@ class Sidebar extends Component {
 				//set clicked to the id and open the subComponent
 				this.setState({
 					clicked: id,
-				}, ()=>console.log('here  0.2 & textEditOpen is ' + JSON.stringify(this.props), id))
+				}, ()=>console.log('here  0.2 & state is '+JSON.stringify(this.state.clicked), id, target))
 			}
 		}
 
@@ -185,25 +182,25 @@ class Sidebar extends Component {
 
 		return (
 			<div style={ this.state.sidebarOpen ? sidebarOpen : sidebarClosed }>
-				<button onClick={ ()=>this.closeSideBar() }>Open/Close</button>
 				{
 					this.state.componentArray.map((component, i) => {
 						let id = i;
 						return (
-							<div
-								id={ id }
-								key={ i }
-								onMouseOver={ ()=>this.buttonContainerSelect(id) }
-								onMouseLeave={ ()=>this.buttonContainerUnSelect() }
-								onClick={ (e)=>this.buttonClickSelect(e.target.id, id) }
-								style={ this.state.clicked == id ? clickedButtonContainerStyle : this.state.hovered == id ? hoveredButtonContainerStyle : buttonContainerStyle }
-							>
-								<button id={ id } style={ buttonStyle }>{ component.name }</button>
+							<div>
+								<div
+									id={ id }
+									key={ i }
+									onMouseOver={ ()=>this.buttonContainerSelect(id) }
+									onMouseLeave={ ()=>this.buttonContainerUnSelect() }
+									onClick={ (e)=>this.buttonClickSelect(e.target.id, id) }
+									style={ this.state.clicked == id ? clickedButtonContainerStyle : this.state.hovered == id ? hoveredButtonContainerStyle : buttonContainerStyle }
+								>
+									<button id={ id } style={ buttonStyle }>{ component.name }</button>
+								</div>
 
-								{ clicked == id ? <div style={ componentContainerStyle }>{  component.subcomponent && this.props.textEditOpen ? component.subcomponent : component.component }</div> : null }
-
+								<div>{ clicked == id ? <div style={ componentContainerStyle }>{  component.subcomponent && this.props.textEditOpen ? component.subcomponent : component.component }</div> : null }</div>
 							</div>
-						)
+					)
 					})
 				}
 			</div>

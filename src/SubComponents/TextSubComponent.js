@@ -32,29 +32,31 @@ class TextSubComponent extends PureComponent {
 	render() {
 
 		return (
-			<Grid style={{ backgroundColor: 'transparent' }} columns={2}>
+			<Grid style={{backgroundColor: 'transparent'}} columns={2}>
 				<Grid.Row>
 					<Grid.Column width={9}>
-						<Dropdown defaultValue={ this.state.fontFamily }>
+						<Dropdown defaultValue={this.state.fontFamily}>
 							<Dropdown.Menu>
-								{ Fonts.map((font, i) => { return (
-									<Dropdown.Item
-										key={i}
-										id={ 'TextSubComponent-Font' }
-										onClick={ (e)=>this.setFontFamilyState(e.target.textContent) }
-										style={{ fontFamily: `${font.text}`, fontSize: `${this.state.fontSize}`}}
-										{ ...font }
-									/>
-								) } ) }
+								{Fonts.map((font, i) => {
+									return (
+										<Dropdown.Item
+											key={i}
+											id={'TextSubComponent-Font'}
+											onClick={(e) => this.setFontFamilyState(e.target.textContent)}
+											style={{fontFamily: `${font.text}`, fontSize: `${this.state.fontSize}`}}
+											{...font}
+										/>
+									)
+								})}
 							</Dropdown.Menu>
 						</Dropdown>
 					</Grid.Column>
 					<Grid.Column width={7}>
 						<input
-							style={{ width: '100%' }}
+							style={{width: '100%'}}
 							type={'number'}
-							id={ 'TextSubComponent-Size' }
-							onChange={ (e)=>this.setFontSizeState(e.target.value) }>
+							id={'TextSubComponent-Size'}
+							onChange={(e) => this.setFontSizeState(e.target.value)}>
 						</input>
 					</Grid.Column>
 				</Grid.Row>
