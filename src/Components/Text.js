@@ -2,7 +2,7 @@ import React, { PureComponent } from 'react';
 
 const textWrapperStyle = {
  	position: 'fixed',
-	height: ' 100%',
+	height: '100%',
 	width: '100%',
 	pointerEvents: 'auto',
 };
@@ -28,7 +28,7 @@ class Text extends PureComponent {
 			input: [],
 			clickedText: null,
 			dragging: null,
-			editing: null,
+			// editing: null,
 		}
 	}
 
@@ -150,11 +150,11 @@ class Text extends PureComponent {
 	onDoubleClick = (e) => {
 		let id = e.target.id;
 
-		if (id == this.state.editing) {
+		if (id == this.state.clickedText) {
 			this.setEditedTextToState(id);
 		} else {
 			this.setState({
-				editing: id,
+				clickedText: id,
 			})
 		}
 	};
@@ -181,7 +181,7 @@ class Text extends PureComponent {
 				inputArrayCopy.splice(i, 1, inputObj);
 				this.setState({
 					input: inputArrayCopy,
-					editing: null,
+					clickedText: null,
 				})
 			}
 		}
@@ -190,6 +190,8 @@ class Text extends PureComponent {
 	render() {
 
 		const { input } = this.state;
+
+		console.log(this.state)
 
 		return (
 			<div id={'text-wrapper'} style={ textWrapperStyle } onClick={ this.onMouseDown }>
@@ -208,12 +210,13 @@ class Text extends PureComponent {
 								style={{
 									position: 'fixed',
 									pointerEvents: `${ !this.props.textEditOpen ? 'none' : 'auto' }`,
-									backgroundColor: `${this.state.editing == id ? 'yellow' : 'transparent'}`,
+									height: `fit-content`,
+									backgroundColor: `${this.state.clickedText == id ? 'yellow' : 'transparent'}`,
 									cursor: `${this.state.dragging == id ? 'move' : 'arrow'}`,
 									top: inputEntry.x,
 									left: inputEntry.y,
-									fontSize: `${ this.state.editing == id ? `${ this.state.fontSize }px` : `${ inputEntry.fontSize }px` }`,
-									fontFamily:  `${ this.state.editing == id ? `${ this.state.fontFamily }` : `${ inputEntry.fontFamily }` }`,
+									fontSize: `${ this.state.clickedText == id ? `${ this.state.fontSize }px` : `${ inputEntry.fontSize }px` }`,
+									fontFamily:  `${ this.state.clickedText == id ? `${ this.state.fontFamily }` : `${ inputEntry.fontFamily }` }`,
 								}}
 							>{ inputEntry.text }
 							</div>

@@ -74,20 +74,34 @@ class Sidebar extends Component {
 			componentArray: [
 				{
 					name: 'Palette',
-					component: <Palette getColorFromPalette={ this.props.getColorFromPalette } />
+					component: <Palette
+									getColorFromPalette={ this.props.getColorFromPalette }
+							   />
 				},
 				{
 					name: 'Brushes',
-					component: <BrushContainer getSizeFromBrush={ this.props.getSizeFromBrush } />
+					component: <BrushContainer
+									getSizeFromBrush={ this.props.getSizeFromBrush }
+								/>
 				},
 				{
 					name: 'Background',
-					component: <Background addBackground={ this.props.addBackground } />,
+					component: <Background
+									addBackground={ this.props.addBackground }
+							   />,
 				},
 				{
 					name: 'Text',
-					component: <Text fontSize={ this.props.fontSize } fontFamily={ this.props.fontFamily } />, //?????
-					subcomponent: <TextSubComponent id={'textSubComponent'} setFont={ this.props.setFont } setFontSize={ this.props.setFontSize } textEditOpen={ this.props.textEditOpen } />
+					component: <Text
+									fontSize={ this.props.fontSize }
+									fontFamily={ this.props.fontFamily }
+								/>,
+					subcomponent: <TextSubComponent
+										id={'textSubComponent'}
+										setFont={ this.props.setFont }
+										setFontSize={ this.props.setFontSize }
+										textEditOpen={ this.props.textEditOpen }
+								  />
 
 				},
 			]
@@ -114,17 +128,13 @@ class Sidebar extends Component {
 
 		//if anything has been clicked
 		if (this.state.clicked) {
-			console.log('here 2')
 			//if this command is coming from the text component, turn on text
 			if (textComponentId == id || this.state.clicked == textComponentId) {
-				console.log('here 2.1')
 				this.props.setTextState('sidebar buttonClickSelect 2.1')
 			}
 
 			//if what was passed to me is what was previously clicked
 			if (this.state.clicked == id) {
-				console.log('here 2.2')
-
 				//set clicked to null and close it
 				this.setState({
 					clicked: null,
@@ -132,7 +142,6 @@ class Sidebar extends Component {
 			}
 			//if what was passed to me is not what was previously clicked
 			else {
-				console.log('here 2.4')
 				//set what was passed to me to be clicked
 				this.setState({
 					clicked: id,
@@ -141,9 +150,6 @@ class Sidebar extends Component {
 		}
 		//if nothing has been clicked
 		else {
-			console.log('here')
-			console.log(this.state.clicked, target, id)
-
 			//if I get here because I don't know the difference between '0' and 'false'
 			if (this.state.clicked === 0) {
 				//set clicked to null and close the div
@@ -154,23 +160,16 @@ class Sidebar extends Component {
 			} else {
 				//if this command is coming from the text component
 				if (textComponentId == id) {
-					console.log('here 0.1')
 					//turn on text
 					this.props.setTextState('sidebar buttonClickSelect 0.1')
 				}
 				//set clicked to the id and open the subComponent
 				this.setState({
 					clicked: id,
-				}, ()=>console.log('here  0.2 & state is '+JSON.stringify(this.state.clicked), id, target))
+				})
 			}
 		}
 
-	};
-
-	closeSideBar =	() => {
-		this.setState({
-			sidebarOpen: !this.state.sidebarOpen,
-		})
 	};
 
 	render() {
@@ -178,7 +177,7 @@ class Sidebar extends Component {
 		const { clicked } = this.state;
 
 		return (
-			<div style={ this.state.sidebarOpen ? sidebarOpen : sidebarClosed }>
+			<div style={ sidebarOpen }>
 				{
 					this.state.componentArray.map((component, i) => {
 						let id = i;

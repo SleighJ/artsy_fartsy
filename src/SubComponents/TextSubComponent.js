@@ -31,23 +31,26 @@ class TextSubComponent extends PureComponent {
 
 	render() {
 
+		const { fontFamily, fontSize } = this.state;
+
 		return (
 			<Grid style={{backgroundColor: 'transparent'}} columns={2}>
 				<Grid.Row>
 					<Grid.Column width={9}>
-						<Dropdown defaultValue={this.state.fontFamily}>
+						<Dropdown  value={this.state.fontFamily}>
 							<Dropdown.Menu>
-								{Fonts.map((font, i) => {
+								{ Fonts.map((font, i) => {
 									return (
 										<Dropdown.Item
 											key={i}
 											id={'TextSubComponent-Font'}
-											onClick={(e) => this.setFontFamilyState(e.target.textContent)}
-											style={{fontFamily: `${font.text}`, fontSize: `${this.state.fontSize}`}}
+											value={ fontFamily }
+											onClick={ (e) => this.setFontFamilyState(e.target.textContent) }
+											style={ {fontFamily: `${ font.text }`, fontSize: `${ fontSize }`} }
 											{...font}
 										/>
 									)
-								})}
+								}) }
 							</Dropdown.Menu>
 						</Dropdown>
 					</Grid.Column>
@@ -56,6 +59,8 @@ class TextSubComponent extends PureComponent {
 							style={{width: '100%'}}
 							type={'number'}
 							id={'TextSubComponent-Size'}
+							label={ 'Size' }
+							value={ this.state.fontSize }
 							onChange={(e) => this.setFontSizeState(e.target.value)}>
 						</input>
 					</Grid.Column>
