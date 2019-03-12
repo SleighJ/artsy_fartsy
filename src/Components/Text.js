@@ -32,12 +32,14 @@ class Text extends PureComponent {
 		}
 	}
 
-	componentDidUpdate = () => {
-		this.setState({
-			fontSize: this.props.fontSize,
-			fontFamily: this.props.selectedFont,
-			textEditOpen: this.props.textEditOpen,
-		})
+	componentDidUpdate = (prevState, prevProps) => {
+		if (prevProps != this.props) {
+			this.setState({
+				fontSize: parseInt(this.props.fontSize),
+				fontFamily: this.props.selectedFont,
+				textEditOpen: this.props.textEditOpen,
+			})
+		}
 	};
 
 	onMouseDown = ({ nativeEvent }) => {
@@ -70,15 +72,17 @@ class Text extends PureComponent {
 	};
 
 	handleTextClick = (e) => {
-		const keyCode = e.keyCode;
 
-		if (keyCode === 13) {
+		const keyCode = e.keyCode;
+		const value = e.target.value;
+
+		if (keyCode === 13 && value) {
 			const input = document.getElementById(`addTextInput-${ this.state.textInputId }`);
 			const increment = this.state.textInputId+1;
 
 			let inputObj = {
 					id: `draggableDiv-${increment}`,
-					text: e.target.value,
+					text: value,
 					x: parseInt(e.target.offsetTop, 10),
 					y: parseInt(e.target.offsetLeft, 10),
 					fontSize: this.state.fontSize,
@@ -96,36 +100,30 @@ class Text extends PureComponent {
 	};
 
 	setDragText = ({ nativeEvent }) => {
-
-		const { x, y } = nativeEvent;
-		let inputArrayCopy = this.state.input;
+		const { x, y, target } = nativeEvent;
 
 		if (x == 0 && y == 0) {
 			return
 		}
 
-		for (let i = 0; i < inputArrayCopy.length; i++) {
+		let parentNode = target.parentNode;
+		let id = parentNode.id;
+		let index = id.split('')[id.length-1]-1;
+		let inputArrayCopy = this.state.input;
 
-			let currentEntry = inputArrayCopy[i];
-			let id = currentEntry.id;
+		let inputObj = {
+			id: id,
+			text: target.nodeValue,
+			x: parseInt(y, 10),
+			y: parseInt(x, 10),
+			fontSize: this.state.fontSize,
+			fontFamily: this.state.fontFamily,
+		};
 
-			if (id == this.state.clickedText) {
-
-				let inputObj = {
-					id: this.state.clickedText,
-					text: nativeEvent.target.nodeValue,
-					x: parseInt(y, 10),
-					y: parseInt(x, 10),
-					fontSize: this.state.fontSize,
-					fontFamily: this.state.fontFamily,
-				};
-
-				inputArrayCopy.splice(i, 1, inputObj);
-				this.setState({
-					input: inputArrayCopy,
-				})
-			}
-		}
+		inputArrayCopy.splice(index, 1, inputObj);
+		this.setState({
+			input: inputArrayCopy,
+		})
 	};
 
 	onDragEnd = () => {
@@ -147,76 +145,95 @@ class Text extends PureComponent {
 		})
 	};
 
-	onDoubleClick = (id) => {
-		if (id == this.state.editedText) {
-			this.setEditedTextToState(id);
+	onDoubleClick = ({ nativeEvent }) => {
+
+		const { target } = nativeEvent;
+		let parentId = target.parentElement.id;
+
+		console.log(parentId, target.parentElement, this.state.clickedText)
+
+		if (parentId == this.state.editedText) {
+			this.setEditState({nativeEvent});
 		} else {
 			this.setState({
-				editedText: id,
+				editedText: parentId,
 			})
 		}
 	};
 
-	setEditedTextToState = (id) => {
+	setEditState = ({ nativeEvent }) => {
+
+		console.log('here')
+		const { target } = nativeEvent;
+
+		let parentId = target.parentElement.id;
+		let text = target.parentElement.innerText;
 		let inputArrayCopy = this.state.input;
+		let index = parentId.split('')[parentId.length-1]-1;
+		let selectedInput = inputArrayCopy[index];
 
-		for (let i = 0; i < inputArrayCopy.length; i++) {
+		let inputObj = {
+				id: parentId,
+				text: text,
+				x: parseInt(selectedInput.x, 10),
+				y: parseInt(selectedInput.y, 10),
+				fontSize: parseInt(this.state.fontSize),
+				fontFamily: this.state.fontFamily,
+			};
 
-			let currentEntry = inputArrayCopy[i];
-			let targetId = currentEntry.id;
+		console.log('from setEditState ')
+		console.log(inputObj)
 
-			if (id == targetId) {
+		inputArrayCopy.splice(index, 1, inputObj);
+		this.setState({
+			input: inputArrayCopy,
+		}, ()=>this.resetEditState())
+	};
 
-				let inputObj = {
-					id: targetId,
-					text: currentEntry.text,
-					x: currentEntry.x,
-					y: currentEntry.y,
-					fontSize: this.state.fontSize,
-					fontFamily: this.state.fontFamily,
-				};
-
-				inputArrayCopy.splice(i, 1, inputObj);
-				this.setState({
-					input: inputArrayCopy,
-					editedText: null,
-				})
-			}
-		}
+	resetEditState = () => {
+		this.setState({
+			editedText: null,
+			clickedText: null,
+		})
 	};
 
 	render() {
 
 		const { input } = this.state;
 
+		console.log(this.state)
+
 		return (
 			<div id={'text-wrapper'} style={ textWrapperStyle } onClick={ this.onMouseDown }>
 				{ input ?
 					input.map((inputEntry, i) => {
 						let id = inputEntry.id;
+						let index = id.split('')[id.length-1]-1;
 						return (
 							<div
 								id={ id }
 								key={ i }
+								value={inputEntry.text}
 								onMouseDown={ ()=>this.setDragIdToState(id) }
 								onDragStart={ ()=>this.onDragStart(id) }
 								onDrag={ this.setDragText }
 								onDragEnd={ this.onDragEnd }
-								onDoubleClick={ ()=>this.onDoubleClick(id) }
+								onDoubleClick={ this.state.editedText == id ? this.resetEditState : this.onDoubleClick }
 								style={{
 									position: 'fixed',
 									top: inputEntry.x,
 									left: inputEntry.y,
 									display: 'inline',
 									cursor: `${this.state.dragging == id ? 'move' : 'arrow'}`,
-									height: `${ this.state.clickedText == id ? `${ this.state.fontSize }px` : `${ inputEntry.fontSize }px` }`,
-									fontSize: `${ this.state.clickedText == id ? `${ this.state.fontSize }px` : `${ inputEntry.fontSize }px` }`,
-									fontFamily:  `${ this.state.clickedText == id ? `${ this.state.fontFamily }` : `${ inputEntry.fontFamily }` }`,
+									height: `${ this.state.clickedText == id ? `${ this.state.fontSize }px` : `${ input[index].fontSize }px` }`,
+									// fontSize: `${ this.state.clickedText == id ? `${ this.state.fontSize }px` : `${ input[index].fontSize }px` }`,
+									fontSize: `${ this.state.clickedText == id ? `${ this.state.fontSize }px` : console.log(input[index])}`,
+									fontFamily:  `${ this.state.clickedText == id ? `${ this.state.fontFamily }` : `${ input[index].fontFamily }` }`,
 									backgroundColor: `${ this.state.editedText == id ? 'yellow' : 'transparent' }`,
 									color: `${ this.state.editedText == id ? 'darkGrey' : 'black' }`
 								}}
 							>
-								{ inputEntry.text }
+								<text value={ inputEntry.text }>{ inputEntry.text }</text>
 							</div>
 						)
 					}) :
