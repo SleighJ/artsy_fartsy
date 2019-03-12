@@ -28,7 +28,7 @@ class Text extends PureComponent {
 			input: [],
 			clickedText: null,
 			dragging: null,
-			// editing: null,
+			editedText: null,
 		}
 	}
 
@@ -147,14 +147,12 @@ class Text extends PureComponent {
 		})
 	};
 
-	onDoubleClick = (e) => {
-		let id = e.target.id;
-
-		if (id == this.state.clickedText) {
+	onDoubleClick = (id) => {
+		if (id == this.state.editedText) {
 			this.setEditedTextToState(id);
 		} else {
 			this.setState({
-				clickedText: id,
+				editedText: id,
 			})
 		}
 	};
@@ -181,7 +179,7 @@ class Text extends PureComponent {
 				inputArrayCopy.splice(i, 1, inputObj);
 				this.setState({
 					input: inputArrayCopy,
-					clickedText: null,
+					editedText: null,
 				})
 			}
 		}
@@ -202,23 +200,33 @@ class Text extends PureComponent {
 							<div
 								id={ id }
 								key={ i }
-								onMouseDown={ ()=>this.setDragIdToState(inputEntry.id) }
+								onMouseDown={ ()=>this.setDragIdToState(id) }
 								onDragStart={ ()=>this.onDragStart(id) }
 								onDrag={ this.setDragText }
 								onDragEnd={ this.onDragEnd }
-								onDoubleClick={ (e)=>this.onDoubleClick(e) }
+								onDoubleClick={ ()=>this.onDoubleClick(id) }
 								style={{
 									position: 'fixed',
-									pointerEvents: `${ !this.props.textEditOpen ? 'none' : 'auto' }`,
 									height: `fit-content`,
-									backgroundColor: `${this.state.clickedText == id ? 'yellow' : 'transparent'}`,
 									cursor: `${this.state.dragging == id ? 'move' : 'arrow'}`,
 									top: inputEntry.x,
 									left: inputEntry.y,
-									fontSize: `${ this.state.clickedText == id ? `${ this.state.fontSize }px` : `${ inputEntry.fontSize }px` }`,
-									fontFamily:  `${ this.state.clickedText == id ? `${ this.state.fontFamily }` : `${ inputEntry.fontFamily }` }`,
 								}}
-							>{ inputEntry.text }
+							>
+								<div
+									style={{
+										display: 'inline',
+										height: `${ this.state.clickedText == id ? `${ this.state.fontSize }px` : `${ inputEntry.fontSize }px` }`,
+										fontSize: `${ this.state.clickedText == id ? `${ this.state.fontSize }px` : `${ inputEntry.fontSize }px` }`,
+										fontFamily:  `${ this.state.clickedText == id ? `${ this.state.fontFamily }` : `${ inputEntry.fontFamily }` }`,
+										backgroundColor: `${ this.state.editedText == id ? 'yellow' : 'transparent' }`,
+										color: `${ this.state.editedText == id ? 'darkGrey' : 'black' }`
+									}}
+								>
+
+									{ inputEntry.text }
+
+								</div>
 							</div>
 						)
 					}) :
