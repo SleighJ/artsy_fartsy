@@ -189,8 +189,6 @@ class Text extends PureComponent {
 
 		const { input } = this.state;
 
-		console.log(this.state)
-
 		return (
 			<div id={'text-wrapper'} style={ textWrapperStyle } onClick={ this.onMouseDown }>
 				{ input ?
@@ -207,26 +205,18 @@ class Text extends PureComponent {
 								onDoubleClick={ ()=>this.onDoubleClick(id) }
 								style={{
 									position: 'fixed',
-									height: `fit-content`,
-									cursor: `${this.state.dragging == id ? 'move' : 'arrow'}`,
 									top: inputEntry.x,
 									left: inputEntry.y,
+									display: 'inline',
+									cursor: `${this.state.dragging == id ? 'move' : 'arrow'}`,
+									height: `${ this.state.clickedText == id ? `${ this.state.fontSize }px` : `${ inputEntry.fontSize }px` }`,
+									fontSize: `${ this.state.clickedText == id ? `${ this.state.fontSize }px` : `${ inputEntry.fontSize }px` }`,
+									fontFamily:  `${ this.state.clickedText == id ? `${ this.state.fontFamily }` : `${ inputEntry.fontFamily }` }`,
+									backgroundColor: `${ this.state.editedText == id ? 'yellow' : 'transparent' }`,
+									color: `${ this.state.editedText == id ? 'darkGrey' : 'black' }`
 								}}
 							>
-								<div
-									style={{
-										display: 'inline',
-										height: `${ this.state.clickedText == id ? `${ this.state.fontSize }px` : `${ inputEntry.fontSize }px` }`,
-										fontSize: `${ this.state.clickedText == id ? `${ this.state.fontSize }px` : `${ inputEntry.fontSize }px` }`,
-										fontFamily:  `${ this.state.clickedText == id ? `${ this.state.fontFamily }` : `${ inputEntry.fontFamily }` }`,
-										backgroundColor: `${ this.state.editedText == id ? 'yellow' : 'transparent' }`,
-										color: `${ this.state.editedText == id ? 'darkGrey' : 'black' }`
-									}}
-								>
-
-									{ inputEntry.text }
-
-								</div>
+								{ inputEntry.text }
 							</div>
 						)
 					}) :
