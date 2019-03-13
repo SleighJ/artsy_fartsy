@@ -40,6 +40,10 @@ class Text extends PureComponent {
 				textEditOpen: this.props.textEditOpen,
 			})
 		}
+
+		if (prevState.editedText != this.state.editedText) {
+			this.props.getEditTextSelect(this.state.editedText);
+		}
 	};
 
 	onMouseDown = ({ nativeEvent }) => {
@@ -81,12 +85,12 @@ class Text extends PureComponent {
 			const increment = this.state.textInputId+1;
 
 			let inputObj = {
-					id: `draggableDiv-${increment}`,
-					text: value,
-					x: parseInt(e.target.offsetTop, 10),
-					y: parseInt(e.target.offsetLeft, 10),
-					fontSize: this.state.fontSize,
-					fontFamily: this.state.fontFamily,
+				id: `draggableDiv-${increment}`,
+				text: value,
+				x: parseInt(e.target.offsetTop, 10),
+				y: parseInt(e.target.offsetLeft, 10),
+				fontSize: this.state.fontSize,
+				fontFamily: this.state.fontFamily,
 			};
 
 			this.setState(prevState => ({
@@ -146,69 +150,80 @@ class Text extends PureComponent {
 	};
 
 	onDoubleClick = (e) => {
-
-		console.log('doubleClick')
-		console.log(e)
-
 		let id = e.target.id;
+		//TODO: needs logic to add changed fontSize to object in state (input array) if different textEdit is selected
 
-		console.log('setting id to state '+id)
-
-		this.setState({
-			editedText: id,
-		});
-
-		console.log(this.state)
-
-		if (id == this.state.clickedText) {
+		//if the selected text is not the same one stored from the last double click...
+		if (id != this.state.editedText) {
+			// console.log('id not equal to this.state.editedText');
+			//edit the properties of the corresponding changes in its object in the state
 			this.setEditState(e);
 		} else {
-			console.log('id does not equal state.clickedText')
-			this.setState({
-				clickedText: id,
-			})
+			// this.setState({
+			// 	editedText: id,
+			// });
 		}
 	};
 
 	setEditState = (e) => {
+		const { target } = e;
 
-		console.log('setEditState called')
-		// const { target } = e;
-		//
-		// let id = target.id;
-		// let text = target.innerText;
-		// let inputArrayCopy = this.state.input;
-		// let index = id.split('')[id.length-1]-1;
-		// let selectedInput = inputArrayCopy[index];
-		//
-		// let inputObj = {
-		// 		id: id,
-		// 		text: text,
-		// 		x: parseInt(selectedInput.x, 10),
-		// 		y: parseInt(selectedInput.y, 10),
-		// 		fontSize: this.state.fontSize,
-		// 		fontFamily: this.state.fontFamily,
-		// 	};
-		//
-		// inputArrayCopy.splice(index, 1, inputObj);
-		// console.log(inputArrayCopy)
-		// this.setState({
-		// 	input: inputArrayCopy,
-		// })
+		//unless it is the first iteration, id is retrieved from state, because if user is switching from text component to text component,
+		//the data passed will represent the most recently clicked and apply styling changes to the wrong text component.
+		//the old id is stored (oldTextId) so that styling can be changed immediately (hightlight) if the user clicks from one text component to another.
+		let oldTextId = this.state.editedText;
+		let newTextId = target.id;
+		let id = this.state.editedText ? oldTextId : newTextId;
+
+		//TODO: if oldTextId != newTextId than user is switching from one component to the next,
+		//TODO: save the old data and set the new state to represent the new selection but dont modify
+		//TODO: the new selection until it is either turned off or switched to a new selection
+
+		//set state so styling will change
+		this.setState({
+			editedText: newTextId,
+		}, ()=>this.props.getEditTextSelect(newTextId));
+
+
+		//get all of the data from newly updated/edited properties.
+		let inputArrayCopy = this.state.input;
+		let index = id.split('')[id.length-1]-1;
+		let selectedInput = inputArrayCopy[index];
+		let text = selectedInput.text;
+
+		//create object to replace old data
+		let inputObj = {
+				id: id,
+				text: text,
+				x: parseInt(selectedInput.x, 10),
+				y: parseInt(selectedInput.y, 10),
+				fontSize: this.state.fontSize,
+				fontFamily: this.state.fontFamily,
+			};
+
+
+		if (oldTextId != newTextId) {
+			//user switching from one component to the next
+			inputArrayCopy.splice(index, 1, inputObj);
+			this.setState({
+				input: inputArrayCopy,
+
+			});
+		} else {
+			console.log('i dont know what to do here');
+		}
+
+		//replace old object with inputObj in the inputArray, changes are saved here.
+
 	};
 
 	resetEditState = ({ nativeEvent }) => {
-		console.log('resetting editedText and clickedText to null')
-
-		console.log(nativeEvent);
 
 		let id = nativeEvent.target.id;
 		let text = nativeEvent.target.firstChild.data;
 		let inputArrayCopy = this.state.input;
 		let index = id.split('')[id.length-1]-1;
 		let selectedInput = inputArrayCopy[index];
-
-		console.log(selectedInput);
 
 		let inputObj = {
 			id: id,
@@ -220,8 +235,6 @@ class Text extends PureComponent {
 		};
 
 		inputArrayCopy.splice(index, 1, inputObj);
-		console.log(inputArrayCopy)
-
 		this.setState({
 			input: inputArrayCopy,
 			editedText: null,
@@ -232,8 +245,6 @@ class Text extends PureComponent {
 	render() {
 
 		const { input } = this.state;
-
-		console.log(this.state)
 
 		return (
 			<div id={'text-wrapper'} style={ textWrapperStyle } onClick={ this.onMouseDown }>
@@ -254,10 +265,10 @@ class Text extends PureComponent {
 								style={{
 									position: 'fixed',
 									pointerEvents: `${ !this.props.textEditOpen ? 'none' : 'auto' }`,
-									height: `${ this.state.clickedText == id ? `${ this.state.fontSize }px` : `${ inputEntry.fontSize }px` }`,
-									cursor: `${this.state.dragging == id ? 'move' : 'arrow'}`,
+									cursor: `${ this.state.dragging == id ? 'move' : 'arrow' }`,
 									top: inputEntry.x,
 									left: inputEntry.y,
+									height: `${ this.state.editedText == id ? `${ this.state.fontSize }px` : `${ inputEntry.fontSize }px` }`,
 									backgroundColor: `${this.state.editedText == id ? 'yellow' : 'transparent'}`,
 									fontSize: `${ this.state.editedText == id ? `${ this.state.fontSize }px` : `${ inputEntry.fontSize }px` }`,
 									fontFamily:  `${ this.state.editedText == id ? `${ this.state.fontFamily }` : `${ inputEntry.fontFamily }` }`,

@@ -1,17 +1,24 @@
-import React, { PureComponent } from 'react';
+import React, { Component } from 'react';
 
 import { Grid, Dropdown } from "semantic-ui-react";
 import Fonts from "../Static/Fonts";
 
-class TextSubComponent extends PureComponent {
+class TextSubComponent extends Component {
 	constructor(props) {
 		super(props);
 
 		this.state = {
 			fontSize: 20,
 			fontFamily: 'Roboto',
+			// selectedTextEdit: null,
 		}
 	}
+
+	componentDidUpdate = (prevState, prevProps) => {
+		console.log('componentDidUpdate from TEXTSUBCOMPONENT');
+		console.log(prevProps, this.props)
+	//TODO: handle so a value can be passed from text.js
+	};
 
 	setFontSizeState = (fontSize) => {
 		this.setState({
@@ -37,16 +44,15 @@ class TextSubComponent extends PureComponent {
 			<Grid style={{backgroundColor: 'transparent'}} columns={2}>
 				<Grid.Row>
 					<Grid.Column width={9}>
-						<Dropdown  value={this.state.fontFamily}>
+						<Dropdown style={{ position: 'fixed', fontFamily: `${this.state.fontSize}` }} text={`${ this.state.fontFamily }`}>
 							<Dropdown.Menu>
 								{ Fonts.map((font, i) => {
 									return (
 										<Dropdown.Item
 											key={i}
 											id={'TextSubComponent-Font'}
-											value={ fontFamily }
 											onClick={ (e) => this.setFontFamilyState(e.target.textContent) }
-											style={ {fontFamily: `${ font.text }`, fontSize: `${ fontSize }`} }
+											style={ {fontFamily: `${ font.text }`, fontSize: `12px`} }
 											{...font}
 										/>
 									)

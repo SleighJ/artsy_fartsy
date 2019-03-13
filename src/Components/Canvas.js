@@ -54,7 +54,7 @@ class Canvas extends PureComponent {
 	};
 
 	onMouseDown = ({ nativeEvent }) => {
-		console.log('mousedown')
+		// console.log('mousedown')
 		const { offsetX, offsetY } = nativeEvent;
 
 		if ( !this.state.textEditOpen ) {

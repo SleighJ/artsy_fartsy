@@ -92,20 +92,23 @@ class Sidebar extends Component {
 				},
 				{
 					name: 'Text',
-					component: <Text
-									fontSize={ this.props.fontSize }
-									fontFamily={ this.props.fontFamily }
-								/>,
+					component: <Text />,
 					subcomponent: <TextSubComponent
-										id={'textSubComponent'}
-										setFont={ this.props.setFont }
-										setFontSize={ this.props.setFontSize }
-										textEditOpen={ this.props.textEditOpen }
+									id={'textSubComponent'}
+									setFont={ this.props.setFont }
+									setFontSize={ this.props.setFontSize }
 								  />
 
 				},
 			]
 		}
+	}
+
+	componentDidUpdate = () => {
+		console.log('from sidebar update')
+
+		console.log(this.props);
+		console.log(this.props.selectedTextEdit)
 	}
 
 	buttonContainerSelect = (id) => {

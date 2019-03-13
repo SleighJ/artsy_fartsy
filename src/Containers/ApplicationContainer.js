@@ -81,7 +81,7 @@ class ApplicationContainer extends Component {
 	};
 
 	setTextState = (calledFrom) => {
-		console.log('setTextState has been called from '+calledFrom)
+		// console.log('setTextState has been called from '+calledFrom)
 		this.setState({
 			textEditOpen: !this.state.textEditOpen,
 		})
@@ -96,6 +96,13 @@ class ApplicationContainer extends Component {
 	setFont = (font) => {
 		this.setState({
 			selectedFont: font,
+		})
+	};
+
+	getEditTextSelect = (id) => {
+		// console.log(id)
+		this.setState({
+			selectedTextEdit: id,
 		})
 	};
 
@@ -118,6 +125,7 @@ class ApplicationContainer extends Component {
 						setFont={ this.setFont }
 						setTextState={ this.setTextState }
 						textEditOpen={ this.state.textEditOpen }
+						//for text selection change -> textEditSubComponent
 					/>
 				</Fragment>
 
@@ -131,6 +139,7 @@ class ApplicationContainer extends Component {
 						setTextState={ this.setTextState }
 						fontSize={ this.state.fontSize }
 						selectedFont={ this.state.selectedFont }
+						getEditTextSelect={ this.getEditTextSelect }
 					/>
 				</Fragment>
 
