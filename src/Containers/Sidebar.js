@@ -97,6 +97,7 @@ class Sidebar extends Component {
 									id={'textSubComponent'}
 									setFont={ this.props.setFont }
 									setFontSize={ this.props.setFontSize }
+									selectedTextEdit={ this.props.selectedTextEdit }
 								  />
 
 				},
@@ -109,6 +110,7 @@ class Sidebar extends Component {
 
 		console.log(this.props);
 		console.log(this.props.selectedTextEdit)
+		return ( <TextSubComponent selectedTextEdit={this.props.selectedTextEdit} />)
 	}
 
 	buttonContainerSelect = (id) => {
@@ -178,6 +180,7 @@ class Sidebar extends Component {
 	render() {
 
 		const { clicked } = this.state;
+		console.log(clicked)
 
 		return (
 			<div style={ sidebarOpen }>
@@ -197,11 +200,22 @@ class Sidebar extends Component {
 									<button id={ id } style={ buttonStyle }>{ component.name }</button>
 								</div>
 
-								<div>{ clicked == id ? <div style={ componentContainerStyle }>{  component.subcomponent && this.props.textEditOpen ? component.subcomponent : component.component }</div> : null }</div>
+								<div>{ clicked == id ? <div style={ componentContainerStyle }>{ component.component }</div> : null }</div>
 							</div>
 					)
 					})
 				}
+
+				{ this.state.clicked == 3 ?
+					<TextSubComponent
+						selectedTextEdit={this.props.selectedTextEdit}
+						id={'textSubComponent'}
+						setFont={ this.props.setFont }
+						setFontSize={ this.props.setFontSize }
+						selectedTextEdit={ this.props.selectedTextEdit }
+					/>
+				: null }
+
 			</div>
 		);
 	}

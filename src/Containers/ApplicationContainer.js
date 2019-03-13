@@ -22,6 +22,7 @@ class ApplicationContainer extends Component {
 			textEditOpen: false,
 			fontSize: 20,
 			selectedFont: 'Roboto',
+			selectedTextEdit: null,
 		}
 	}
 
@@ -123,9 +124,9 @@ class ApplicationContainer extends Component {
 						setFontSize={ this.setFontSize }
 						fontSize={ this.state.fontSize }
 						setFont={ this.setFont }
-						setTextState={ this.setTextState }
 						textEditOpen={ this.state.textEditOpen }
 						//for text selection change -> textEditSubComponent
+						selectedTextEdit={ this.state.selectedTextEdit }
 					/>
 				</Fragment>
 

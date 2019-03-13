@@ -10,13 +10,17 @@ class TextSubComponent extends Component {
 		this.state = {
 			fontSize: 20,
 			fontFamily: 'Roboto',
-			// selectedTextEdit: null,
+			selectedTextEdit: null,
 		}
 	}
 
 	componentDidUpdate = (prevState, prevProps) => {
-		console.log('componentDidUpdate from TEXTSUBCOMPONENT');
-		console.log(prevProps, this.props)
+		if (this.props.selectedTextEdit != this.state.selectedTextEdit) {
+			this.setState({
+				selectedTextEdit: this.props.selectedTextEdit,
+				fontSize: 20,
+			})
+		}
 	//TODO: handle so a value can be passed from text.js
 	};
 
@@ -35,6 +39,13 @@ class TextSubComponent extends Component {
 
 		this.props.setFont(fontFamily);
 	};
+
+	resetFont = () => {
+		this.setState({
+			fontSize: 20,
+		})
+	};
+
 
 	render() {
 
