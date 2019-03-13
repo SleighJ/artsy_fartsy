@@ -28,7 +28,7 @@ class Text extends PureComponent {
 			input: [],
 			clickedText: null,
 			dragging: null,
-			// editing: null,
+			editedText: null,
 		}
 	}
 
@@ -146,11 +146,24 @@ class Text extends PureComponent {
 	};
 
 	onDoubleClick = (e) => {
+
+		console.log('doubleClick')
+		console.log(e)
+
 		let id = e.target.id;
+
+		console.log('setting id to state '+id)
+
+		this.setState({
+			editedText: id,
+		});
+
+		console.log(this.state)
 
 		if (id == this.state.clickedText) {
 			this.setEditState(e);
 		} else {
+			console.log('id does not equal state.clickedText')
 			this.setState({
 				clickedText: id,
 			})
@@ -159,31 +172,58 @@ class Text extends PureComponent {
 
 	setEditState = (e) => {
 
-		const { target } = e;
+		console.log('setEditState called')
+		// const { target } = e;
+		//
+		// let id = target.id;
+		// let text = target.innerText;
+		// let inputArrayCopy = this.state.input;
+		// let index = id.split('')[id.length-1]-1;
+		// let selectedInput = inputArrayCopy[index];
+		//
+		// let inputObj = {
+		// 		id: id,
+		// 		text: text,
+		// 		x: parseInt(selectedInput.x, 10),
+		// 		y: parseInt(selectedInput.y, 10),
+		// 		fontSize: this.state.fontSize,
+		// 		fontFamily: this.state.fontFamily,
+		// 	};
+		//
+		// inputArrayCopy.splice(index, 1, inputObj);
+		// console.log(inputArrayCopy)
+		// this.setState({
+		// 	input: inputArrayCopy,
+		// })
+	};
 
-		let id = target.id;
-		let text = target.innerText;
+	resetEditState = ({ nativeEvent }) => {
+		console.log('resetting editedText and clickedText to null')
+
+		console.log(nativeEvent);
+
+		let id = nativeEvent.target.id;
+		let text = nativeEvent.target.firstChild.data;
 		let inputArrayCopy = this.state.input;
 		let index = id.split('')[id.length-1]-1;
 		let selectedInput = inputArrayCopy[index];
 
+		console.log(selectedInput);
+
 		let inputObj = {
-				id: id,
-				text: text,
-				x: parseInt(selectedInput.x, 10),
-				y: parseInt(selectedInput.y, 10),
-				fontSize: parseInt(this.state.fontSize),
-				fontFamily: this.state.fontFamily,
-			};
+			id: id,
+			text: text,
+			x: parseInt(selectedInput.x, 10),
+			y: parseInt(selectedInput.y, 10),
+			fontSize: this.state.fontSize,
+			fontFamily: this.state.fontFamily,
+		};
 
 		inputArrayCopy.splice(index, 1, inputObj);
+		console.log(inputArrayCopy)
+
 		this.setState({
 			input: inputArrayCopy,
-		}, ()=>this.resetEditState())
-	};
-
-	resetEditState = () => {
-		this.setState({
 			editedText: null,
 			clickedText: null,
 		})
@@ -192,6 +232,8 @@ class Text extends PureComponent {
 	render() {
 
 		const { input } = this.state;
+
+		console.log(this.state)
 
 		return (
 			<div id={'text-wrapper'} style={ textWrapperStyle } onClick={ this.onMouseDown }>
@@ -203,22 +245,22 @@ class Text extends PureComponent {
 							<div
 								id={ id }
 								key={ i }
-								value={inputEntry.text}
+								value={ inputEntry.text }
+								onDoubleClick={ this.state.editedText == id ? this.resetEditState : this.onDoubleClick }
 								onMouseDown={ ()=>this.setDragIdToState(id) }
 								onDragStart={ ()=>this.onDragStart(id) }
 								onDrag={ this.setDragText }
 								onDragEnd={ this.onDragEnd }
-								onDoubleClick={ this.state.editedText == id ? this.resetEditState : this.onDoubleClick }
 								style={{
 									position: 'fixed',
 									pointerEvents: `${ !this.props.textEditOpen ? 'none' : 'auto' }`,
 									height: `${ this.state.clickedText == id ? `${ this.state.fontSize }px` : `${ inputEntry.fontSize }px` }`,
-									backgroundColor: `${this.state.clickedText == id ? 'yellow' : 'transparent'}`,
 									cursor: `${this.state.dragging == id ? 'move' : 'arrow'}`,
 									top: inputEntry.x,
 									left: inputEntry.y,
-									fontSize: `${ this.state.clickedText == id ? `${ this.state.fontSize }px` : `${ inputEntry.fontSize }px` }`,
-									fontFamily:  `${ this.state.clickedText == id ? `${ this.state.fontFamily }` : `${ inputEntry.fontFamily }` }`,
+									backgroundColor: `${this.state.editedText == id ? 'yellow' : 'transparent'}`,
+									fontSize: `${ this.state.editedText == id ? `${ this.state.fontSize }px` : `${ inputEntry.fontSize }px` }`,
+									fontFamily:  `${ this.state.editedText == id ? `${ this.state.fontFamily }` : `${ inputEntry.fontFamily }` }`,
 								}}
 							>{ inputEntry.text }
 							</div>

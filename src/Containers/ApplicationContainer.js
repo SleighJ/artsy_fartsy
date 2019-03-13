@@ -103,8 +103,6 @@ class ApplicationContainer extends Component {
 
 		const { color, width, textEditOpen } = this.state;
 
-		console.log(this.state.fontSize)
-
 		return (
 			<div>
 
