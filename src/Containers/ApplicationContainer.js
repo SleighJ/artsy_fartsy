@@ -23,6 +23,7 @@ class ApplicationContainer extends Component {
 			fontSize: 20,
 			selectedFont: 'Roboto',
 			selectedTextEdit: null,
+			textEditObj: null,
 		}
 	}
 
@@ -81,8 +82,7 @@ class ApplicationContainer extends Component {
 		});
 	};
 
-	setTextState = (calledFrom) => {
-		// console.log('setTextState has been called from '+calledFrom)
+	setTextState = () => {
 		this.setState({
 			textEditOpen: !this.state.textEditOpen,
 		})
@@ -100,10 +100,10 @@ class ApplicationContainer extends Component {
 		})
 	};
 
-	getEditTextSelect = (id) => {
-		// console.log(id)
+	getEditTextSelect = (newlySelectedObj) => {
 		this.setState({
-			selectedTextEdit: id,
+			selectedTextEdit: newlySelectedObj.id,
+			textEditObj: newlySelectedObj,
 		})
 	};
 
@@ -125,8 +125,8 @@ class ApplicationContainer extends Component {
 						fontSize={ this.state.fontSize }
 						setFont={ this.setFont }
 						textEditOpen={ this.state.textEditOpen }
-						//for text selection change -> textEditSubComponent
 						selectedTextEdit={ this.state.selectedTextEdit }
+						textEditObj={ this.state.textEditObj }
 					/>
 				</Fragment>
 

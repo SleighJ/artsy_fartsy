@@ -197,6 +197,7 @@ class Sidebar extends Component {
 						setFont={ this.props.setFont }
 						setFontSize={ this.props.setFontSize }
 						selectedTextEdit={ this.props.selectedTextEdit }
+						textEditObj={ this.props.textEditObj }
 					/>
 				: null }
 

@@ -41,9 +41,9 @@ class Text extends PureComponent {
 			})
 		}
 
-		if (prevState.editedText != this.state.editedText) {
-			this.props.getEditTextSelect(this.state.editedText);
-		}
+		// if (prevState.editedText != this.state.editedText) {
+		// 	this.props.getEditTextSelect(this.state.editedText);
+		// }
 	};
 
 	onMouseDown = ({ nativeEvent }) => {
@@ -171,6 +171,7 @@ class Text extends PureComponent {
 		//unless it is the first iteration, id is retrieved from state, because if user is switching from text component to text component,
 		//the data passed will represent the most recently clicked and apply styling changes to the wrong text component.
 		//the old id is stored (oldTextId) so that styling can be changed immediately (hightlight) if the user clicks from one text component to another.
+
 		let oldTextId = this.state.editedText;
 		let newTextId = target.id;
 		let id = this.state.editedText ? oldTextId : newTextId;
@@ -179,39 +180,45 @@ class Text extends PureComponent {
 		//TODO: save the old data and set the new state to represent the new selection but dont modify
 		//TODO: the new selection until it is either turned off or switched to a new selection
 
-		//set state so styling will change
-		this.setState({
-			editedText: newTextId,
-		}, ()=>this.props.getEditTextSelect(newTextId));
-
-
-		//get all of the data from newly updated/edited properties.
 		let inputArrayCopy = this.state.input;
 		let index = id.split('')[id.length-1]-1;
 		let selectedInput = inputArrayCopy[index];
 		let text = selectedInput.text;
 
-		//create object to replace old data
+		//create new object to replace old object
 		let inputObj = {
-				id: id,
-				text: text,
-				x: parseInt(selectedInput.x, 10),
-				y: parseInt(selectedInput.y, 10),
-				fontSize: this.state.fontSize,
-				fontFamily: this.state.fontFamily,
-			};
+			id: id,
+			text: text,
+			x: parseInt(selectedInput.x, 10),
+			y: parseInt(selectedInput.y, 10),
+			fontSize: this.state.fontSize,
+			fontFamily: this.state.fontFamily,
+		};
+
+		//TODO: your sending the wrong size, ya doof
+
+		let newlySelectedObj = {
+			id: newTextId,
+			text: text,
+			fontSize: selectedInput.fontSize,
+			fontFamily: selectedInput.fontFamily,
+		};
+
+		//set state so styling will change, update obj in input array
+		inputArrayCopy.splice(index, 1, inputObj);
+		this.setState({
+			editedText: newTextId,
+			input: inputArrayCopy,
+		//tell parent that there is a newly selected text
+		}, ()=>this.props.getEditTextSelect(newlySelectedObj));
 
 
-		if (oldTextId != newTextId) {
-			//user switching from one component to the next
-			inputArrayCopy.splice(index, 1, inputObj);
-			this.setState({
-				input: inputArrayCopy,
-
-			});
-		} else {
-			console.log('i dont know what to do here');
-		}
+		// if (oldTextId != newTextId) {
+		// 	//user switching from one component to the next
+		//
+		// } else {
+		// 	console.log('i dont know what to do here');
+		// }
 
 		//replace old object with inputObj in the inputArray, changes are saved here.
 
@@ -245,8 +252,6 @@ class Text extends PureComponent {
 	render() {
 
 		const { input } = this.state;
-
-		console.log(this.state)
 
 		return (
 			<div id={'text-wrapper'} style={ textWrapperStyle } onClick={ this.onMouseDown }>
