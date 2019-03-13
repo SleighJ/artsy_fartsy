@@ -19,7 +19,7 @@ class TextSubComponent extends Component {
 			this.setState({
 				selectedTextEdit: this.props.selectedTextEdit,
 				fontSize: 20,
-			})
+			}, this.props.setFontSize(20))
 		}
 	//TODO: handle so a value can be passed from text.js
 	};
@@ -39,13 +39,6 @@ class TextSubComponent extends Component {
 
 		this.props.setFont(fontFamily);
 	};
-
-	resetFont = () => {
-		this.setState({
-			fontSize: 20,
-		})
-	};
-
 
 	render() {
 

@@ -246,6 +246,8 @@ class Text extends PureComponent {
 
 		const { input } = this.state;
 
+		console.log(this.state)
+
 		return (
 			<div id={'text-wrapper'} style={ textWrapperStyle } onClick={ this.onMouseDown }>
 				{ input ?

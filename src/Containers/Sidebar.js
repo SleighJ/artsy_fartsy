@@ -93,24 +93,9 @@ class Sidebar extends Component {
 				{
 					name: 'Text',
 					component: <Text />,
-					subcomponent: <TextSubComponent
-									id={'textSubComponent'}
-									setFont={ this.props.setFont }
-									setFontSize={ this.props.setFontSize }
-									selectedTextEdit={ this.props.selectedTextEdit }
-								  />
-
 				},
 			]
 		}
-	}
-
-	componentDidUpdate = () => {
-		console.log('from sidebar update')
-
-		console.log(this.props);
-		console.log(this.props.selectedTextEdit)
-		return ( <TextSubComponent selectedTextEdit={this.props.selectedTextEdit} />)
 	}
 
 	buttonContainerSelect = (id) => {
@@ -180,7 +165,6 @@ class Sidebar extends Component {
 	render() {
 
 		const { clicked } = this.state;
-		console.log(clicked)
 
 		return (
 			<div style={ sidebarOpen }>
