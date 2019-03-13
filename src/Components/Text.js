@@ -221,19 +221,26 @@ class Text extends PureComponent {
 								onDoubleClick={ this.state.editedText == id ? this.resetEditState : this.onDoubleClick }
 								style={{
 									position: 'fixed',
+									height: `fit-content`,
+									cursor: `${this.state.dragging == id ? 'move' : 'arrow'}`,
 									top: inputEntry.x,
 									left: inputEntry.y,
-									display: 'inline',
-									cursor: `${this.state.dragging == id ? 'move' : 'arrow'}`,
-									height: `${ this.state.clickedText == id ? `${ this.state.fontSize }px` : `${ input[index].fontSize }px` }`,
-									// fontSize: `${ this.state.clickedText == id ? `${ this.state.fontSize }px` : `${ input[index].fontSize }px` }`,
-									fontSize: `${ this.state.clickedText == id ? `${ this.state.fontSize }px` : console.log(input[index])}`,
-									fontFamily:  `${ this.state.clickedText == id ? `${ this.state.fontFamily }` : `${ input[index].fontFamily }` }`,
-									backgroundColor: `${ this.state.editedText == id ? 'yellow' : 'transparent' }`,
-									color: `${ this.state.editedText == id ? 'darkGrey' : 'black' }`
 								}}
 							>
-								<text value={ inputEntry.text }>{ inputEntry.text }</text>
+								<div
+									style={{
+										display: 'inline',
+										height: `${ this.state.clickedText == id ? `${ this.state.fontSize }px` : `${ inputEntry.fontSize }px` }`,
+										fontSize: `${ this.state.clickedText == id ? `${ this.state.fontSize }px` : `${ inputEntry.fontSize }px` }`,
+										fontFamily:  `${ this.state.clickedText == id ? `${ this.state.fontFamily }` : `${ inputEntry.fontFamily }` }`,
+										backgroundColor: `${ this.state.editedText == id ? 'yellow' : 'transparent' }`,
+										color: `${ this.state.editedText == id ? 'darkGrey' : 'black' }`
+									}}
+								>
+
+									{ inputEntry.text }
+
+								</div>
 							</div>
 						)
 					}) :
