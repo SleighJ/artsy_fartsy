@@ -61,9 +61,11 @@ class Text extends PureComponent {
 
 	addText = ({nativeEvent}) => {
 
+		console.log(this.state)
+
 		const { offsetX, offsetY } = nativeEvent;
 
-		if (!this.state.clickedText) {
+		if (!this.state.clickedText && !this.state.editedText) {
 
 			if (!this.state.hasInput) {
 
