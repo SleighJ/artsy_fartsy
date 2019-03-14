@@ -176,10 +176,6 @@ class Text extends PureComponent {
 		let newTextId = target.id;
 		let id = this.state.editedText ? oldTextId : newTextId;
 
-		//TODO: if oldTextId != newTextId than user is switching from one component to the next,
-		//TODO: save the old data and set the new state to represent the new selection but dont modify
-		//TODO: the new selection until it is either turned off or switched to a new selection
-
 		let inputArrayCopy = this.state.input;
 		let index = id.split('')[id.length-1]-1;
 		let selectedInput = inputArrayCopy[index];
@@ -195,11 +191,10 @@ class Text extends PureComponent {
 			fontFamily: this.state.fontFamily,
 		};
 
-		//TODO: your sending the wrong size, ya doof
-
-		let newlyStyledFontSize = target.style.fontSize;
-		console.log(selectedInput.fontSize, newlyStyledFontSize)
-
+		//removed 'px' off the DOM obj styling
+		let newlyStyledFontSizeArr = target.style.fontSize.split('');
+		newlyStyledFontSizeArr.splice(newlyStyledFontSizeArr.length-2, 2);
+		let newlyStyledFontSize = newlyStyledFontSizeArr.join('');
 
 		let newlySelectedObj = {
 			id: newTextId,
@@ -215,17 +210,6 @@ class Text extends PureComponent {
 			input: inputArrayCopy,
 		//tell parent that there is a newly selected text
 		}, ()=>this.props.getEditTextSelect(newlySelectedObj));
-
-
-		// if (oldTextId != newTextId) {
-		// 	//user switching from one component to the next
-		//
-		// } else {
-		// 	console.log('i dont know what to do here');
-		// }
-
-		//replace old object with inputObj in the inputArray, changes are saved here.
-
 	};
 
 	resetEditState = ({ nativeEvent }) => {

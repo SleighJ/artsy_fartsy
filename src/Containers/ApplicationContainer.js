@@ -2,8 +2,6 @@ import React, { Component, Fragment } from 'react';
 
 import CanvasContainer from './CanvasContainer';
 import Sidebar from './Sidebar';
-import Palette from './Palette';
-import BrushContainer from './BrushContainer';
 import '../CSS/ApplicationContainer.css';
 
 import { storage } from '../Firebase/Firebase';
@@ -101,8 +99,7 @@ class ApplicationContainer extends Component {
 	};
 
 	getEditTextSelect = (newlySelectedObj) => {
-		console.log('from APP')
-		console.log(newlySelectedObj)
+		//this function saves data from newlySelectedObj from Text.js so it can be passed to textSubComponent.js
 		this.setState({
 			selectedTextEdit: newlySelectedObj.id,
 			textEditObj: newlySelectedObj,
