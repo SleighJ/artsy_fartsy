@@ -32,6 +32,15 @@ class Text extends PureComponent {
 		}
 	}
 
+	// shouldComponentUpdate = (prevProps, prevState) => {
+	// 	console.log('should')
+	// 	if (prevState.input.length > 0 && this.state.input.length == 0) {
+	// 		return false
+	// 	} else {
+	// 		return true;
+	// 	}
+	// }
+
 	componentDidUpdate = (prevState, prevProps) => {
 		if (prevProps != this.props) {
 			this.setState({
@@ -40,38 +49,73 @@ class Text extends PureComponent {
 				textEditOpen: this.props.textEditOpen,
 			})
 		}
-
-		// if (prevState.editedText != this.state.editedText) {
-		// 	this.props.getEditTextSelect(this.state.editedText);
-		// }
 	};
 
 	onMouseDown = ({ nativeEvent }) => {
-		const { offsetX, offsetY } = nativeEvent;
+		// const { offsetX, offsetY } = nativeEvent;
 
 		if (this.state.textEditOpen) {
-			this.addText(offsetX, offsetY)
+			this.addText({nativeEvent})
 		}
 	};
 
-	addText = (offsetX, offsetY) => {
-		if (!this.state.hasInput && !this.state.clickedText) {
-			let input = document.createElement('input');
-			input.type = 'text';
-			input.id = `addTextInput-${ this.state.textInputId }`;
-			input.style.position = 'fixed';
-			input.style.left = (offsetX) + 'px';
-			input.style.top = (offsetY) + 'px';
-			input.style.marginLeft = '13%';
-			input.autofocus = true;
-			input.onkeydown = this.handleTextClick;
-			document.body.appendChild(input);
+	addText = ({nativeEvent}) => {
 
-			this.setState({
-				hasInput: true,
-			});
+		const { offsetX, offsetY } = nativeEvent;
 
-			input.focus();
+		if (!this.state.clickedText) {
+
+			if (!this.state.hasInput) {
+
+				let input = document.createElement('input');
+				input.type = 'text';
+				input.id = `addTextInput-${ this.state.textInputId }`;
+				input.style.position = 'fixed';
+				input.style.left = (offsetX) + 'px';
+				input.style.top = (offsetY) + 'px';
+				input.style.marginLeft = '13%';
+				input.autofocus = true;
+				input.onkeydown = this.handleTextClick;
+				document.body.appendChild(input);
+
+				this.setState({
+					hasInput: true,
+				});
+
+				input.focus();
+			} else {
+
+				const input = document.getElementById(`addTextInput-${ this.state.textInputId }`);
+				const value = input.value;
+
+				//if there is a value in the input, save it when user clicks away
+				if (value) {
+					const increment = this.state.textInputId+1;
+					const y = input.style.left;
+					const x = input.style.top;
+
+					let inputObj = {
+						id: `draggableDiv-${increment}`,
+						text: value,
+						x: parseInt(x),
+						y: parseInt(y),
+						fontSize: this.state.fontSize,
+						fontFamily: this.state.fontFamily,
+					};
+
+					this.setState(prevState => ({
+						hasInput: false,
+						textInputId: increment,
+						input: [...prevState.input, inputObj],
+					}), ()=>document.body.removeChild(input));
+
+				} else {
+					//remove input if there is no value
+					this.setState({
+						hasInput: false,
+					}, ()=>document.body.removeChild(input));
+				}
+			}
 		}
 	};
 
@@ -151,17 +195,10 @@ class Text extends PureComponent {
 
 	onDoubleClick = (e) => {
 		let id = e.target.id;
-		//TODO: needs logic to add changed fontSize to object in state (input array) if different textEdit is selected
 
 		//if the selected text is not the same one stored from the last double click...
 		if (id != this.state.editedText) {
-			// console.log('id not equal to this.state.editedText');
-			//edit the properties of the corresponding changes in its object in the state
 			this.setEditState(e);
-		} else {
-			// this.setState({
-			// 	editedText: id,
-			// });
 		}
 	};
 
@@ -240,6 +277,8 @@ class Text extends PureComponent {
 	render() {
 
 		const { input } = this.state;
+
+		console.log(this.state)
 
 		return (
 			<div id={'text-wrapper'} style={ textWrapperStyle } onClick={ this.onMouseDown }>

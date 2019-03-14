@@ -29,9 +29,20 @@ class CanvasContainer extends Component {
 		}
 	}
 
+	// shouldComponentUpdate = (prevProps, prevState) => {
+	// 	if (this.state.croppedUrl) {return false}else{return true}
+	// }
+
+	componentWillUpdate = () => {
+		console.log('container is updating')
+	};
+
 	componentDidUpdate = (prevProps) => {
+		//if there is a background in props and none in the state (first load)
 		if ( this.props.background && !this.state.background ) {
+			//if there is no cropped pic available (thus process has not been finished)
 			if (!this.state.croppedUrl) {
+				//set the background in the local state and set loading to true
 				this.setState({
 					background: this.props.background,
 					loadingBackground: true,
@@ -39,7 +50,9 @@ class CanvasContainer extends Component {
 			}
 		}
 
+		//if there is a cropped image (thus the user finished the process)
 		if (this.state.croppedUrl && this.state.background) {
+			//set the background to null and loading to false so process can run again later
 			this.setState({
 				background: null,
 				loadingBackground: false,
