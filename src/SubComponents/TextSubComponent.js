@@ -16,21 +16,16 @@ class TextSubComponent extends Component {
 	}
 
 	componentDidUpdate = (prevState, prevProps) => {
-		console.log('fromTSC')
 		//if incoming selectedTextEdit does not equal selectedTextEdit
 		if (this.props.selectedTextEdit != this.state.selectedTextEdit) {
-			// console.log(this.props.textEditObj)
-			console.log('selectedTextEdit != this.state.selectedTextEdit')
 			//decide what the font size should be -> if there is an incoming fontSize, use it, or else just set it to 20.
 			let fontSize = this.props.textEditObj.fontSize ? this.props.textEditObj.fontSize : 20;
-			console.log(fontSize);
-
-			// if (fontSize == 20) { console.log('No fontSize was detected, fontSize has been set to 20') }
 			//save the id of selectedTextEdit, its corresponding data, and its fontSize
 			this.setState({
 				selectedTextEdit: this.props.selectedTextEdit,
 				textEditObj: this.props.textEditObj,
 				fontSize: fontSize,
+				//tell parent that fontSize has changed
 			}, this.props.setFontSize(fontSize))
 		}
 	};
@@ -56,10 +51,10 @@ class TextSubComponent extends Component {
 		const { fontFamily, fontSize } = this.state;
 
 		return (
-			<Grid style={{backgroundColor: 'transparent'}} columns={2}>
-				<Grid.Row>
-					<Grid.Column width={9}>
-						<Dropdown style={{ position: 'fixed', fontFamily: `${this.state.fontSize}` }} text={`${ this.state.fontFamily }`}>
+			<Grid style={{backgroundColor: 'transparent', margin: 0}} columns={2}>
+				<Grid.Row style={{ marginLeft: '5%', marginRight: '5%'}}>
+					<Grid.Column style={{padding: '0'}} width={11}>
+						<Dropdown style={{ position: 'fixed', fontSize: '70%', fontFamily: `${this.state.fontFamily}` }} text={`${ this.state.fontFamily }`}>
 							<Dropdown.Menu>
 								{ Fonts.map((font, i) => {
 									return (
@@ -75,7 +70,7 @@ class TextSubComponent extends Component {
 							</Dropdown.Menu>
 						</Dropdown>
 					</Grid.Column>
-					<Grid.Column width={7}>
+					<Grid.Column style={{padding: '0'}} width={5}>
 						<input
 							style={{width: '100%'}}
 							type={'number'}
