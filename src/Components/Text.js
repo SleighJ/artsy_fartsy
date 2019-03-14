@@ -197,10 +197,14 @@ class Text extends PureComponent {
 
 		//TODO: your sending the wrong size, ya doof
 
+		let newlyStyledFontSize = target.style.fontSize;
+		console.log(selectedInput.fontSize, newlyStyledFontSize)
+
+
 		let newlySelectedObj = {
 			id: newTextId,
 			text: text,
-			fontSize: selectedInput.fontSize,
+			fontSize: newlyStyledFontSize,
 			fontFamily: selectedInput.fontFamily,
 		};
 
@@ -277,6 +281,7 @@ class Text extends PureComponent {
 									left: inputEntry.y,
 									height: `${ this.state.editedText == id ? `${ this.state.fontSize }px` : `${ inputEntry.fontSize }px` }`,
 									backgroundColor: `${this.state.editedText == id ? 'yellow' : 'transparent'}`,
+									//if i am selected and there is a stored value for fontSize, make sure that textSubComponent sets the saved fontSize to its default
 									fontSize: `${ this.state.editedText == id ? `${ this.state.fontSize }px` : `${ inputEntry.fontSize }px` }`,
 									fontFamily:  `${ this.state.editedText == id ? `${ this.state.fontFamily }` : `${ inputEntry.fontFamily }` }`,
 								}}

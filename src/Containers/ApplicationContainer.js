@@ -101,6 +101,8 @@ class ApplicationContainer extends Component {
 	};
 
 	getEditTextSelect = (newlySelectedObj) => {
+		console.log('from APP')
+		console.log(newlySelectedObj)
 		this.setState({
 			selectedTextEdit: newlySelectedObj.id,
 			textEditObj: newlySelectedObj,
