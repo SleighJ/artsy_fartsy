@@ -16,17 +16,20 @@ class TextSubComponent extends Component {
 	}
 
 	componentDidUpdate = (prevState, prevProps) => {
-		//if incoming selectedTextEdit does not equal selectedTextEdit
+		//if incoming selectedTextEdit value does not equal the current selectedTextEdit value (there is a change happening)
 		if (this.props.selectedTextEdit != this.state.selectedTextEdit) {
-			//decide what the font size should be -> if there is an incoming fontSize, use it, or else just set it to 20.
+			//decide what the font size and family should be -> if there is an incoming font size/font family value, use it, or else just set it to 20/Roboto.
 			let fontSize = this.props.textEditObj.fontSize ? this.props.textEditObj.fontSize : 20;
-			//save the id of selectedTextEdit, its corresponding data, and its fontSize
+			let fontFamily = this.props.textEditObj.fontFamily ? this.props.textEditObj.fontFamily : 'Roboto';
+
+			//save the id of selectedTextEdit, its corresponding data, its fontSize and its fontFamily
 			this.setState({
 				selectedTextEdit: this.props.selectedTextEdit,
 				textEditObj: this.props.textEditObj,
 				fontSize: fontSize,
-				//tell parent that fontSize has changed
-			}, this.props.setFontSize(fontSize))
+				fontFamily: fontFamily,
+				//tell parent that fontSize and fontFamily has changed
+			}, this.props.setFontSize(fontSize), this.props.setFont(fontFamily))
 		}
 	};
 
