@@ -55,13 +55,6 @@ const sidebarOpen = {
 	position: 'fixed',
 };
 
-const sidebarClosed = {
-	backgroundColor: 'lightGrey',
-	width: '3%',
-	height: '100%',
-	position: 'fixed',
-};
-
 class Sidebar extends Component {
 	constructor(props) {
 		super(props);
@@ -98,6 +91,7 @@ class Sidebar extends Component {
 		}
 	}
 
+	//selects the component from the state (I know, prob not the best idea - Refactor coming soon!)
 	buttonContainerSelect = (id) => {
 		let component = this.state.componentArray[id].component;
 
@@ -107,12 +101,14 @@ class Sidebar extends Component {
 		})
 	};
 
+	//handles hovered styling
 	buttonContainerUnSelect = () => {
 		this.setState({
 			hovered: null,
 		})
 	};
 
+	//handles the selection of components and communicating local state changes to the rest of the application
 	buttonClickSelect = (target, id) => {
 		const textComponentId = 3;
 
@@ -190,6 +186,7 @@ class Sidebar extends Component {
 					})
 				}
 
+				{/* <------------- work around to allow textSubComponent to receive props via state of parent -----------------> */}
 				{ this.state.clicked == 3 ?
 					<TextSubComponent
 						selectedTextEdit={this.props.selectedTextEdit}

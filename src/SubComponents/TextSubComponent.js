@@ -33,20 +33,18 @@ class TextSubComponent extends Component {
 		}
 	};
 
+	//handles setting the local state when font size is changed. Communicates changes to parent
 	setFontSizeState = (fontSize) => {
 		this.setState({
 			fontSize: fontSize,
-		});
-
-		this.props.setFontSize(fontSize);
+		}, ()=>this.props.setFontSize(fontSize));
 	};
 
+	//handles setting the local state when font is changed. Communicates changes to parent
 	setFontFamilyState = (fontFamily) => {
 		this.setState({
 			fontFamily: fontFamily,
-		});
-
-		this.props.setFont(fontFamily);
+		}, ()=>this.props.setFont(fontFamily));
 	};
 
 	render() {
@@ -57,7 +55,7 @@ class TextSubComponent extends Component {
 			<Grid style={{backgroundColor: 'transparent', margin: 0}} columns={2}>
 				<Grid.Row style={{ marginLeft: '5%', marginRight: '5%'}}>
 					<Grid.Column style={{padding: '0'}} width={11}>
-						<Dropdown style={{ position: 'fixed', fontSize: '70%', fontFamily: `${this.state.fontFamily}` }} text={`${ this.state.fontFamily }`}>
+						<Dropdown style={{ position: 'fixed', fontSize: '70%', fontFamily: `${ fontFamily }` }} text={`${ fontFamily }`}>
 							<Dropdown.Menu>
 								{ Fonts.map((font, i) => {
 									return (

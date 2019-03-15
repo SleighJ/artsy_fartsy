@@ -29,14 +29,6 @@ class CanvasContainer extends Component {
 		}
 	}
 
-	// shouldComponentUpdate = (prevProps, prevState) => {
-	// 	if (this.state.croppedUrl) {return false}else{return true}
-	// }
-
-	componentWillUpdate = () => {
-		console.log('container is updating')
-	};
-
 	componentDidUpdate = (prevProps) => {
 		//if there is a background in props and none in the state (first load)
 		if ( this.props.background && !this.state.background ) {
@@ -60,18 +52,21 @@ class CanvasContainer extends Component {
 		}
 	};
 
+	//saves cropped image to state
 	backgroundResize = (crop) => {
 		this.setState({
 			crop: crop,
 		});
 	};
 
+	//gets uncropped url and saves in state
 	handleImageLoaded = (image) => {
 		this.setState({
 			imgSrc: image.src,
 		})
 	};
 
+	//sends cropped image to be translated to base64 string
 	handleOnCropComplete = (crop, pixelCrop) => {
 		const canvasRef = this.imagePreviewCanvasRef.current;
 		const imageSrc = this.state.imgSrc;
@@ -79,6 +74,7 @@ class CanvasContainer extends Component {
 		image64toCanvasRef(canvasRef, imageSrc, pixelCrop);
 	};
 
+	//creates url for cropped base64
 	handleDone = () => {
 		const canvasRef = this.imagePreviewCanvasRef.current;
 		const { imgSrc } = this.state;

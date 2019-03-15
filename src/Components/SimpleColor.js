@@ -10,6 +10,7 @@ class SimpleColor extends PureComponent {
 		}
 	}
 
+	//tells parent which color is selected
 	provideColorToParent = (e) => {
 		let color = e.target.id;
 

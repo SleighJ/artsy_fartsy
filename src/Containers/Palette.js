@@ -10,6 +10,7 @@ class Palette extends PureComponent {
 		}
 	}
 
+	//tells parent what is the selected color
 	getColorSimplePalette = (color) => {
 		this.setState({
 			activeSimpleColor: color,
