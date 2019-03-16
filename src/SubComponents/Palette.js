@@ -1,7 +1,7 @@
 import React, { PureComponent } from 'react';
 import Colors from '../Static/Colors';
 
-class SimpleColor extends PureComponent {
+class Palette extends PureComponent {
 	constructor(props) {
 		super(props);
 
@@ -16,7 +16,7 @@ class SimpleColor extends PureComponent {
 
 		this.setState({
 			color: color,
-		}, this.props.getColorSimplePalette(color));
+		}, this.props.getColorFromPalette(color));
 	};
 
 	render() {
@@ -48,4 +48,4 @@ class SimpleColor extends PureComponent {
 	}
 }
 
-export default SimpleColor;
+export default Palette;

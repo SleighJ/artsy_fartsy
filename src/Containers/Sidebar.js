@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
-
-import Palette from './Palette';
-import BrushContainer from './BrushContainer';
+//Components
 import Text from '../Components/Text';
-import Background from '../Components/Background';
 import TextSubComponent from "../SubComponents/TextSubComponent";
-
+//SubComponents
+import Background from '../SubComponents/Background';
+import Palette from '../SubComponents/Palette';
+import Brushes from '../SubComponents/Brushes';
+//Modules
 import 'react-image-crop/dist/ReactCrop.css';
 
 const buttonStyle = {
@@ -73,7 +74,7 @@ class Sidebar extends Component {
 				},
 				{
 					name: 'Brushes',
-					component: <BrushContainer
+					component: <Brushes
 									getSizeFromBrush={ this.props.getSizeFromBrush }
 								/>
 				},

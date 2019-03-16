@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import Canvas from '../Components/Canvas';
 import Text from '../Components/Text';
-import Background from '../Components/Background';
+import Background from '../SubComponents/Background';
 
 import {
 	image64toCanvasRef,
