@@ -25,6 +25,9 @@ class Text extends PureComponent {
 	}
 
 	componentDidUpdate = (prevState, prevProps) => {
+		// console.log('from text.js')
+		// console.log(prevState, this.state)
+		// console.log(prevProps, this.props)
 		if (prevProps != this.props) {
 			this.setState({
 				fontSize: parseInt(this.props.fontSize),
@@ -34,7 +37,7 @@ class Text extends PureComponent {
 		}
 	};
 
-	//this function will eventually handle different situations once I add the ability to delete a textBox, or edit its text.
+	//this function will eventually handle different situations once I add the ability to delete a textBox, edit its text, or change its color.
 	onMouseDown = ({ nativeEvent }) => {
 		const { offsetX, offsetY } = nativeEvent;
 
@@ -65,7 +68,6 @@ class Text extends PureComponent {
 				input.autofocus = true;
 				input.onkeydown = this.handleTextClick;
 				document.body.appendChild(input);
-
 
 				let clickCoords = {
 					x: x,
@@ -203,7 +205,7 @@ class Text extends PureComponent {
 		})
 	};
 
-	//
+	//TODO: remove, not needed any longer
 	onDoubleClick = (e) => {
 		let id = e.target.id;
 
@@ -215,6 +217,7 @@ class Text extends PureComponent {
 
 	//handles ability to edit text font and size (and eventually modification of text and delete)
 	setEditState = (e) => {
+
 		const { target } = e;
 
 		//if the targeted click is not on an element that the user is editing...
@@ -226,7 +229,12 @@ class Text extends PureComponent {
 			//rather than having to double-click the element again to de-select it.
 			let oldTextId = this.state.editedText;
 			let newTextId = target.id;
+
+			let oldTextFont = this.state.fontFamily;
+			let newTextFont = target.style.fontFamily;
+
 			let id = this.state.editedText ? oldTextId : newTextId;
+			let font = this.state.editedText ? oldTextFont : newTextFont;
 
 			//find the element in the state by pulling the index out of the id and applying it to the input array stored in the state
 			let inputArrayCopy = this.state.input;
@@ -234,14 +242,14 @@ class Text extends PureComponent {
 			let selectedInput = inputArrayCopy[index];
 			let text = selectedInput.text;
 
-			//create new object to save changes and replace old object
+			//create new object to save changes of previously edited object and replace old data w data (for use in this component)
 			let inputObj = {
 				id: id,
 				text: text,
 				x: parseInt(selectedInput.x, 10),
 				y: parseInt(selectedInput.y, 10),
 				fontSize: this.state.fontSize,
-				fontFamily: this.state.fontFamily,
+				fontFamily: font,
 			};
 
 			//remove 'px' off the DOM styling obj so user can can switch from text component to text component without setting changes to new component
@@ -249,13 +257,30 @@ class Text extends PureComponent {
 			newlyStyledFontSizeArr.splice(newlyStyledFontSizeArr.length-2, 2);
 			let newlyStyledFontSize = newlyStyledFontSizeArr.join('');
 
-			//create an object so it can be passed to the subComponent so it can reset its state to represent what is saved in the recently edited object
+			//create an object so it can be passed to the subComponent so it can reset its state to represent what is saved in the recently edited object (for use in a different component)
 			let newlySelectedObj = {
 				id: newTextId,
 				text: text,
 				fontSize: newlyStyledFontSize,
-				fontFamily: selectedInput.fontFamily,
+				// fontFamily: newTextId == id ? selectedInput.fontFamily : this.state.fontFamily,
+				fontFamily: newTextFont,
+
+				// fontFamily:  `${ this.state.editedText == id ? `${ this.state.fontFamily }` : `${ inputEntry.fontFamily }` }`,
+
 			};
+
+
+
+
+			// console.log(`${this.state.editedText} == ${id}  ? ${this.state.fontFamily} : ${selectedInput.fontFamily}`)
+			// console.log(this.state)
+			// console.log(this.props)
+			// console.log(`I choose ${ this.state.editedText == id ? this.state.fontFamily : selectedInput.fontFamily }`)
+			//
+			// console.log('data stored in TEXT')
+			// console.log(inputObj)
+			// console.log('data sent in TEXTSUBCOMPONENT)')
+			// console.log(newlySelectedObj)
 
 			//set state so styling will change, replace the old data/obj with new data/obj in input array
 			inputArrayCopy.splice(index, 1, inputObj);
@@ -296,6 +321,9 @@ class Text extends PureComponent {
 	render() {
 
 		const { input } = this.state;
+
+		// console.log('text component render')
+		// console.log(this.state.fontFamily)
 
 		return (
 			<div id={'text-wrapper'} style={ textWrapperStyle } onClick={ this.onMouseDown }>

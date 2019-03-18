@@ -33,8 +33,6 @@ class CanvasContainer extends Component {
 	}
 
 	componentDidUpdate = () => {
-		 console.log('compDidUpdate cContainer')
-		console.log(this.props.croppedUrl, this.state.croppedUrl)
 		if (this.props.selectedPicture && !this.state.modalOpen) {
 			this.setState({
 				modalOpen: true,
@@ -42,7 +40,6 @@ class CanvasContainer extends Component {
 		}
 
 		if (this.props.croppedUrl && !this.state.croppedUrl) {
-			console.log('loading croppedUrl cContainer')
 			this.setState({
 				croppedUrl: this.props.croppedUrl,
 			})
@@ -174,6 +171,7 @@ class CanvasContainer extends Component {
 							<Text
 								fontSize={ fontSize }
 								selectedFont={ selectedFont }
+
 								textEditOpen={ textEditOpen }
 								setTextState={ setTextState }
 								getEditTextSelect={ getEditTextSelect }

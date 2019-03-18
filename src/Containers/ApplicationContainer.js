@@ -65,7 +65,6 @@ class ApplicationContainer extends Component {
 	};
 
 	getCroppedUrlFromBackground = (newURL) => {
-		console.log('cropped fired')
 		this.setState({
 			croppedUrl: newURL,
 		})
@@ -104,7 +103,7 @@ class ApplicationContainer extends Component {
 	//tells the rest of the components what the currently selected font size is
 	setFontSize = (fontSize) => {
 		this.setState({
-			fontSize: fontSize
+			fontSize: parseInt(fontSize, 10)
 		})
 	};
 
@@ -127,8 +126,7 @@ class ApplicationContainer extends Component {
 
 		const { color, width, textEditOpen, fontSize, selectedTextEdit, textEditObj, background, blobArray, selectedPicture, selectedFont, croppedUrl } = this.state;
 
-		console.log('from AppContainer render')
-		console.log(this.state)
+		// console.log(selectedTextEdit)
 
 		return (
 			<div>
@@ -169,6 +167,8 @@ class ApplicationContainer extends Component {
 						croppedUrl={ croppedUrl }
 						blobArray={ blobArray } //?
 						textEditOpen={ textEditOpen }
+
+
 						fontSize={ fontSize }
 						selectedFont={ selectedFont }
 					/>

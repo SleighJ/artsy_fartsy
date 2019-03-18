@@ -89,8 +89,6 @@ class Sidebar extends Component {
 	}
 
 	componentDidUpdate = (prevProps) => {
-		console.log('compDidUpdate Sidebar')
-		console.log(this.props.croppedUrl, this.state.croppedUrl)
 		//if the incoming value of croppedUrl does not equal that of the local state, set it to the local state and close the subcomponent div
 		if (this.props.croppedUrl != this.state.croppedUrl) {
 			this.setState({
@@ -120,13 +118,12 @@ class Sidebar extends Component {
 	//handles the selection of components and communicating local state changes to the rest of the application
 	buttonClickSelect = (target, id) => {
 		const textComponentId = 3;
-		const backgroundComponentId = 2;
 
 		//if anything has been clicked
 		if (this.state.clicked) {
 			//if this command is coming from the text component, turn on text
 			if (textComponentId == id || this.state.clicked == textComponentId) {
-				this.props.setTextState('sidebar buttonClickSelect 2.1')
+				this.props.setTextState()
 			}
 
 			//if what was passed to me is what was previously clicked
