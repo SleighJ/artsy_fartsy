@@ -66,6 +66,7 @@ class Sidebar extends Component {
 			hovered: null,
 			clicked: null,
 			fontSize: null,
+			croppedUrl: null,
 			componentArray: [
 				{
 					name: 'Palette',
@@ -84,6 +85,18 @@ class Sidebar extends Component {
 					component: <Text />,
 				},
 			]
+		}
+	}
+
+	componentDidUpdate = (prevProps) => {
+		console.log('compDidUpdate Sidebar')
+		console.log(this.props.croppedUrl, this.state.croppedUrl)
+		//if the incoming value of croppedUrl does not equal that of the local state, set it to the local state and close the subcomponent div
+		if (this.props.croppedUrl != this.state.croppedUrl) {
+			this.setState({
+				croppedUrl: this.props.croppedUrl,
+				clicked: null,
+			})
 		}
 	}
 
@@ -107,6 +120,7 @@ class Sidebar extends Component {
 	//handles the selection of components and communicating local state changes to the rest of the application
 	buttonClickSelect = (target, id) => {
 		const textComponentId = 3;
+		const backgroundComponentId = 2;
 
 		//if anything has been clicked
 		if (this.state.clicked) {

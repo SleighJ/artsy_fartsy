@@ -149,6 +149,7 @@ class ApplicationContainer extends Component {
 						textEditOpen={ textEditOpen }
 						selectedTextEdit={ selectedTextEdit }
 						textEditObj={ textEditObj }
+						croppedUrl={ croppedUrl }
 					/>
 				</Fragment>
 
