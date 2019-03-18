@@ -4,8 +4,6 @@ import CanvasContainer from './CanvasContainer';
 import Sidebar from './Sidebar';
 import '../CSS/ApplicationContainer.css';
 
-import { storage } from '../Firebase/Firebase';
-
 class ApplicationContainer extends Component {
 	constructor(props) {
 		super(props);
@@ -15,7 +13,7 @@ class ApplicationContainer extends Component {
 			selectedFont: 'Roboto',
 			fontSize: 20,
 			fileManagement: false,
-			pic: null,
+			selectedPicture: null,
 			background: null,
 			croppedUrl: null,
 			textEditOpen: false,
@@ -56,33 +54,45 @@ class ApplicationContainer extends Component {
 	};
 
 	//facilitates state changes required to add a background, passes the data to function to add to db
-	addBackground = (pic) => {
-		this.uploadBackground(pic);
-		this.setState({ pic })
+	addBackground = (selectedPicture) => {
+		this.setState({ selectedPicture })
 	};
 
-	//posts original picture to firebase db in base64 (my db could use a little work at this point) and gives it an accessible url
-	uploadBackground = async (pic) => {
-
-		const uploadTask = storage.ref(`images/${ pic.name }`).put(pic);
-		uploadTask.on('state_changed', (snapshot) => {
-			console.log('loading')
-		}, (error) => {
-			console.log(error)
-		}, () => {
-			storage.ref('images').child(pic.name).getDownloadURL().then(url => {
-				const reader = new FileReader();
-				reader.addEventListener('load', ()=> {
-					this.setState({
-						blobArray: reader.result,
-						background: url,
-					})
-
-				}, false);
-				reader.readAsDataURL(pic);
-			})
-		});
+	clearBackground = () => {
+		this.setState({
+			selectedPicture: null,
+		})
 	};
+
+	getCroppedUrlFromBackground = (newURL) => {
+		console.log('cropped fired')
+		this.setState({
+			croppedUrl: newURL,
+		})
+	};
+	//
+	// //posts original picture to firebase db in base64 (my db could use a little work at this point) and gives it an accessible url
+	// uploadBackground = async (pic) => {
+	//
+	// 	const uploadTask = storage.ref(`images/${ pic.name }`).put(pic);
+	// 	uploadTask.on('state_changed', (snapshot) => {
+	// 		console.log('loading')
+	// 	}, (error) => {
+	// 		console.log(error)
+	// 	}, () => {
+	// 		storage.ref('images').child(pic.name).getDownloadURL().then(url => {
+	// 			const reader = new FileReader();
+	// 			reader.addEventListener('load', ()=> {
+	// 				this.setState({
+	// 					blobArray: reader.result,
+	// 					background: url,
+	// 				})
+	//
+	// 			}, false);
+	// 			reader.readAsDataURL(pic);
+	// 		})
+	// 	});
+	// };
 
 	//tells the rest of the components whether the text component has been selected
 	setTextState = () => {
@@ -115,7 +125,10 @@ class ApplicationContainer extends Component {
 
 	render() {
 
-		const { color, width, textEditOpen, fontSize, selectedTextEdit, textEditObj, background, blobArray, selectedFont } = this.state;
+		const { color, width, textEditOpen, fontSize, selectedTextEdit, textEditObj, background, blobArray, selectedPicture, selectedFont, croppedUrl } = this.state;
+
+		console.log('from AppContainer render')
+		console.log(this.state)
 
 		return (
 			<div>
@@ -125,9 +138,9 @@ class ApplicationContainer extends Component {
 						//functions
 						getSizeFromBrush={ this.getSizeFromBrush }
 						getColorFromPalette={ this.getColorFromPalette }
-						setTextState={ this.setTextState }
 						addBackground={ this.addBackground }
 						uploadBackground={ this.uploadBackground }
+						setTextState={ this.setTextState }
 						setFontSize={ this.setFontSize }
 						setFont={ this.setFont }
 
@@ -144,12 +157,16 @@ class ApplicationContainer extends Component {
 						//functions
 						setTextState={ this.setTextState }
 						getEditTextSelect={ this.getEditTextSelect }
+						clearBackground={ this.clearBackground }
+						getCroppedUrlFromBackground={ this.getCroppedUrlFromBackground }
 
 						//global state values
 						color={ color }
 						width={ width }
-						background={ background }
-						blobArray={ blobArray }
+						background={ background } //?
+						selectedPicture={ selectedPicture }
+						croppedUrl={ croppedUrl }
+						blobArray={ blobArray } //?
 						textEditOpen={ textEditOpen }
 						fontSize={ fontSize }
 						selectedFont={ selectedFont }

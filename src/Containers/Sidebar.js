@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
 //Components
 import Text from '../Components/Text';
-import TextSubComponent from "../SubComponents/TextSubComponent";
+import Background from '../Components/Background';
 //SubComponents
-import Background from '../SubComponents/Background';
+import BackgroundSubComponent from '../SubComponents/BackgroundSubComponent';
+import TextSubComponent from "../SubComponents/TextSubComponent";
 import Palette from '../SubComponents/Palette';
 import Brushes from '../SubComponents/Brushes';
 //Modules
@@ -68,21 +69,15 @@ class Sidebar extends Component {
 			componentArray: [
 				{
 					name: 'Palette',
-					component: <Palette
-									getColorFromPalette={ this.props.getColorFromPalette }
-							   />
+					component: <Palette getColorFromPalette={ this.props.getColorFromPalette } />
 				},
 				{
 					name: 'Brushes',
-					component: <Brushes
-									getSizeFromBrush={ this.props.getSizeFromBrush }
-								/>
+					component: <Brushes getSizeFromBrush={ this.props.getSizeFromBrush } />
 				},
 				{
 					name: 'Background',
-					component: <Background
-									addBackground={ this.props.addBackground }
-							   />,
+					component: <BackgroundSubComponent addBackground={ this.props.addBackground } />
 				},
 				{
 					name: 'Text',
@@ -190,14 +185,15 @@ class Sidebar extends Component {
 				{/* <------------- work around to allow textSubComponent to receive props via state of parent -----------------> */}
 				{ this.state.clicked == 3 ?
 					<TextSubComponent
-						selectedTextEdit={this.props.selectedTextEdit}
 						id={'textSubComponent'}
+						selectedTextEdit={this.props.selectedTextEdit}
 						setFont={ this.props.setFont }
 						setFontSize={ this.props.setFontSize }
 						selectedTextEdit={ this.props.selectedTextEdit }
 						textEditObj={ this.props.textEditObj }
 					/>
-				: null }
+				: null
+				}
 
 			</div>
 		);

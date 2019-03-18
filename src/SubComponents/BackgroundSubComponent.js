@@ -1,6 +1,6 @@
 import React, { PureComponent } from 'react';
 
-class Background extends PureComponent {
+class BackgroundSubComponent extends PureComponent {
 	constructor(props) {
 		super(props);
 
@@ -21,4 +21,4 @@ class Background extends PureComponent {
 	}
 }
 
-export default Background;
+export default BackgroundSubComponent;
