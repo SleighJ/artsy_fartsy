@@ -16,7 +16,7 @@ class Canvas extends PureComponent {
 		super(props);
 
 		this.state = {
-			color: null,
+			color: 'red',
 			width: null,
 			background: null,
 		};

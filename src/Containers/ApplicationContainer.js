@@ -9,7 +9,7 @@ class ApplicationContainer extends Component {
 		super(props);
 
 		this.state = {
-			color: 'white',
+			color: 'red',
 			selectedFont: 'Roboto',
 			fontSize: 20,
 			fileManagement: false,
