@@ -58,7 +58,7 @@ class Text extends PureComponent {
 				input.style.top = (offsetY) + 'px';
 				input.style.marginLeft = '13%';
 				input.autofocus = true;
-				input.onkeydown = this.handleTextClick;
+				input.onkeydown = this.handleTextEnter;
 				document.body.appendChild(input);
 
 				//save the coordinants of this click event for use in the next event
@@ -113,7 +113,7 @@ class Text extends PureComponent {
 	};
 
 	//handles case of user pressing enter (instead of clicking away) to create text
-	handleTextClick = (e) => {
+	handleTextEnter = (e) => {
 
 		const keyCode = e.keyCode;
 		const value = e.target.value;
@@ -176,6 +176,8 @@ class Text extends PureComponent {
 			fontSize: this.state.fontSize,
 			fontFamily: this.state.fontFamily,
 		};
+
+		console.log(parseInt(y, 10), parseInt(x, 10));
 
 		//find the corresponding object in input array and update it
 		inputArrayCopy.splice(index, 1, inputObj);
@@ -328,8 +330,9 @@ class Text extends PureComponent {
 									position: 'fixed',
 									lineHeight: '100%',
 									overflow: 'hidden',
+									containment: 'parent',
 									cursor: `${ this.state.dragging == id ? 'move' : 'arrow' }`,
-									backgroundColor: `${this.state.editedText == id ? 'yellow' : 'transparent'}`,
+									backgroundColor: `${this.state.editedText == id ? 'rgb(255,255,0)' : 'transparent'}`,
 									height: `${ this.state.editedText == id ? `${ this.state.fontSize }px` : `${ inputEntry.fontSize }px` }`,
 									fontSize: `${ this.state.editedText == id ? `${ this.state.fontSize }px` : `${ inputEntry.fontSize }px` }`,
 									fontFamily:  `${ this.state.editedText == id ? `${ this.state.fontFamily }` : `${ inputEntry.fontFamily }` }`,
