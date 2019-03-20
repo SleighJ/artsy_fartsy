@@ -121,7 +121,7 @@ class CanvasContainer extends Component {
 			<div id={'text-canvas-wrapper'} style={{ marginLeft: '13%', marginRight: 'none', backgroundColor: 'rbga(0, 0, 0, 0.5)' }}>
 
 				<Modal open={ selectedPicture } basic size='small'>
-					<Header icon='cloud upload' content='Load Background Image (.png)' />
+					<Header icon='cloud upload' content='Load Background Image (.png)' align={'center'}/>
 					<Modal.Content>
 						<Background
 							selectedPicture={ selectedPicture }

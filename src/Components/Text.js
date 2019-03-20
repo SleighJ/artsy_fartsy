@@ -323,9 +323,11 @@ class Text extends PureComponent {
 								onDrag={ this.setDragText }
 								onDragEnd={ this.onDragEnd }
 								style={{
-									position: 'fixed',
 									top: x,
 									left: y,
+									position: 'fixed',
+									lineHeight: '100%',
+									overflow: 'hidden',
 									cursor: `${ this.state.dragging == id ? 'move' : 'arrow' }`,
 									backgroundColor: `${this.state.editedText == id ? 'yellow' : 'transparent'}`,
 									height: `${ this.state.editedText == id ? `${ this.state.fontSize }px` : `${ inputEntry.fontSize }px` }`,

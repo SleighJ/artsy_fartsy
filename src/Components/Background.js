@@ -7,7 +7,7 @@ import {
 	image64toCanvasRef,
 	} from "../Static/Base64";
 
-import { Grid } from 'semantic-ui-react';
+import { Grid, Dimmer, Loader, Image, Segment, Button } from 'semantic-ui-react';
 
 
 class Background extends Component {
@@ -117,12 +117,20 @@ class Background extends Component {
 	render() {
 
 		return (
-			<div style={{ maxWidth: '500px', maxHeight: '500px', }}>
+			<div style={{ width: '100%', height: '100%' }}>
 
 				{ this.state.selectedPicture ?
-					<Grid>
-						<Grid.Row colums={2}>
-							<Grid.Column width={8}>
+					this.state.loadingBackground ?
+						<Segment>
+							<Dimmer active>
+								<Loader>Loading</Loader>
+							</Dimmer>
+							<Image src='https://react.semantic-ui.com/images/wireframe/short-paragraph.png' />
+						</Segment>
+						:
+						<Grid style={{ width: '100%', height: '100%' }}>
+							<Grid.Row style={{ width: '100%', height: '100%', display: 'inline-block', textAlign: 'center' }} colums={2}>
+								<Grid.Column style={{ width: '50%', height: '100%' }}>
 									<ReactCrop
 										src={ this.state.unCroppedImg64 }
 										onChange={ this.backgroundResize }
@@ -130,28 +138,21 @@ class Background extends Component {
 										onImageLoaded={ this.handleImageLoaded }
 										onComplete={ this.handleOnCropComplete }
 										ref={ this.imagePreviewCanvasRef }
+										style={{ height: '100%', width: '100%'}}
 									/>
-									<button onClick={ this.handleDone }>Done</button>
-							</Grid.Column>
-							<Grid.Column width={8}>
-								{ this.state.loadingBackground ?
-									<div>
-										LOADING....
-									</div>
-									:
-									<div>
-										<canvas
-											id={'canvas'}
-											crossOrigin="Anonymous"
-											style={{ maxWidth: '100%', maxHeight: '100%' }}
-											ref={ this.imagePreviewCanvasRef }
-										>
-										</canvas>
-									</div>
-								}
-							</Grid.Column>
-						</Grid.Row>
-					</Grid>
+								</Grid.Column>
+								<Grid.Column style={{ width: '50%', height: '100%' }}>
+									<canvas
+										id={'canvas'}
+										crossOrigin="Anonymous"
+										style={{ width: '100%', height: '100%' }}
+										ref={ this.imagePreviewCanvasRef }
+									>
+									</canvas>
+								</Grid.Column>
+								<Button style={{margin: '5%'}} onClick={ this.handleDone }>Done</Button>
+							</Grid.Row>
+						</Grid>
 				:
 					null
 				}
