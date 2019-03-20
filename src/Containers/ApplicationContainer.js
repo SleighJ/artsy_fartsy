@@ -22,13 +22,16 @@ class ApplicationContainer extends Component {
 		}
 	}
 
-	//on the mount of the entire application, connect to the server that stores the canvas data plots
+	// (compWillMount and callBackendAPI is not so important now, but needed for when I add the functionality to save your work)
+
+	// on the mount of the entire application, connect to the server that stores the canvas data plots
 	componentDidMount = () => {
 		this.callBackendAPI()
 			.then(res => this.setState({ data: res.express }))
 			.catch(err => console.log(err));
 	};
 
+	// fetches server
 	callBackendAPI = async () => {
 		const response = await fetch('/paint');
 		const body = await response.json();
@@ -58,40 +61,19 @@ class ApplicationContainer extends Component {
 		this.setState({ selectedPicture })
 	};
 
+	//facilitates state changes to remove a background
 	clearBackground = () => {
 		this.setState({
 			selectedPicture: null,
 		})
 	};
 
+	//gets the url for the cropped image from background.js component
 	getCroppedUrlFromBackground = (newURL) => {
 		this.setState({
 			croppedUrl: newURL,
 		})
 	};
-	//
-	// //posts original picture to firebase db in base64 (my db could use a little work at this point) and gives it an accessible url
-	// uploadBackground = async (pic) => {
-	//
-	// 	const uploadTask = storage.ref(`images/${ pic.name }`).put(pic);
-	// 	uploadTask.on('state_changed', (snapshot) => {
-	// 		console.log('loading')
-	// 	}, (error) => {
-	// 		console.log(error)
-	// 	}, () => {
-	// 		storage.ref('images').child(pic.name).getDownloadURL().then(url => {
-	// 			const reader = new FileReader();
-	// 			reader.addEventListener('load', ()=> {
-	// 				this.setState({
-	// 					blobArray: reader.result,
-	// 					background: url,
-	// 				})
-	//
-	// 			}, false);
-	// 			reader.readAsDataURL(pic);
-	// 		})
-	// 	});
-	// };
 
 	//tells the rest of the components whether the text component has been selected
 	setTextState = () => {
@@ -125,8 +107,6 @@ class ApplicationContainer extends Component {
 	render() {
 
 		const { color, width, textEditOpen, fontSize, selectedTextEdit, textEditObj, background, blobArray, selectedPicture, selectedFont, croppedUrl } = this.state;
-
-		// console.log(selectedTextEdit)
 
 		return (
 			<div>
@@ -167,7 +147,6 @@ class ApplicationContainer extends Component {
 						croppedUrl={ croppedUrl }
 						blobArray={ blobArray } //?
 						textEditOpen={ textEditOpen }
-
 
 						fontSize={ fontSize }
 						selectedFont={ selectedFont }

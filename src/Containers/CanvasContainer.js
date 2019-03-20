@@ -118,72 +118,33 @@ class CanvasContainer extends Component {
 		const { color , width, textEditOpen, fontSize, selectedFont, selectedPicture, setTextState, getEditTextSelect, clearBackground, getCroppedUrlFromBackground } = this.props;
 
 		return (
-			<div>
-				{/*{*/}
-					{/*this.state.background ?*/}
-						<div>
-							{/*<div style={{ maxWidth: '500px', maxHeight: '500px', marginLeft: '20%' }}>*/}
-							{/*<BackgroundSubComponent/>*/}
-							{/*<ReactCrop*/}
-							{/*src={ this.props.blobArray }*/}
-							{/*onChange={ this.backgroundResize }*/}
-							{/*crop={ this.state.crop }*/}
-							{/*onImageLoaded={ this.handleImageLoaded }*/}
-							{/*onComplete={ this.handleOnCropComplete }*/}
-							{/*ref={ this.imagePreviewCanvasRef }*/}
-							{/*/>*/}
+			<div id={'text-canvas-wrapper'} style={{ marginLeft: '13%', marginRight: 'none', backgroundColor: 'rbga(0, 0, 0, 0.5)' }}>
 
-							{/*<br></br>*/}
+				<Modal open={ selectedPicture } basic size='small'>
+					<Header icon='cloud upload' content='Load Background Image (.png)' />
+					<Modal.Content>
+						<Background
+							selectedPicture={ selectedPicture }
+							clearBackground={ clearBackground }
+							getCroppedUrlFromBackground={ getCroppedUrlFromBackground }
+						/>
+					</Modal.Content>
+				</Modal>
 
-							{/*<p>Preview Canvas Crop</p>*/}
-							{/*<canvas id={'canvas'} crossOrigin="Anonymous" ref={ this.imagePreviewCanvasRef }></canvas>*/}
-							{/*<button onClick={ this.handleDone }>Done</button>*/}
-							{/*</div>*/}
-						</div>
+				<Text
+					fontSize={ fontSize }
+					selectedFont={ selectedFont }
+					textEditOpen={ textEditOpen }
+					setTextState={ setTextState }
+					getEditTextSelect={ getEditTextSelect }
+				/>
+				<Canvas
+					color={ color }
+					width={ width != null ? width : 1 }
+					croppedUrl={ this.state.croppedUrl }
+					textEditOpen={ textEditOpen }
+				/>
 
-						{/*:*/}
-						<div id={'text-canvas-wrapper'} style={{ marginLeft: '13%', marginRight: 'none', backgroundColor: 'rbga(0, 0, 0, 0.5)' }}>
-
-							<Modal
-								// trigger={<Button onClick={this.handleOpen}>Show Modal</Button>}
-								open={ selectedPicture }
-								onClose={this.handleClose}
-								basic
-								size='small'
-							>
-								<Header icon='browser' content='Cookies policy' />
-								<Modal.Content>
-									<div style={{ border: '1px solid white', height: '300px', width: '300px' }}>
-										<Background
-											selectedPicture={ selectedPicture }
-											clearBackground={ clearBackground }
-											getCroppedUrlFromBackground={ getCroppedUrlFromBackground }
-										/>
-									</div>
-								</Modal.Content>
-								<Modal.Actions>
-									<Button color='green' onClick={this.handleClose} inverted>
-										<Icon name='checkmark' /> Got it
-									</Button>
-								</Modal.Actions>
-							</Modal>
-
-							<Text
-								fontSize={ fontSize }
-								selectedFont={ selectedFont }
-
-								textEditOpen={ textEditOpen }
-								setTextState={ setTextState }
-								getEditTextSelect={ getEditTextSelect }
-							/>
-							<Canvas
-								color={ color }
-								width={ width != null ? width : 1 }
-								croppedUrl={ this.state.croppedUrl }
-								textEditOpen={ textEditOpen }
-							/>
-						</div>
-				}
 			</div>
 		);
 	}

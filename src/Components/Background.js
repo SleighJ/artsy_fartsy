@@ -1,5 +1,4 @@
 import React, {Component} from "react";
-import BackgroundSubComponent from "../SubComponents/BackgroundSubComponent";
 import ReactCrop from "react-image-crop";
 import { storage } from '../Firebase/Firebase';
 import {
@@ -7,6 +6,8 @@ import {
 	extractImageFileExtensionFromBase64,
 	image64toCanvasRef,
 	} from "../Static/Base64";
+
+import { Grid } from 'semantic-ui-react';
 
 
 class Background extends Component {
@@ -116,46 +117,44 @@ class Background extends Component {
 	render() {
 
 		return (
-			<div style={{ maxWidth: '500px', maxHeight: '500px', marginLeft: '20%' }}>
+			<div style={{ maxWidth: '500px', maxHeight: '500px', }}>
 
 				{ this.state.selectedPicture ?
-					<div style={{width: '400px', height: '400px', border: '1px solid black' }}>
-						<ReactCrop
-							src={ this.state.unCroppedImg64 }
-							onChange={ this.backgroundResize }
-							crop={ this.state.crop }
-							onImageLoaded={ this.handleImageLoaded }
-							onComplete={ this.handleOnCropComplete }
-							ref={ this.imagePreviewCanvasRef }
-						/>
-						<p>Preview Canvas Crop</p>
-						{ this.state.loadingBackground ?
-							<div>
-								LOADING....
-							</div>
-							:
-							<div>
-								<button onClick={ this.handleDone }>
-									Done
-								</button>
-								<canvas
-									id={'canvas'}
-									crossOrigin="Anonymous"
-									ref={ this.imagePreviewCanvasRef }
-								>
-								</canvas>
-							</div>
-						}
-					</div>
-				: null }
-
-
-
-				{/*<br></br>*/}
-
-				{/*<p>Preview Canvas Crop</p>*/}
-				{/*<canvas id={'canvas'} crossOrigin="Anonymous" ref={ this.imagePreviewCanvasRef }></canvas>*/}
-				{/*<button onClick={ this.handleDone }>Done</button>*/}
+					<Grid>
+						<Grid.Row colums={2}>
+							<Grid.Column width={8}>
+									<ReactCrop
+										src={ this.state.unCroppedImg64 }
+										onChange={ this.backgroundResize }
+										crop={ this.state.crop }
+										onImageLoaded={ this.handleImageLoaded }
+										onComplete={ this.handleOnCropComplete }
+										ref={ this.imagePreviewCanvasRef }
+									/>
+									<button onClick={ this.handleDone }>Done</button>
+							</Grid.Column>
+							<Grid.Column width={8}>
+								{ this.state.loadingBackground ?
+									<div>
+										LOADING....
+									</div>
+									:
+									<div>
+										<canvas
+											id={'canvas'}
+											crossOrigin="Anonymous"
+											style={{ maxWidth: '100%', maxHeight: '100%' }}
+											ref={ this.imagePreviewCanvasRef }
+										>
+										</canvas>
+									</div>
+								}
+							</Grid.Column>
+						</Grid.Row>
+					</Grid>
+				:
+					null
+				}
 			</div>
 		)
 
