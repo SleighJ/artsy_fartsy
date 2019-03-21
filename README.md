@@ -57,7 +57,7 @@ Open a console and navigate into the artsy_fartsy project file.
 
 2. Open another console, navigate into artsy_fartsy project file,
 	
-	$ nom start
+	$ npm start
 
 3. Turn things your friends say into Memes. 
 4. Share so the world can point the finger and laugh.
