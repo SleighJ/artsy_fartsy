@@ -7,6 +7,7 @@ export function base64StringtoFile (base64String, filename) {
 	return new File([u8arr], filename, {type: mime})
 }
 
+//not yet implemented
 export function downloadBase64File (base64Data, filename) {
 	var element = document.createElement('a')
 	element.setAttribute('href', base64Data)

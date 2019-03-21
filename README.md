@@ -1,70 +1,63 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-## Available Scripts
+README
 
-In the project directory, you can run:
+Artsy_Fartsy Meme Creator
 
-### `npm start`
+Hey there, thanks for checking out the project. At this point the project still has plenty of flaws but for now let me guide you through some of these files so you can get an idea of what is going on.
 
-Runs the app in the development mode.<br>
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+The file labeled ‘src’ is where you will find the majority of the meat in the project. Its file structure is broken into four categories.
 
-The page will reload if you make edits.<br>
-You will also see any lint errors in the console.
+	1. Containers
+	2. Components
+	3. SubComponents
+	4. Static
 
-### `npm test`
+‘Containers’ are parenting components in which Containers, Components, and SubComponents  are nested. ‘SubComponents’ are simple components used to control the values of their corresponding component, such as picking a color or brush stroke. Static files are either files containing JS functions or arrays storing colors and fonts.
 
-Launches the test runner in the interactive watch mode.<br>
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+Application Container:
 
-### `npm run build`
+This container is used primarily for communication purposes between the Sidebar and its subComponents and the Components.
 
-Builds the app for production to the `build` folder.<br>
-It correctly bundles React in production mode and optimizes the build for the best performance.
+	1. SideBar 
+	2. CanvasContainer
 
-The build is minified and the filenames include the hashes.<br>
-Your app is ready to be deployed!
+CanvasContainer:
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+This container holds the more complex logic filled components and manages some logic between them.
 
-### `npm run eject`
+	1. Background: 
+		This component parses a file into base64 so the user can crop the image 				to their liking. The cropped base64 image is then posted to a firebase database 				and given a url for rendering.
+	2. Text:
+		This component is heavily comprised of click-handlers. It allows the user to 				manipulate the text through the information passed in the click events. This 				component allows the user to change the font, size, and positioning of the text.
+	3. Canvas
+		This component is what allows the user to draw using the <canvas> 					element. This component will eventually handle the logic for saving the user’s 				work
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+SideBar:
 
-Instead, it will copy all the configuration files and the transitive dependencies (Webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+This container holds the subComponents. SubComponents are used to change the values of the components which ultimately render something on the screen.
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+	1. Palette
+		Pick your favorite color.. Or your least favorite, who cares?
+	2. Brushes
+		Pick a brush stroke width
+	3. BackgroundSubComponent
+		Upload a file of your friends lookin’ real weird -  or lookin good.. but thats no fun.
+	4. TextSubComponent
+		Add text over your friends face, really drive that point home.
 
-## Learn More
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+Getting Started: 
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+Open a console and navigate into the artsy_fartsy project file. 
 
-### Code Splitting
+1. Once in the project file, 
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
+	$ node development
 
-### Analyzing the Bundle Size
+2. Open another console, navigate into artsy_fartsy project file,
+	
+	$ nom start
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
-
-### Making a Progressive Web App
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
-
-### Advanced Configuration
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
-
-### Deployment
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
-
-### `npm run build` fails to minify
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
-# artsy_fartsy
-
+3. Turn things your friends say into Memes. 
+4. Share so the world can point the finger and laugh.

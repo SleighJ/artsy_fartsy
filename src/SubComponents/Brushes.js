@@ -2,8 +2,17 @@ import React, { PureComponent } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPaintBrush } from '@fortawesome/free-solid-svg-icons';
 
+let brushWrapperStyle = {
+	lineHeight: '0',
+	fontSize: '0',
+	height: 'fit-content',
+	overflow: 'scroll',
+	border: '10px solid lightgrey',
+	textAlign: 'center',
+};
 
-class SimpleColor extends PureComponent {
+
+class Brushes extends PureComponent {
 	constructor(props) {
 		super(props);
 
@@ -13,6 +22,7 @@ class SimpleColor extends PureComponent {
 		}
 	}
 
+	//simple way to provide values for the sizes of brush
 	componentWillMount = () => {
 		let widthArray = [];
 
@@ -27,33 +37,29 @@ class SimpleColor extends PureComponent {
 		})
 	};
 
-	provideSizeToParent = (id) => {
-		this.props.getSizeFromBrush(id)
-	};
-
 	render() {
 
 		return (
-			<div style={{lineHeight: '0', fontSize: '0', height: 'fit-content', overflow: 'scroll', border: '10px solid lightgrey', textAlign: 'center'}}>
 
-				{
-					this.state.widthArray.map((entry, i) => {
+			<div style={brushWrapperStyle}>
+				{ this.state.widthArray.map((entry, i) => {
 						let id = i;
 						let style;
 							style = {
-								height: `${entry}rem`, width: '100%', marginTop: '1.5rem', marginBottom: '1.5rem'
+								height: `${entry}rem`,
+								width: '100%',
+								marginTop: '1.5rem',
+								marginBottom: '1.5rem',
 							};
 						return (
-							<div key={ i } id={ id } onClick={ ()=>this.provideSizeToParent(id) }>
-								<FontAwesomeIcon id={ id } style={ style } icon={ faPaintBrush } onClick={ ()=>this.provideSizeToParent(id) } />
+							<div key={ i } id={ id } onClick={ ()=>this.props.getSizeFromBrush(id) }>
+								<FontAwesomeIcon id={ id } style={ style } icon={ faPaintBrush } onClick={ ()=>this.props.getSizeFromBrush(id) } />
 							</div>
 						)
-					})
-				}
-
+					}) }
 			</div>
 		);
 	}
 }
 
-export default SimpleColor;
+export default Brushes;

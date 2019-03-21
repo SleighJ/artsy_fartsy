@@ -70,6 +70,7 @@ class ApplicationContainer extends Component {
 
 	//gets the url for the cropped image from background.js component
 	getCroppedUrlFromBackground = (newURL) => {
+		console.log('cropped firing from appContainer')
 		this.setState({
 			croppedUrl: newURL,
 		})
@@ -108,6 +109,8 @@ class ApplicationContainer extends Component {
 
 		const { color, width, textEditOpen, fontSize, selectedTextEdit, textEditObj, background, blobArray, selectedPicture, selectedFont, croppedUrl } = this.state;
 
+		console.log('appContainer render')
+		console.log(this.state.croppedUrl)
 		return (
 			<div>
 
@@ -142,12 +145,9 @@ class ApplicationContainer extends Component {
 						//global state values
 						color={ color }
 						width={ width }
-						background={ background } //?
 						selectedPicture={ selectedPicture }
 						croppedUrl={ croppedUrl }
-						blobArray={ blobArray } //?
 						textEditOpen={ textEditOpen }
-
 						fontSize={ fontSize }
 						selectedFont={ selectedFont }
 					/>

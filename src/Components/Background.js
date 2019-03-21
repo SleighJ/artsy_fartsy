@@ -28,9 +28,10 @@ class Background extends Component {
 		}
 	}
 
+	//allows conditional rerendering based on the inheritance of data as props
 	componentDidUpdate = (prevProps) => {
 		const { selectedPicture } = this.props;
-		const { unCroppedImg64, croppedUrl } = this.state;
+		const { croppedUrl } = this.state;
 
 		//if a picture has been selected but not yet stored (ie, theres a new background picture selected)
 		if (selectedPicture != this.state.selectedPicture) {
@@ -50,6 +51,7 @@ class Background extends Component {
 	//posts original picture to firebase db in base64 (my db could use a little work at this point) and gives it an accessible url
 	uploadBackground = async (pic) => {
 
+		// console.log('upload background called')
 		const uploadTask = storage.ref(`images/${ pic.name }`).put(pic);
 		uploadTask.on('state_changed', (snapshot) => {
 			console.log('loading')
@@ -111,6 +113,11 @@ class Background extends Component {
 
 		this.setState({
 			croppedUrl: newURL,
+			unCroppedFireBaseUrl: null,
+			unCroppedImg64: null,
+			crop: {
+				aspect: 1/1,
+			}
 		}, ()=>this.props.getCroppedUrlFromBackground(newURL))
 	};
 

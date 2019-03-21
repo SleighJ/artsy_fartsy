@@ -22,11 +22,15 @@ class Canvas extends PureComponent {
 		};
 	}
 
+	// This component needs a bit of work. I tried to refactor these global variables
+	// into the local state but the component updates very frequently and causes issues.
+
 	isPainting = false;
 	line = [];
 	userId = v4();
 	prevPos = { offsetX: 0, offsetY: 0 };
 
+	//on the mount, set width, height & initialize the canvas
 	componentDidMount = () => {
 		this.canvas.width = 800;
 		this.canvas.height = 600;
@@ -36,25 +40,19 @@ class Canvas extends PureComponent {
 		this.ctx.lineWidth = this.state.width;
 	};
 
+	//allows conditional rendering based on the inheritance of color, width, and croppedUrl values
 	componentDidUpdate = () => {
-
 		this.setState({
 			color: this.props.color,
 			width:this.props.width,
+			croppedUrl: this.props.croppedUrl,
 		});
 
-		this.updateWidth(this.props.width);
 		this.ctx.lineWidth = this.props.width;
 	};
 
-	updateWidth = (newWidth) => {
-		this.setState({
-			width: newWidth,
-		});
-	};
-
+	//sets initial values of global variables isPainting and prevPos via nativeEvent
 	onMouseDown = ({ nativeEvent }) => {
-		// console.log('mousedown')
 		const { offsetX, offsetY } = nativeEvent;
 
 		if ( !this.state.textEditOpen ) {
@@ -64,6 +62,8 @@ class Canvas extends PureComponent {
 	};
 
 	onMouseMove = ({ nativeEvent }) => {
+		// updates position global variables and pushes data to 'line' array
+		// passes updated data to 'paint' function for rendering
 		if (this.isPainting) {
 			const { offsetX, offsetY } = nativeEvent;
 			const offSetData = { offsetX, offsetY };
@@ -78,13 +78,7 @@ class Canvas extends PureComponent {
 		}
 	};
 
-	endPaintEvent = () => {
-		if (this.isPainting) {
-			this.isPainting = false;
-			this.sendPaintData();
-		}
-	};
-
+	// renders data passed from onMouseMove om <canvas>
 	paint = (prevPos, currPos, strokeStyle) => {
 		const { offsetX, offsetY } = currPos;
 		const { offsetX: x, offsetY: y } = prevPos;
@@ -97,6 +91,17 @@ class Canvas extends PureComponent {
 		this.prevPos = { offsetX, offsetY };
 	};
 
+	// sets isPainting to false and posts the data to the server
+	// TODO: save functionality needs to be added
+	endPaintEvent = () => {
+		if (this.isPainting) {
+			this.isPainting = false;
+			this.sendPaintData();
+		}
+	};
+
+	//saves painting data to db
+	//TODO: save functionality needs to be added
 	sendPaintData = async () => {
 
 		let body = {
@@ -120,9 +125,9 @@ class Canvas extends PureComponent {
 
 	render() {
 
-		const { croppedUrl } = this.props;
+		const { croppedUrl } = this.state;
 
-		let asdf = {
+		let urlStyle = {
 			width: '800px',
 			height: '600px',
 			pointerEvents: 'none',
@@ -134,7 +139,7 @@ class Canvas extends PureComponent {
 			backgroundSize: 'cover',
 		};
 
-		let fdsa = {
+		let noUrlStyle = {
 			width: '800px',
 			height: '600px',
 			pointerEvents: 'none',
@@ -142,7 +147,7 @@ class Canvas extends PureComponent {
 		};
 
 		return (
-			<div style={ this.props.croppedUrl ? asdf : fdsa }>
+			<div style={ croppedUrl ? urlStyle : noUrlStyle }>
 				<canvas
 					style={ this.props.textEditOpen ? textOpenStyle : textClosedStyle }
 					ref={ (ref) => (this.canvas = ref) }

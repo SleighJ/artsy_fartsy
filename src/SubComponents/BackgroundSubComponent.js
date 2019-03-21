@@ -3,14 +3,10 @@ import React, { PureComponent } from 'react';
 class BackgroundSubComponent extends PureComponent {
 	constructor(props) {
 		super(props);
-
-		this.state = {
-			activeStroke: null,
-		}
 	}
 
+	//simple component storing an input for adding files
 	render() {
-
 		const { addBackground } = this.props;
 
 		return (
