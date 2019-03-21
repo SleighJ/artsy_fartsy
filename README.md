@@ -44,22 +44,13 @@ SideBar:
 This container holds the subComponents. SubComponents are used to change the values of the components which ultimately render something on the screen.
 
 	1. Palette
-		Pick your favorite color.. Or your least favorite, who cares?
+		Pick your favorite color.. Or your least favorite..
 	2. Brushes
 		Pick a brush stroke width
 	3. BackgroundSubComponent
-		Upload a file of your friends lookin’ real weird -  or lookin good.. but thats no fun.
+		Upload a file of your friends lookin’ real weird -  or lookin good.. even tho thats no fun.
 	4. TextSubComponent
 		Add text over your friends face, really drive that point home.
-		
-Development Notes:
-
-    1. Drag text handler needs work
-    2. Save functionality has not been added
-    3. Remove text has not been added
-    4. Edit text has not been added
-    5. Text is not being appended to the actual canvas element, which messes with resizing
-    6. Only background format currently supported is .png
 
 
 Getting Started: 
@@ -82,3 +73,12 @@ Open a console and navigate into the artsy_fartsy project file.
 
 3. Turn things your friends say into Memes. 
 4. Share, so the world can point the finger and laugh.
+
+Development Notes:
+
+    1. Drag text handler needs work
+    2. Save functionality has not been added
+    3. Remove text has not been added
+    4. Edit text has not been added
+    5. Text is not being appended to the actual canvas element, which messes with resizing
+    6. Only background format currently supported is .png
