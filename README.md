@@ -78,7 +78,7 @@ Development Notes:
 
     1. Drag text handler needs work
     2. Save functionality has not been added
-    3. Remove text has not been added
-    4. Edit text has not been added
+    3. Remove text functionality has not been added
+    4. Edit text functionality has not been added
     5. Text is not being appended to the actual canvas element, which messes with resizing
     6. Only background format currently supported is .png
