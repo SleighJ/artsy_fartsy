@@ -26,11 +26,17 @@ CanvasContainer:
 This container holds the more complex logic filled components and manages some logic between them.
 
 	1. Background: 
-		This component parses a file into base64 so the user can crop the image 				to their liking. The cropped base64 image is then posted to a firebase database 				and given a url for rendering.
+		This component parses a file into base64 so the user can crop the image 				
+		to their liking. The cropped base64 image is then posted to a firebase database 				
+		and given a url for rendering.
 	2. Text:
-		This component is heavily comprised of click-handlers. It allows the user to 				manipulate the text through the information passed in the click events. This 				component allows the user to change the font, size, and positioning of the text.
+		This component is heavily comprised of click-handlers. It allows the user to
+		manipulate the text through the information passed in the click events. This 				
+		component allows the user to change the font, size, and positioning of the text.
 	3. Canvas
-		This component is what allows the user to draw using the <canvas> 					element. This component will eventually handle the logic for saving the user’s 				work
+		This component is what allows the user to draw using the <canvas> 					
+		element. This component will eventually handle the logic for saving the user’s 				
+		work.
 
 
 SideBar:
@@ -45,19 +51,34 @@ This container holds the subComponents. SubComponents are used to change the val
 		Upload a file of your friends lookin’ real weird -  or lookin good.. but thats no fun.
 	4. TextSubComponent
 		Add text over your friends face, really drive that point home.
+		
+Development Notes:
+
+    1. Drag text handler needs work
+    2. Save functionality has not been added
+    3. Remove text has not been added
+    4. Edit text has not been added
+    5. Text is not being appended to the actual canvas element, which messes with resizing
+    6. Only background format currently supported is .png
 
 
 Getting Started: 
 
 Open a console and navigate into the artsy_fartsy project file. 
 
-1. Once in the project file, 
+1. Once in the project file,
 
-	$ node development
+    $ npm i --save 
+
+	$ node server
 
 2. Open another console, navigate into artsy_fartsy project file,
 	
 	$ npm start
+	
+    (after prompt to start server on 4001)
+    
+	$ y
 
 3. Turn things your friends say into Memes. 
-4. Share so the world can point the finger and laugh.
+4. Share, so the world can point the finger and laugh.
