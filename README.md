@@ -3,8 +3,6 @@ README
 
 Artsy_Fartsy Meme Creator
 
-Hey there, thanks for checking out the project. At this point the project still has plenty of flaws but for now let me guide you through some of these files so you can get an idea of what is going on.
-
 The file labeled ‘src’ is where you will find the majority of the meat in the project. Its file structure is broken into four categories.
 
 	1. Containers
