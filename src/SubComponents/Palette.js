@@ -18,6 +18,15 @@ class Palette extends PureComponent {
 		}
 	}
 
+	handleHover = ({nativeEvent}) => {
+		const { target } = nativeEvent;
+		let id = target.id;
+
+		this.setState({
+			hovered: id,
+		})
+	};
+
 	//tells parent which color is selected
 	provideColorToParent = ({nativeEvent}) => {
 
@@ -48,13 +57,24 @@ class Palette extends PureComponent {
 								fontSize: '0px'
 							};
 
+							let highlightedColorStyle = {
+								backgroundColor: color,
+								height: '1.5rem',
+								width: '100%',
+								border: '4px solid white',
+								display: 'inline-flex',
+								lineHeight: '0px',
+								fontSize: '0px'
+							};
+
 							let id = `color-wrapper-${i}`;
 							return (
 								<div
 									id={ id }
 									key={ i }
 									value={ color }
-									style={ colorStyle }
+									onMouseOver={ this.handleHover }
+									style={ this.state.hovered == id ? highlightedColorStyle : colorStyle }
 									onClick={ this.provideColorToParent }
 								>
 								</div>
