@@ -123,9 +123,32 @@ class Text extends PureComponent {
 		} else {
 			// if the user clicks on the text wrapper instead of a text element, de-select the edited text.
 			if (nativeEvent.target.id == 'text-wrapper') {
+
+				let id = this.state.editedText;
+				let index = id.split('')[id.length-1]-1;
+				let inputArrayCopy = this.state.input;
+				let selectedInput = inputArrayCopy[index];
+
+				let x = selectedInput.y;
+				let y = selectedInput.x;
+				let fontFamily = this.state.fontFamily;
+				let fontSize = this.state.fontSize;
+				let text = selectedInput.text;
+
+				let inputObj = {
+					id: id,
+					text: text,
+					x: parseInt(y, 10),
+					y: parseInt(x, 10),
+					fontSize: fontSize,
+					fontFamily: fontFamily,
+				};
+
+				inputArrayCopy.splice(index, 1, inputObj);
 				this.setState({
 					editedText: null,
 					clickedText: null,
+					input: inputArrayCopy,
 				})
 			}
 		}

@@ -51,10 +51,8 @@ class Background extends Component {
 	//posts original picture to firebase db in base64 (my db could use a little work at this point) and gives it an accessible url
 	uploadBackground = async (pic) => {
 
-		// console.log('upload background called')
 		const uploadTask = storage.ref(`images/${ pic.name }`).put(pic);
 		uploadTask.on('state_changed', (snapshot) => {
-			console.log('loading')
 			this.setState({
 				loadingBackground: true,
 			})

@@ -28,7 +28,7 @@ class Palette extends PureComponent {
 	};
 
 	render() {
-		
+
 		return (
 			<div className={'simple-palette-container'}>
 				<div style={ colorWrapperStyle }>

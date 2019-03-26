@@ -9,7 +9,7 @@ class ApplicationContainer extends Component {
 		super(props);
 
 		this.state = {
-			color: 'red',
+			color: '#000080',
 			width: 1,
 			selectedFont: 'Roboto',
 			fontSize: 20,
@@ -99,8 +99,6 @@ class ApplicationContainer extends Component {
 
 	//saves data from newlySelectedObj from Text.js so it can be passed to textSubComponent.js and update based on state changes in Text.js
 	getEditTextSelect = (newlySelectedObj) => {
-		console.log('getEditTextSelect from AppContainer.js');
-
 		this.setState({
 			selectedTextEdit: newlySelectedObj.id,
 			textEditObj: newlySelectedObj,

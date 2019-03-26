@@ -14,9 +14,17 @@ class SubComponentContainer extends Component {
 	pickComponentToRender = () => {
 
 		const subComponents = [
-				<Palette getColorFromPalette={ this.props.getColorFromPalette } />,
-				<Brushes getSizeFromBrush={ this.props.getSizeFromBrush } />,
-				<BackgroundSubComponent addBackground={ this.props.addBackground } />,
+				<Palette
+					getColorFromPalette={ this.props.getColorFromPalette }
+				/>,
+
+				<Brushes color={ this.props.color }
+						 getSizeFromBrush={ this.props.getSizeFromBrush }
+				/>,
+
+				<BackgroundSubComponent
+					addBackground={ this.props.addBackground } />,
+
 				<TextSubComponent
 					selectedTextEdit={this.props.selectedTextEdit}
 					setFont={ this.props.setFont }

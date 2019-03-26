@@ -37,23 +37,32 @@ class Brushes extends PureComponent {
 		})
 	};
 
+	handleHovered = ({nativeEvent}) => {
+
+		const { target } = nativeEvent;
+
+		this.setState({
+			hovered: target.id,
+		})
+	};
+
 	render() {
 
 		return (
 
 			<div style={brushWrapperStyle}>
 				{ this.state.widthArray.map((entry, i) => {
-						let id = i;
-						let style;
-							style = {
+						let id = `brush-wrapper-${i}`;
+						let iconStyle = {
+								color: this.props.color,
 								height: `${entry}rem`,
 								width: '100%',
 								marginTop: '1.5rem',
 								marginBottom: '1.5rem',
 							};
 						return (
-							<div key={ i } id={ id } onClick={ ()=>this.props.getSizeFromBrush(id) }>
-								<FontAwesomeIcon id={ id } style={ style } icon={ faPaintBrush } onClick={ ()=>this.props.getSizeFromBrush(id) } />
+							<div key={ i } id={ id } style={ this.state.hovered == id ? {backgroundColor: 'grey'} : null } onMouseOver={ this.handleHovered } onClick={ ()=>this.props.getSizeFromBrush(i) }>
+								<FontAwesomeIcon id={ id } style={ iconStyle } icon={ faPaintBrush } onClick={ ()=>this.props.getSizeFromBrush(i) } />
 							</div>
 						)
 					}) }

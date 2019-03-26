@@ -167,7 +167,7 @@ class Sidebar extends Component {
 				//if this command is coming from the text component
 				if (textComponentId == id) {
 					//turn on text
-					this.props.setTextState('sidebar buttonClickSelect 0.1')
+					this.props.setTextState()
 				}
 				//set clicked to the id and open the subComponent
 				this.setState({
@@ -184,7 +184,7 @@ class Sidebar extends Component {
 
 		return (
 			<div style={ sidebarOpen }>
-				<div style={{ width: '100%', height: '10%', }}>
+				<div style={{ width: '100%', height: '10%', marginBottom: '50%'}}>
 					<Grid>
 						<Grid.Row style={{margin: '10%'}} columns={1}>
 							<Grid.Column align={'center'}>
@@ -217,6 +217,7 @@ class Sidebar extends Component {
 												<SubComponentContainer
 													clicked={this.state.clicked}
 													getColorFromPalette={this.props.getColorFromPalette}
+													color={ this.props.color }
 													getSizeFromBrush={ this.props.getSizeFromBrush }
 													addBackground={ this.props.addBackground }
 
