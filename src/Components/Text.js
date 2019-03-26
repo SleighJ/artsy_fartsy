@@ -119,6 +119,15 @@ class Text extends PureComponent {
 					}, ()=>document.body.removeChild(input));
 				}
 			}
+		//if there is a selectedText and the user is editing a text element
+		} else {
+			// if the user clicks on the text wrapper instead of a text element, de-select the edited text.
+			if (nativeEvent.target.id == 'text-wrapper') {
+				this.setState({
+					editedText: null,
+					clickedText: null,
+				})
+			}
 		}
 	};
 
@@ -224,68 +233,64 @@ class Text extends PureComponent {
 
 		//if the targeted click is not on an element that the user is editing...
 		if (target.id != this.state.editedText) {
-			// if the targeted double click is equal to the single click
-			// if (this.state.clicked == this.state.editedText) {
 
-				// here id is retrieved from state, unless it is the first iteration,
-				// because if user is switching from text component to text component,
-				// the data passed will represent the most recently clicked Text
-				// and apply styling changes as such. The old id is stored (oldTextId)
-				// so that styling can be changed immediately if the user clicks from
-				// one text component to another rather than having to double-click
-				// the element again to de-select it.
+			// here id is retrieved from state, unless it is the first iteration,
+			// because if user is switching from text component to text component,
+			// the data passed will represent the most recently clicked Text
+			// and apply styling changes as such. The old id is stored (oldTextId)
+			// so that styling can be changed immediately if the user clicks from
+			// one text component to another rather than having to double-click
+			// the element again to de-select it.
 
-				let oldTextId = this.state.editedText;
-				let newTextId = target.id;
-				let oldTextFont = this.state.fontFamily;
-				let newTextFont = target.style.fontFamily;
+			let oldTextId = this.state.editedText;
+			let newTextId = target.id;
+			let oldTextFont = this.state.fontFamily;
+			let newTextFont = target.style.fontFamily;
 
-				let id = this.state.editedText ? oldTextId : newTextId;
-				let font = this.state.editedText ? oldTextFont : newTextFont;
+			let id = this.state.editedText ? oldTextId : newTextId;
+			let font = this.state.editedText ? oldTextFont : newTextFont;
 
-				// find the corresponding object in the state by pulling the index from the
-				// id and using it in inputArray to get any previously stored data out of the state
-				let inputArrayCopy = this.state.input;
-				let index = id.split('')[id.length-1]-1;
-				let selectedInput = inputArrayCopy[index];
-				let text = selectedInput.text;
+			// find the corresponding object in the state by pulling the index from the
+			// id and using it in inputArray to get any previously stored data out of the state
+			let inputArrayCopy = this.state.input;
+			let index = id.split('')[id.length-1]-1;
+			let selectedInput = inputArrayCopy[index];
+			let text = selectedInput.text;
 
-				// create object to save changes of previously selected Text and replace old
-				// data w current data (for use in this component)
-				let inputObj = {
-					id: id,
-					text: text,
-					x: parseInt(selectedInput.x, 10),
-					y: parseInt(selectedInput.y, 10),
-					fontSize: this.state.fontSize,
-					fontFamily: font,
-				};
+			// create object to save changes of previously selected Text and replace old
+			// data w current data (for use in this component)
+			let inputObj = {
+				id: id,
+				text: text,
+				x: parseInt(selectedInput.x, 10),
+				y: parseInt(selectedInput.y, 10),
+				fontSize: this.state.fontSize,
+				fontFamily: font,
+			};
 
-				// remove 'px' off the DOM styling obj so user can can switch from text component
-				// to text component without setting changes being applied to new component
-				let newlyStyledFontSizeArr = target.style.fontSize.split('');
-				newlyStyledFontSizeArr.splice(newlyStyledFontSizeArr.length-2, 2);
-				let newlyStyledFontSize = newlyStyledFontSizeArr.join('');
+			// remove 'px' off the DOM styling obj so user can can switch from text component
+			// to text component without setting changes being applied to new component
+			let newlyStyledFontSizeArr = target.style.fontSize.split('');
+			newlyStyledFontSizeArr.splice(newlyStyledFontSizeArr.length-2, 2);
+			let newlyStyledFontSize = newlyStyledFontSizeArr.join('');
 
-				// create an object that represents the newly clicked Text so TextSubComponent
-				// can reflect the changes that will take place in this component.
-				let newlySelectedObj = {
-					id: newTextId,
-					text: text,
-					fontSize: parseInt(newlyStyledFontSize, 10),
-					fontFamily: newTextFont,
-				};
+			// create an object that represents the newly clicked Text so TextSubComponent
+			// can reflect the changes that will take place in this component.
+			let newlySelectedObj = {
+				id: newTextId,
+				text: text,
+				fontSize: parseInt(newlyStyledFontSize, 10),
+				fontFamily: newTextFont,
+			};
 
-				// set the local state so styling will change, replace the old data/obj
-				// with new data/obj in input array
-				inputArrayCopy.splice(index, 1, inputObj);
-				// console.log('setting state in setEditState with '+JSON.stringify(newlySelectedObj))
-				this.setState({
-					editedText: newTextId,
-					input: inputArrayCopy,
-					//tell parent that there is a newly selected text so its state can be changed and passed to TextSubComponent
-				}, ()=>this.props.getEditTextSelect(newlySelectedObj));
-			// }
+			// set the local state so styling will change, replace the old data/obj
+			// with new data/obj in input array
+			inputArrayCopy.splice(index, 1, inputObj);
+			this.setState({
+				editedText: newTextId,
+				input: inputArrayCopy,
+				//tell parent that there is a newly selected text so its state can be changed and passed to TextSubComponent
+			}, ()=>this.props.getEditTextSelect(newlySelectedObj));
 		}
 	};
 
