@@ -19,8 +19,11 @@ class Palette extends PureComponent {
 	}
 
 	//tells parent which color is selected
-	provideColorToParent = (e) => {
-		let color = e.target.id;
+	provideColorToParent = ({nativeEvent}) => {
+
+		const { target } = nativeEvent;
+
+		let color = target.style.backgroundColor;
 
 		this.setState({
 			color: color,
@@ -45,13 +48,14 @@ class Palette extends PureComponent {
 								fontSize: '0px'
 							};
 
-							let id = i;
+							let id = `color-wrapper-${i}`;
 							return (
 								<div
-									id={ color }
-									key={ id }
+									id={ id }
+									key={ i }
+									value={ color }
 									style={ colorStyle }
-									onClick={ (e)=>this.provideColorToParent(e) }
+									onClick={ this.provideColorToParent }
 								>
 								</div>
 							)

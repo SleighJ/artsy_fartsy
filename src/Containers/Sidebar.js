@@ -184,7 +184,7 @@ class Sidebar extends Component {
 
 		return (
 			<div style={ sidebarOpen }>
-				<div style={{ width: '100%', height: '10%', marginBottom: '50%'}}>
+				<div style={{ width: '100%', height: '10%', marginBottom: '25%', marginTop: '25%'}}>
 					<Grid>
 						<Grid.Row style={{margin: '10%'}} columns={1}>
 							<Grid.Column align={'center'}>
@@ -235,20 +235,6 @@ class Sidebar extends Component {
 						)
 					})
 				}
-
-				{/*/!* <------------- work around to allow textSubComponent to receive props via state of parent -----------------> *!/*/}
-				{/*{ this.state.clicked == 3 ?*/}
-					{/*<TextSubComponent*/}
-						{/*id={'textSubComponent'}*/}
-						{/*selectedTextEdit={this.props.selectedTextEdit}*/}
-						{/*setFont={ this.props.setFont }*/}
-						{/*setFontSize={ this.props.setFontSize }*/}
-						{/*selectedTextEdit={ this.props.selectedTextEdit }*/}
-						{/*textEditObj={ this.props.textEditObj }*/}
-					{/*/>*/}
-				{/*: null*/}
-				{/*}*/}
-
 			</div>
 		);
 	}
