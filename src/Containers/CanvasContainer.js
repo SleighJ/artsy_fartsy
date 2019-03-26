@@ -18,9 +18,6 @@ class CanvasContainer extends Component {
 
 	//tells component to update if selectedPicture or croppedUrl is passed via props
 	componentDidUpdate = () => {
-		console.log('compDidUpdate Canvas Container')
-		console.log(this.props.croppedUrl, this.state.croppedUrl);
-		console.log(this.props.croppedUrl == this.state.croppedUrl)
 		if (this.props.selectedPicture && !this.state.modalOpen) {
 			this.setState({
 				modalOpen: true,

@@ -7,8 +7,12 @@ import BackgroundSubComponent from '../SubComponents/BackgroundSubComponent';
 import TextSubComponent from "../SubComponents/TextSubComponent";
 import Palette from '../SubComponents/Palette';
 import Brushes from '../SubComponents/Brushes';
-//Modules
+//npm
 import 'react-image-crop/dist/ReactCrop.css';
+import { Grid } from 'semantic-ui-react';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faPaintBrush } from '@fortawesome/free-solid-svg-icons';
+import SubComponentContainer from "./SubComponentContainer";
 
 const buttonStyle = {
 	border: 'none',
@@ -67,22 +71,19 @@ class Sidebar extends Component {
 			clicked: null,
 			fontSize: null,
 			croppedUrl: null,
-			componentArray: [
+			color: null,
+			subComponentArray: [
 				{
 					name: 'Palette',
-					component: <Palette getColorFromPalette={ this.props.getColorFromPalette } />
 				},
 				{
 					name: 'Brushes',
-					component: <Brushes getSizeFromBrush={ this.props.getSizeFromBrush } />
 				},
 				{
 					name: 'Background',
-					component: <BackgroundSubComponent addBackground={ this.props.addBackground } />
 				},
 				{
 					name: 'Text',
-					component: <Text />,
 				},
 			]
 		}
@@ -96,15 +97,27 @@ class Sidebar extends Component {
 				clicked: null,
 			})
 		}
-	}
 
-	//selects the component from the state (I know, prob not the best idea - Refactor coming soon!)
+		//if incoming value of color does not equal that of the local state, update the local state with it
+		if (this.props.color != this.state.color) {
+			this.setState({
+				color: this.props.color,
+			})
+		}
+
+		//if incoming value of width does not equal that of the local state, update the local state with it
+		if (this.props.width != this.state.width) {
+			this.setState({
+				width: this.props.width,
+			})
+		}
+
+	};
+
+	//highlights the button for the subComponent
 	buttonContainerSelect = (id) => {
-		let component = this.state.componentArray[id].component;
-
 		this.setState({
 			hovered: id,
-			component: component,
 		})
 	};
 
@@ -171,8 +184,18 @@ class Sidebar extends Component {
 
 		return (
 			<div style={ sidebarOpen }>
+				<div style={{ width: '100%', height: '10%', }}>
+					<Grid>
+						<Grid.Row style={{margin: '10%'}} columns={1}>
+							<Grid.Column align={'center'}>
+								<FontAwesomeIcon icon={ faPaintBrush } style={{ height: '3rem', width: '3rem', color: `${this.state.color}`, margin: 'auto',}}></FontAwesomeIcon>
+							</Grid.Column>
+						</Grid.Row>
+					</Grid>
+				</div>
+
 				{
-					this.state.componentArray.map((component, i) => {
+					this.state.subComponentArray.map((subComponent, i) => {
 						let id = i;
 						return (
 							<div>
@@ -184,27 +207,46 @@ class Sidebar extends Component {
 									onClick={ (e)=>this.buttonClickSelect(e.target.id, id) }
 									style={ this.state.clicked == id ? clickedButtonContainerStyle : this.state.hovered == id ? hoveredButtonContainerStyle : buttonContainerStyle }
 								>
-									<button id={ id } style={ buttonStyle }>{ component.name }</button>
+									<button id={ id } style={ buttonStyle }>{ subComponent.name }</button>
 								</div>
 
-								<div>{ clicked == id ? <div style={ componentContainerStyle }>{ component.component }</div> : null }</div>
+								<div>
+									{
+										clicked == id ?
+											<div style={ componentContainerStyle }>
+												<SubComponentContainer
+													clicked={this.state.clicked}
+													getColorFromPalette={this.props.getColorFromPalette}
+													getSizeFromBrush={ this.props.getSizeFromBrush }
+													addBackground={ this.props.addBackground }
+
+													//for text
+													selectedTextEdit={this.props.selectedTextEdit}
+													setFont={ this.props.setFont }
+													setFontSize={ this.props.setFontSize }
+													textEditObj={ this.props.textEditObj }
+												/>
+											</div>
+										: null
+									}
+								</div>
 							</div>
-					)
+						)
 					})
 				}
 
-				{/* <------------- work around to allow textSubComponent to receive props via state of parent -----------------> */}
-				{ this.state.clicked == 3 ?
-					<TextSubComponent
-						id={'textSubComponent'}
-						selectedTextEdit={this.props.selectedTextEdit}
-						setFont={ this.props.setFont }
-						setFontSize={ this.props.setFontSize }
-						selectedTextEdit={ this.props.selectedTextEdit }
-						textEditObj={ this.props.textEditObj }
-					/>
-				: null
-				}
+				{/*/!* <------------- work around to allow textSubComponent to receive props via state of parent -----------------> *!/*/}
+				{/*{ this.state.clicked == 3 ?*/}
+					{/*<TextSubComponent*/}
+						{/*id={'textSubComponent'}*/}
+						{/*selectedTextEdit={this.props.selectedTextEdit}*/}
+						{/*setFont={ this.props.setFont }*/}
+						{/*setFontSize={ this.props.setFontSize }*/}
+						{/*selectedTextEdit={ this.props.selectedTextEdit }*/}
+						{/*textEditObj={ this.props.textEditObj }*/}
+					{/*/>*/}
+				{/*: null*/}
+				{/*}*/}
 
 			</div>
 		);

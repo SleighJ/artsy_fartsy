@@ -10,6 +10,7 @@ class ApplicationContainer extends Component {
 
 		this.state = {
 			color: 'red',
+			width: 1,
 			selectedFont: 'Roboto',
 			fontSize: 20,
 			fileManagement: false,
@@ -70,7 +71,6 @@ class ApplicationContainer extends Component {
 
 	//gets the url for the cropped image from background.js component
 	getCroppedUrlFromBackground = (newURL) => {
-		console.log('cropped firing from appContainer')
 		this.setState({
 			croppedUrl: newURL,
 		})
@@ -99,6 +99,8 @@ class ApplicationContainer extends Component {
 
 	//saves data from newlySelectedObj from Text.js so it can be passed to textSubComponent.js and update based on state changes in Text.js
 	getEditTextSelect = (newlySelectedObj) => {
+		console.log('getEditTextSelect from AppContainer.js');
+
 		this.setState({
 			selectedTextEdit: newlySelectedObj.id,
 			textEditObj: newlySelectedObj,
@@ -107,10 +109,8 @@ class ApplicationContainer extends Component {
 
 	render() {
 
-		const { color, width, textEditOpen, fontSize, selectedTextEdit, textEditObj, background, blobArray, selectedPicture, selectedFont, croppedUrl } = this.state;
+		const { color, width, textEditOpen, fontSize, selectedTextEdit, textEditObj, selectedPicture, selectedFont, croppedUrl } = this.state;
 
-		console.log('appContainer render')
-		console.log(this.state.croppedUrl)
 		return (
 			<div>
 
@@ -131,6 +131,8 @@ class ApplicationContainer extends Component {
 						selectedTextEdit={ selectedTextEdit }
 						textEditObj={ textEditObj }
 						croppedUrl={ croppedUrl }
+						color={ color }
+						width={ width }
 					/>
 				</Fragment>
 
