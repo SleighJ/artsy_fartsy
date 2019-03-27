@@ -23,7 +23,8 @@ class SubComponentContainer extends Component {
 				/>,
 
 				<BackgroundSubComponent
-					addBackground={ this.props.addBackground } />,
+					addBackground={ this.props.addBackground }
+				/>,
 
 				<TextSubComponent
 					selectedTextEdit={this.props.selectedTextEdit}

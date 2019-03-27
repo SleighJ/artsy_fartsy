@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import Colors from '../Static/Colors';
 
 import { Grid, Dropdown } from "semantic-ui-react";
 import Fonts from "../Static/Fonts";
@@ -12,6 +13,8 @@ class TextSubComponent extends Component {
 			fontFamily: 'Roboto',
 			selectedTextEdit: null,
 			textEditObj: null,
+			openFontColors: null,
+			selectedFontColor: null,
 		}
 	}
 
@@ -48,6 +51,21 @@ class TextSubComponent extends Component {
 		}, ()=>this.props.setFont(fontFamily));
 	};
 
+	openTextColor = () => {
+		this.setState({
+			openFontColor: true,
+		})
+	};
+
+	selectColor = ({nativeEvent}) => {
+		const { target } = nativeEvent;
+		const color = target.style.backgroundColor;
+
+		this.setState({
+			selectedFontColor: color,
+		})
+	};
+
 	render() {
 
 		const { fontFamily, fontSize } = this.state;
@@ -55,9 +73,9 @@ class TextSubComponent extends Component {
 		return (
 			<Grid style={{backgroundColor: 'transparent', margin: 0}} columns={2}>
 				<Grid.Row style={{ marginLeft: '5%', marginRight: '5%'}}>
-					<Grid.Column style={{padding: '0'}} width={11}>
-						<Dropdown style={{ position: 'fixed', fontSize: '70%', fontFamily: `${ fontFamily }` }} text={`${ fontFamily }`}>
-							<Dropdown.Menu>
+					<Grid.Column style={{padding: '0' }} width={11}>
+						<Dropdown align={'center'} style={{ position: 'fixed', fontSize: '70%', fontFamily: `${ fontFamily }` }} text={`${ fontFamily }`}>
+							<Dropdown.Menu style={{marginTop: '10%'}}>
 								{ Fonts.map((font, i) => {
 									return (
 										<Dropdown.Item
@@ -81,6 +99,19 @@ class TextSubComponent extends Component {
 							value={ fontSize }
 							onChange={ (e) => this.setFontSizeState(e.target.value) }>
 						</input>
+					</Grid.Column>
+				</Grid.Row>
+				<Grid.Row>
+					<Grid.Column>
+						<div style={{height: '20px', width: '20px', border: '1px solid black', backgroundColor: `${ this.state.selectedFontColor ? this.state.selectedFontColor : 'black' }`}} onClick={ ()=>this.openTextColor() }></div>
+							{ this.state.openFontColor ?
+								Colors.map((color, i) => {
+									let id = `font-color-${i}-${color}`;
+									return (
+										<div key={ i } id={ id } value={ color } onClick={ this.selectColor } style={{height: '20px', width: '20px', backgroundColor: `${ color }`}}></div>
+									)
+								})
+							: null }
 					</Grid.Column>
 				</Grid.Row>
 			</Grid>
