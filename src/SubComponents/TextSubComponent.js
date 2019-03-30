@@ -14,7 +14,7 @@ class TextSubComponent extends Component {
 			selectedTextEdit: null,
 			textEditObj: null,
 			openFontColors: false,
-			textColor: null,
+			textColor: 'black',
 		}
 	}
 
@@ -26,6 +26,7 @@ class TextSubComponent extends Component {
 			//decide what the font size and family should be -> if there is an incoming font size/font family value, use it, or else just set it to 20/Roboto.
 			let fontSize = this.props.textEditObj.fontSize ? this.props.textEditObj.fontSize : 20;
 			let fontFamily = this.props.textEditObj.fontFamily ? this.props.textEditObj.fontFamily : 'Roboto';
+			let textColor = this.props.textColor ? this.props.textColor : this.state.textColor;
 
 			//save the id of selectedTextEdit, its corresponding data, its fontSize and its fontFamily
 			this.setState({
@@ -33,13 +34,14 @@ class TextSubComponent extends Component {
 				textEditObj: this.props.textEditObj,
 				fontSize: fontSize,
 				fontFamily: fontFamily,
-				//tell parent that fontSize and fontFamily has changed
-			}, this.props.setFontSize(fontSize), this.props.setFont(fontFamily))
-		}
+				textColor: textColor,
+				//tell parent that fontSize, fontFamily, and textColor has changed
+			}, this.props.setFontSize(fontSize),
+				this.props.setFont(fontFamily),
+				this.props.getTextColor(textColor)
+			)}
 
 		if (this.state.textColor != prevState.textColor) {
-			console.log(this.state.textColor, prevState)
-			console.log('yipeee')
 			this.props.getTextColor(this.state.textColor);
 		}
 	};

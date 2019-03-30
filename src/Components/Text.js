@@ -21,7 +21,7 @@ class Text extends PureComponent {
 			clickedText: null,
 			dragging: null,
 			editedText: null,
-			textColor: null,
+			textColor: 'black',
 		}
 	}
 
@@ -37,8 +37,8 @@ class Text extends PureComponent {
 				textEditOpen: this.props.textEditOpen,
 			})
 		}
+
 		if (this.props.textColor) {
-			console.log('yah mon')
 			this.setState({
 				textColor: this.props.textColor,
 			})
@@ -173,6 +173,7 @@ class Text extends PureComponent {
 					y: parseInt(e.target.offsetLeft, 10),
 					fontSize: this.state.fontSize,
 					fontFamily: this.state.fontFamily,
+					textColor: this.state.textColor,
 				};
 
 				//save the data in an array so it can be rendered
@@ -216,6 +217,7 @@ class Text extends PureComponent {
 			y: parseInt(x, 10),
 			fontSize: this.state.fontSize,
 			fontFamily: this.state.fontFamily,
+			textColor: this.state.textColor,
 		};
 
 		//find the corresponding object in input array and update it
@@ -267,6 +269,8 @@ class Text extends PureComponent {
 			let newTextId = target.id;
 			let oldTextFont = this.state.fontFamily;
 			let newTextFont = target.style.fontFamily;
+			let oldTextColor = this.state.textColor;
+			let newTextColor = target.style.color;
 
 			let id = this.state.editedText ? oldTextId : newTextId;
 			let font = this.state.editedText ? oldTextFont : newTextFont;
@@ -287,6 +291,7 @@ class Text extends PureComponent {
 				y: parseInt(selectedInput.y, 10),
 				fontSize: this.state.fontSize,
 				fontFamily: font,
+				textColor: oldTextColor,
 			};
 
 			// remove 'px' off the DOM styling obj so user can can switch from text component
@@ -302,6 +307,7 @@ class Text extends PureComponent {
 				text: text,
 				fontSize: parseInt(newlyStyledFontSize, 10),
 				fontFamily: newTextFont,
+				textColor: newTextColor,
 			};
 
 			// set the local state so styling will change, replace the old data/obj
@@ -332,6 +338,7 @@ class Text extends PureComponent {
 			y: parseInt(selectedInput.y, 10),
 			fontSize: this.state.fontSize,
 			fontFamily: this.state.fontFamily,
+			textColor: this.state.textColor,
 		};
 		//and update any saved data corresponding to that Text Component.
 		inputArrayCopy.splice(index, 1, inputObj);
@@ -377,7 +384,7 @@ class Text extends PureComponent {
 									height: `${ this.state.editedText == id ? `${ this.state.fontSize }px` : `${ inputEntry.fontSize }px` }`,
 									fontSize: `${ this.state.editedText == id ? `${ this.state.fontSize }px` : `${ inputEntry.fontSize }px` }`,
 									fontFamily:  `${ this.state.editedText == id ? `${ this.state.fontFamily }` : `${ inputEntry.fontFamily }` }`,
-									color: `${ this.state.editedText == id ? textColor : 'black' }`
+									color: `${ this.state.editedText == id ? textColor : `${ inputEntry.textColor }` }`,
 								}}
 							>{ inputEntry.text }
 							</div>
