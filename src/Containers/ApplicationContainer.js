@@ -20,6 +20,7 @@ class ApplicationContainer extends Component {
 			textEditOpen: false,
 			selectedTextEdit: null,
 			textEditObj: null,
+			textColor: null,
 		}
 	}
 
@@ -105,9 +106,17 @@ class ApplicationContainer extends Component {
 		})
 	};
 
+	getTextColor = (color) => {
+		this.setState({
+			textColor: color,
+		})
+	};
+
 	render() {
 
-		const { color, width, textEditOpen, fontSize, selectedTextEdit, textEditObj, selectedPicture, selectedFont, croppedUrl } = this.state;
+		const { color, width, textEditOpen, fontSize, selectedTextEdit, textEditObj, selectedPicture, selectedFont, croppedUrl, textColor } = this.state;
+
+		console.log(textColor)
 
 		return (
 			<div>
@@ -122,6 +131,7 @@ class ApplicationContainer extends Component {
 						setTextState={ this.setTextState }
 						setFontSize={ this.setFontSize }
 						setFont={ this.setFont }
+						getTextColor={ this.getTextColor }
 
 						//global state values
 						fontSize={ fontSize }
@@ -150,6 +160,7 @@ class ApplicationContainer extends Component {
 						textEditOpen={ textEditOpen }
 						fontSize={ fontSize }
 						selectedFont={ selectedFont }
+						textColor={ textColor }
 					/>
 				</Fragment>
 

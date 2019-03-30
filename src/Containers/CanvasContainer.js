@@ -50,10 +50,12 @@ class CanvasContainer extends Component {
 			fontSize,
 			selectedFont,
 			selectedPicture,
+			textColor,
+			getFontColor,
 			setTextState,
 			getEditTextSelect,
 			clearBackground,
-			getCroppedUrlFromBackground
+			getCroppedUrlFromBackground,
 		} = this.props;
 
 		return (
@@ -74,6 +76,7 @@ class CanvasContainer extends Component {
 					fontSize={ fontSize }
 					selectedFont={ selectedFont }
 					textEditOpen={ textEditOpen }
+					textColor={ textColor }
 					setTextState={ setTextState }
 					getEditTextSelect={ getEditTextSelect }
 				/>

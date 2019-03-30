@@ -32,6 +32,7 @@ class SubComponentContainer extends Component {
 					setFontSize={ this.props.setFontSize }
 					selectedTextEdit={ this.props.selectedTextEdit }
 					textEditObj={ this.props.textEditObj }
+					getTextColor={ this.props.getTextColor }
 				/>,
 			];
 

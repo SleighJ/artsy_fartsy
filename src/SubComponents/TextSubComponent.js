@@ -14,11 +14,12 @@ class TextSubComponent extends Component {
 			selectedTextEdit: null,
 			textEditObj: null,
 			openFontColors: false,
-			selectedFontColor: null,
+			textColor: null,
 		}
 	}
 
-	componentDidUpdate = (prevState, prevProps) => {
+	componentDidUpdate = (prevProps, prevState) => {
+		console.log('textSub updating')
 		//if incoming selectedTextEdit value does not equal the current selectedTextEdit value (user is selecting a (possibly different) text component(s))
 		if (this.props.selectedTextEdit != this.state.selectedTextEdit) {
 
@@ -34,6 +35,12 @@ class TextSubComponent extends Component {
 				fontFamily: fontFamily,
 				//tell parent that fontSize and fontFamily has changed
 			}, this.props.setFontSize(fontSize), this.props.setFont(fontFamily))
+		}
+
+		if (this.state.textColor != prevState.textColor) {
+			console.log(this.state.textColor, prevState)
+			console.log('yipeee')
+			this.props.getTextColor(this.state.textColor);
 		}
 	};
 
@@ -62,7 +69,7 @@ class TextSubComponent extends Component {
 		const color = target.style.backgroundColor;
 
 		this.setState({
-			selectedFontColor: color,
+			textColor: color,
 		}, ()=>this.openTextColor() )
 	};
 
@@ -103,7 +110,7 @@ class TextSubComponent extends Component {
 				</Grid.Row>
 				<Grid.Row columns={2}>
 					<Grid.Column width={4}>
-						<div style={{height: '20px', width: '20px', border: '1px solid black', display: 'inline-block', backgroundColor: `${ this.state.selectedFontColor ? this.state.selectedFontColor : 'black' }`}} onClick={ ()=>this.openTextColor() }></div>
+						<div style={{height: '20px', width: '20px', border: '1px solid black', display: 'inline-block', backgroundColor: `${ this.state.textColor ? this.state.textColor : 'black' }`}} onClick={ ()=>this.openTextColor() }></div>
 					</Grid.Column>
 						{ this.state.openFontColor ?
 							<Grid.Column width={12}>

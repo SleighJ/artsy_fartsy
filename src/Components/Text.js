@@ -21,6 +21,7 @@ class Text extends PureComponent {
 			clickedText: null,
 			dragging: null,
 			editedText: null,
+			textColor: null,
 		}
 	}
 
@@ -36,15 +37,11 @@ class Text extends PureComponent {
 				textEditOpen: this.props.textEditOpen,
 			})
 		}
-		// //if textEditOpen changes, turn off editedText and hasInput
-		// if (!this.props.textEditOpen) {
-		// 	// console.log('running')
-		// 	this.setState({
-		// 		editedText: null,
-		// 		hasInput: null,
-		// 		clickedText: null,
-		// 	})
-		// }
+		if (this.props.textColor) {
+			this.setState({
+				textColor: this.props.textColor,
+			})
+		}
 	};
 
 	//handles adding text to the canvas by adding it to the state so it can be mapped in render()
@@ -377,6 +374,7 @@ class Text extends PureComponent {
 									height: `${ this.state.editedText == id ? `${ this.state.fontSize }px` : `${ inputEntry.fontSize }px` }`,
 									fontSize: `${ this.state.editedText == id ? `${ this.state.fontSize }px` : `${ inputEntry.fontSize }px` }`,
 									fontFamily:  `${ this.state.editedText == id ? `${ this.state.fontFamily }` : `${ inputEntry.fontFamily }` }`,
+									color: `${ this.state.editedText == id ? `${ this.state.textColor }` : 'yellow' }`
 								}}
 							>{ inputEntry.text }
 							</div>
