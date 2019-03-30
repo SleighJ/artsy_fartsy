@@ -13,7 +13,7 @@ class TextSubComponent extends Component {
 			fontFamily: 'Roboto',
 			selectedTextEdit: null,
 			textEditObj: null,
-			openFontColors: null,
+			openFontColors: false,
 			selectedFontColor: null,
 		}
 	}
@@ -53,7 +53,7 @@ class TextSubComponent extends Component {
 
 	openTextColor = () => {
 		this.setState({
-			openFontColor: true,
+			openFontColor: !this.state.openFontColor,
 		})
 	};
 
@@ -63,7 +63,7 @@ class TextSubComponent extends Component {
 
 		this.setState({
 			selectedFontColor: color,
-		})
+		}, ()=>this.openTextColor() )
 	};
 
 	render() {
@@ -101,18 +101,22 @@ class TextSubComponent extends Component {
 						</input>
 					</Grid.Column>
 				</Grid.Row>
-				<Grid.Row>
-					<Grid.Column>
-						<div style={{height: '20px', width: '20px', border: '1px solid black', backgroundColor: `${ this.state.selectedFontColor ? this.state.selectedFontColor : 'black' }`}} onClick={ ()=>this.openTextColor() }></div>
-							{ this.state.openFontColor ?
-								Colors.map((color, i) => {
-									let id = `font-color-${i}-${color}`;
-									return (
-										<div key={ i } id={ id } value={ color } onClick={ this.selectColor } style={{height: '20px', width: '20px', backgroundColor: `${ color }`}}></div>
-									)
-								})
-							: null }
+				<Grid.Row columns={2}>
+					<Grid.Column width={4}>
+						<div style={{height: '20px', width: '20px', border: '1px solid black', display: 'inline-block', backgroundColor: `${ this.state.selectedFontColor ? this.state.selectedFontColor : 'black' }`}} onClick={ ()=>this.openTextColor() }></div>
 					</Grid.Column>
+						{ this.state.openFontColor ?
+							<Grid.Column width={12}>
+								<div style={{ position: 'fixed', height: '100px', width: '80px', display: 'inline-block', border: '1px solid black', overflowY: 'scroll' }}>
+									{ Colors.map((color, i) => {
+										let id = `font-color-${i}-${color}`;
+										return (
+											<div key={ i } id={ id } value={ color } onClick={ this.selectColor } style={{height: '20px', width: '20px', backgroundColor: `${ color }`, display: 'inline-block' }}></div>
+										)
+									}) }
+								</div>
+							</Grid.Column>
+						: null }
 				</Grid.Row>
 			</Grid>
 		);
