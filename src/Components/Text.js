@@ -38,7 +38,7 @@ class Text extends PureComponent {
 			})
 		}
 
-		if (this.props.textColor) {
+		if (this.props.textColor != this.state.textColor) {
 			this.setState({
 				textColor: this.props.textColor,
 			})
@@ -272,6 +272,8 @@ class Text extends PureComponent {
 			let oldTextColor = this.state.textColor;
 			let newTextColor = target.style.color;
 
+			console.log(newTextColor)
+
 			let id = this.state.editedText ? oldTextId : newTextId;
 			let font = this.state.editedText ? oldTextFont : newTextFont;
 
@@ -353,8 +355,6 @@ class Text extends PureComponent {
 
 		const { input, textColor } = this.state;
 
-		console.log(this.state)
-
 		return (
 			<div id={'text-wrapper'} style={ textWrapperStyle } onClick={ this.addText }>
 				{ input ?
@@ -379,6 +379,7 @@ class Text extends PureComponent {
 									lineHeight: '100%',
 									overflow: 'hidden',
 									containment: 'parent',
+									outline: 'none',
 									cursor: `${ this.state.dragging == id ? 'move' : 'arrow' }`,
 									backgroundColor: `${this.state.editedText == id ? 'rgb(255,255,0)' : 'transparent'}`,
 									height: `${ this.state.editedText == id ? `${ this.state.fontSize }px` : `${ inputEntry.fontSize }px` }`,
