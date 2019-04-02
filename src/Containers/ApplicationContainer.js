@@ -16,6 +16,7 @@ class ApplicationContainer extends Component {
 			fileManagement: false,
 			selectedPicture: null,
 			background: null,
+			imagePreviewRotation: 0,
 			croppedUrl: null,
 			textEditOpen: false,
 			selectedTextEdit: null,
@@ -70,6 +71,12 @@ class ApplicationContainer extends Component {
 		})
 	};
 
+	getBackgroundRotation = (rotation) => {
+		this.setState({
+			imagePreviewRotation: rotation
+		})
+	};
+
 	//gets the url for the cropped image from background.js component
 	getCroppedUrlFromBackground = (newURL) => {
 		this.setState({
@@ -114,9 +121,7 @@ class ApplicationContainer extends Component {
 
 	render() {
 
-		const { color, width, textEditOpen, fontSize, selectedTextEdit, textEditObj, selectedPicture, selectedFont, croppedUrl, textColor } = this.state;
-
-		console.log(textColor)
+		const { color, width, textEditOpen, fontSize, selectedTextEdit, textEditObj, selectedPicture, selectedFont, croppedUrl, textColor, imagePreviewRotation } = this.state;
 
 		return (
 			<div>
@@ -150,12 +155,14 @@ class ApplicationContainer extends Component {
 						setTextState={ this.setTextState }
 						getEditTextSelect={ this.getEditTextSelect }
 						clearBackground={ this.clearBackground }
+						getBackgroundRotation={ this.getBackgroundRotation }
 						getCroppedUrlFromBackground={ this.getCroppedUrlFromBackground }
 
 						//global state values
 						color={ color }
 						width={ width }
 						selectedPicture={ selectedPicture }
+						imagePreviewRotation={ imagePreviewRotation }
 						croppedUrl={ croppedUrl }
 						textEditOpen={ textEditOpen }
 						fontSize={ fontSize }

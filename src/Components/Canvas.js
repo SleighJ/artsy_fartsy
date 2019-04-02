@@ -19,6 +19,7 @@ class Canvas extends PureComponent {
 			color: 'red',
 			width: null,
 			background: null,
+			imagePreviewRotation: 0,
 		};
 	}
 
@@ -46,6 +47,7 @@ class Canvas extends PureComponent {
 			color: this.props.color,
 			width:this.props.width,
 			croppedUrl: this.props.croppedUrl,
+			imagePreviewRotation: this.props.imagePreviewRotation,
 		});
 
 		this.ctx.lineWidth = this.props.width;
@@ -125,7 +127,9 @@ class Canvas extends PureComponent {
 
 	render() {
 
-		const { croppedUrl } = this.state;
+		const { croppedUrl, imagePreviewRotation } = this.state;
+
+		console.log(imagePreviewRotation);
 
 		let urlStyle = {
 			width: '800px',
@@ -137,6 +141,7 @@ class Canvas extends PureComponent {
 			backgroundRepeat: 'no-repeat',
 			backgroundPosition: 'center',
 			backgroundSize: 'cover',
+			transform: `rotate(${imagePreviewRotation}deg)`
 		};
 
 		let noUrlStyle = {

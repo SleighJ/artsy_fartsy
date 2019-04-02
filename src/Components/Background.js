@@ -22,6 +22,7 @@ class Background extends Component {
 			unCroppedFireBaseUrl: null,
 			unCroppedImg64: null,
 			croppedUrl: null,
+			imagePreviewRotation: 0,
 			crop: {
 				aspect: 1/1,
 			}
@@ -119,7 +120,26 @@ class Background extends Component {
 		}, ()=>this.props.getCroppedUrlFromBackground(newURL))
 	};
 
+	//sets rotation amount in local state, passes value to parent so rotation can be changed on canvas
+	rotateImagePreview = () => {
+
+		let currentRotation = this.state.imagePreviewRotation;
+		let nextRotation = currentRotation + 90;
+
+		this.setState({
+			imagePreviewRotation: nextRotation,
+		}, ()=>this.props.getBackgroundRotation(nextRotation) )
+	};
+
 	render() {
+
+		const { imagePreviewRotation } = this.state;
+
+		let rotationStyle= {
+			width: '100%',
+			height: '100%',
+			transform: `rotate(${imagePreviewRotation}deg)`
+		};
 
 		return (
 			<div style={{ width: '100%', height: '100%' }}>
@@ -150,10 +170,11 @@ class Background extends Component {
 									<canvas
 										id={'canvas'}
 										crossOrigin="Anonymous"
-										style={{ width: '100%', height: '100%' }}
+										style={ rotationStyle }
 										ref={ this.imagePreviewCanvasRef }
 									>
 									</canvas>
+									<Button onClick={ ()=>this.rotateImagePreview() }>Rotate</Button>
 								</Grid.Column>
 								<Button style={{margin: '5%'}} onClick={ this.handleDone }>Done</Button>
 							</Grid.Row>

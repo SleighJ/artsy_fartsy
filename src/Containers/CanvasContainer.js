@@ -21,7 +21,7 @@ class CanvasContainer extends Component {
 		if (this.props.selectedPicture && !this.state.modalOpen) {
 			this.setState({
 				modalOpen: true,
-			})
+			});
 		}
 
 		//first iteration
@@ -56,6 +56,7 @@ class CanvasContainer extends Component {
 			getEditTextSelect,
 			clearBackground,
 			getCroppedUrlFromBackground,
+			getBackgroundRotation,
 		} = this.props;
 
 		return (
@@ -68,6 +69,7 @@ class CanvasContainer extends Component {
 							selectedPicture={ selectedPicture }
 							clearBackground={ clearBackground }
 							getCroppedUrlFromBackground={ getCroppedUrlFromBackground }
+							getBackgroundRotation={ getBackgroundRotation }
 						/>
 					</Modal.Content>
 				</Modal>
@@ -84,6 +86,7 @@ class CanvasContainer extends Component {
 					color={ color }
 					width={ width != null ? width : 1 }
 					croppedUrl={ this.state.croppedUrl }
+					imagePreviewRotation={ this.props.imagePreviewRotation }
 					textEditOpen={ textEditOpen }
 				/>
 
