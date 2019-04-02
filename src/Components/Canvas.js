@@ -139,8 +139,10 @@ class Canvas extends PureComponent {
 			backgroundRepeat: 'no-repeat',
 			backgroundPosition: 'center',
 			backgroundSize: 'cover',
-			transform: `rotate(${imagePreviewRotation}deg)`
+			// transform: `rotate(${imagePreviewRotation}deg)`
 		};
+
+		//TODO: need to transform image before going to base64, not change the styling here
 
 		let noUrlStyle = {
 			width: '800px',

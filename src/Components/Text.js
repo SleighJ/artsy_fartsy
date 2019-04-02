@@ -296,8 +296,6 @@ class Text extends PureComponent {
 				textColor: oldTextColor ? oldTextColor : 'rgb(0, 0, 0)',
 			};
 
-			console.log('using inputObject in Text.js '+JSON.stringify(inputObj))
-
 			// remove 'px' off the DOM styling obj so user can can switch from text component
 			// to text component without setting changes being applied to new component
 			let newlyStyledFontSizeArr = target.style.fontSize.split('');
@@ -313,8 +311,6 @@ class Text extends PureComponent {
 				fontFamily: newTextFont,
 				textColor: newTextColor ? newTextColor : 'rgb(0, 0, 0)',
 			};
-
-			console.log('sending newlySelectedObect to TextSubComponent.js '+JSON.stringify(newlySelectedObj));
 
 			// set the local state so styling will change, replace the old data/obj
 			// with new data/obj in input array
