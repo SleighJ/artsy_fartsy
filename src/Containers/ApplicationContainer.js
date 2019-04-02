@@ -114,6 +114,7 @@ class ApplicationContainer extends Component {
 	};
 
 	getTextColor = (color) => {
+		// console.log(color)
 		this.setState({
 			textColor: color,
 		})

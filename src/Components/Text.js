@@ -5,6 +5,7 @@ const textWrapperStyle = {
 	height: '600px',
 	width: '800px',
 	pointerEvents: 'auto',
+	outline: 'none',
 };
 
 class Text extends PureComponent {
@@ -272,10 +273,9 @@ class Text extends PureComponent {
 			let oldTextColor = this.state.textColor;
 			let newTextColor = target.style.color;
 
-			console.log(newTextColor)
-
 			let id = this.state.editedText ? oldTextId : newTextId;
 			let font = this.state.editedText ? oldTextFont : newTextFont;
+			// let color = this.state.editedText ? oldTextColor : newTextColor;
 
 			// find the corresponding object in the state by pulling the index from the
 			// id and using it in inputArray to get any previously stored data out of the state
@@ -293,8 +293,10 @@ class Text extends PureComponent {
 				y: parseInt(selectedInput.y, 10),
 				fontSize: this.state.fontSize,
 				fontFamily: font,
-				textColor: oldTextColor,
+				textColor: oldTextColor ? oldTextColor : 'rgb(0, 0, 0)',
 			};
+
+			console.log('using inputObject in Text.js '+JSON.stringify(inputObj))
 
 			// remove 'px' off the DOM styling obj so user can can switch from text component
 			// to text component without setting changes being applied to new component
@@ -309,8 +311,10 @@ class Text extends PureComponent {
 				text: text,
 				fontSize: parseInt(newlyStyledFontSize, 10),
 				fontFamily: newTextFont,
-				textColor: newTextColor,
+				textColor: newTextColor ? newTextColor : 'rgb(0, 0, 0)',
 			};
+
+			console.log('sending newlySelectedObect to TextSubComponent.js '+JSON.stringify(newlySelectedObj));
 
 			// set the local state so styling will change, replace the old data/obj
 			// with new data/obj in input array
@@ -384,8 +388,8 @@ class Text extends PureComponent {
 									backgroundColor: `${this.state.editedText == id ? 'rgb(255,255,0)' : 'transparent'}`,
 									height: `${ this.state.editedText == id ? `${ this.state.fontSize }px` : `${ inputEntry.fontSize }px` }`,
 									fontSize: `${ this.state.editedText == id ? `${ this.state.fontSize }px` : `${ inputEntry.fontSize }px` }`,
-									fontFamily:  `${ this.state.editedText == id ? `${ this.state.fontFamily }` : `${ inputEntry.fontFamily }` }`,
-									color: `${ this.state.editedText == id ? textColor : `${ inputEntry.textColor }` }`,
+									fontFamily:  `${ this.state.editedText == id ?  this.state.fontFamily : inputEntry.fontFamily }`,
+									color: `${ this.state.editedText == id ? this.state.textColor : inputEntry.textColor }`,
 								}}
 							>{ inputEntry.text }
 							</div>

@@ -19,14 +19,13 @@ class TextSubComponent extends Component {
 	}
 
 	componentDidUpdate = (prevProps, prevState) => {
-		console.log('textSub updating')
 		//if incoming selectedTextEdit value does not equal the current selectedTextEdit value (user is selecting a (possibly different) text component(s))
 		if (this.props.selectedTextEdit != this.state.selectedTextEdit) {
 
 			//decide what the font size and family should be -> if there is an incoming font size/font family value, use it, or else just set it to 20/Roboto.
 			let fontSize = this.props.textEditObj.fontSize ? this.props.textEditObj.fontSize : 20;
 			let fontFamily = this.props.textEditObj.fontFamily ? this.props.textEditObj.fontFamily : 'Roboto';
-			let textColor = this.props.textColor ? this.props.textColor : this.state.textColor;
+			let textColor = this.props.textEditObj ? this.props.textEditObj.textColor : this.state.textColor;
 
 			//save the id of selectedTextEdit, its corresponding data, its fontSize and its fontFamily
 			this.setState({
@@ -39,7 +38,8 @@ class TextSubComponent extends Component {
 			}, this.props.setFontSize(fontSize),
 				this.props.setFont(fontFamily),
 				this.props.getTextColor(textColor)
-			)}
+			)
+		}
 
 		if (this.state.textColor != prevState.textColor) {
 			this.props.getTextColor(this.state.textColor);

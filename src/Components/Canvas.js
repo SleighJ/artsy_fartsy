@@ -129,8 +129,6 @@ class Canvas extends PureComponent {
 
 		const { croppedUrl, imagePreviewRotation } = this.state;
 
-		console.log(imagePreviewRotation);
-
 		let urlStyle = {
 			width: '800px',
 			height: '600px',
