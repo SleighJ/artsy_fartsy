@@ -47,6 +47,12 @@ class Background extends Component {
 				loadingBackground: false,
 			}, ()=>this.props.clearBackground())
 		}
+
+		if (this.props.selectedPicture != this.state.selectedPicture) {
+			this.setState({
+				imagePreviewRotation: 0,
+			}, ()=>this.props.getBackgroundRotation(0))
+		}
 	};
 
 	//posts original picture to firebase db in base64 (my db could use a little work at this point) and gives it an accessible url
