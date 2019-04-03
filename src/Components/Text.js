@@ -1,4 +1,5 @@
 import React, { PureComponent } from 'react';
+import ReactDOM from 'react-dom';
 
 const textWrapperStyle = {
  	position: 'fixed',
@@ -28,7 +29,6 @@ class Text extends PureComponent {
 
 	// this allows Text.js and TextSubComponent.js to reflect changes made in the other component
 	componentDidUpdate = (prevState, prevProps) => {
-		// console.log('Text.js is updating with '+JSON.stringify(this.props.selectedFont))
 		// if props of past render doesnt equal these newly incoming props..
 		if (prevProps != this.props) {
 			// update this component with the new props and save them in the state..
@@ -60,6 +60,7 @@ class Text extends PureComponent {
 
 				//create one
 				let input = document.createElement('input');
+				// let ref = this.props.canvasRef ? this.props.canvasRef : null;
 				input.type = 'text';
 				input.id = `addTextInput-${ this.state.textInputId }`;
 				input.style.position = 'fixed';
@@ -68,7 +69,11 @@ class Text extends PureComponent {
 				input.style.marginLeft = '13%';
 				input.autofocus = true;
 				input.onkeydown = this.handleTextEnter;
-				document.body.appendChild(input);
+
+				this.props.canvasRef.current.appendChild(input);
+
+				console.log(this.props.canvasRef)
+				// this.props.canvasRef.appendChild(input);
 
 				//save the coordinants of this click event for use in the next event
 				let clickCoords = {
@@ -81,7 +86,6 @@ class Text extends PureComponent {
 				this.setState({
 					hasInput: true,
 					previousClickCoords: clickCoords,
-
 				});
 				input.focus();
 

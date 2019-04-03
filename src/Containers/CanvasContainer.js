@@ -10,9 +10,12 @@ class CanvasContainer extends Component {
 	constructor(props) {
 		super(props);
 
+		this.textCanvasWrapper = React.createRef();
+
 		this.state = {
 			croppedUrl: null,
 			modalOpen: null,
+			canvasRef: null,
 		}
 	}
 
@@ -41,6 +44,14 @@ class CanvasContainer extends Component {
 		}
 	};
 
+	getRefFromCanvas = (ref) => {
+		console.log('yolo')
+		console.log(ref)
+		this.setState({
+			canvasRef: ref,
+		})
+	};
+
 	render() {
 
 		const {
@@ -59,8 +70,10 @@ class CanvasContainer extends Component {
 			getBackgroundRotation,
 		} = this.props;
 
+		//TODO: YA MAFCK, U NEED THIS REF TO BE AN ELEMENT IN CANVAS BRUHHHHHGGGGGSSS, WRITE A CALLBACK IN THIS, PASS IT TO TEXT, WHEN IT GETS CALLED PUT IT IN THE STATE HERE, THEN PASS THE STATE VALUE TO CANVAS
+
 		return (
-			<div id={'text-canvas-wrapper'} style={{ marginLeft: '13%', marginRight: 'none', backgroundColor: 'rbga(0, 0, 0, 0.5)' }}>
+			<div id={'text-canvas-wrapper'} ref={ this.textCanvasWrapper } style={{ marginLeft: '13%', marginRight: 'none', backgroundColor: 'rbga(0, 0, 0, 0.5)' }}>
 
 				<Modal open={ selectedPicture } basic size='small'>
 					<Header icon='cloud upload' content='Please Crop Your Background' align={'center'}/>
@@ -81,6 +94,7 @@ class CanvasContainer extends Component {
 					textColor={ textColor }
 					setTextState={ setTextState }
 					getEditTextSelect={ getEditTextSelect }
+					canvasRef={ this.state.canvasRef }
 				/>
 				<Canvas
 					color={ color }
@@ -88,6 +102,7 @@ class CanvasContainer extends Component {
 					croppedUrl={ this.state.croppedUrl }
 					imagePreviewRotation={ this.props.imagePreviewRotation }
 					textEditOpen={ textEditOpen }
+					getRefFromCanvas={ this.getRefFromCanvas }
 				/>
 
 			</div>

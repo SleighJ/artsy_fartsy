@@ -15,6 +15,9 @@ class Canvas extends PureComponent {
 	constructor(props) {
 		super(props);
 
+		this.canvasWrapperRef = React.createRef();
+		// this.canvas = React.createRef();
+
 		this.state = {
 			color: 'red',
 			width: null,
@@ -33,6 +36,8 @@ class Canvas extends PureComponent {
 
 	//on the mount, set width, height & initialize the canvas
 	componentDidMount = () => {
+		this.props.getRefFromCanvas(this.canvasWrapperRef);
+		// this.props.getRefFromCanvas(this.canvas);
 		this.canvas.width = 800;
 		this.canvas.height = 600;
 		this.ctx = this.canvas.getContext('2d');
@@ -152,8 +157,9 @@ class Canvas extends PureComponent {
 		};
 
 		return (
-			<div style={ croppedUrl ? urlStyle : noUrlStyle }>
+			<div id={'canvas-wrapper'} ref={ this.canvasWrapperRef } style={ croppedUrl ? urlStyle : noUrlStyle }>
 				<canvas
+					id={'canvas'}
 					style={ this.props.textEditOpen ? textOpenStyle : textClosedStyle }
 					ref={ (ref) => (this.canvas = ref) }
 					onMouseDown={ this.onMouseDown }
