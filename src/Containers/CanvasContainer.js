@@ -43,8 +43,6 @@ class CanvasContainer extends Component {
 
 	render() {
 
-		console.log('canvasContainer render '+this.props.textEditOpen)
-
 		const {
 			color,
 			width,

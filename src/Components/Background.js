@@ -58,8 +58,6 @@ class Background extends Component {
 	//posts original picture to firebase db in base64 (my db could use a little work at this point) and gives it an accessible url
 	uploadBackground = async (pic) => {
 
-		console.log('upload background')
-
 		const uploadTask = storage.ref(`images/${ pic.name }`).put(pic);
 		uploadTask.on('state_changed', (snapshot) => {
 			this.setState({
@@ -92,7 +90,6 @@ class Background extends Component {
 
 	//gets uncropped url and saves in state
 	handleImageLoaded = (image) => {
-		console.log('handleImageLoaded')
 		this.setState({
 			unCroppedImg64: image.src,
 		})

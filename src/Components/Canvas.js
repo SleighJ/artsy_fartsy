@@ -8,7 +8,7 @@ let textOpenStyle = {
 
 let textClosedStyle = {
 	pointerEvents: 'auto',
-	// position: 'absolute',
+	position: 'absolute',
 };
 
 class Canvas extends PureComponent {
@@ -43,8 +43,6 @@ class Canvas extends PureComponent {
 
 	//allows conditional rendering based on the inheritance of color, width, and croppedUrl values
 	componentDidUpdate = () => {
-
-		console.log('canvas updating, do we have textEditOpen?? '+this.props.textEditOpen);
 		this.setState({
 			color: this.props.color,
 			width:this.props.width,
@@ -131,38 +129,38 @@ class Canvas extends PureComponent {
 
 		const { croppedUrl, imagePreviewRotation } = this.state;
 
-		let componentWrapper = {
+		let urlStyle = {
 			width: '800px',
 			height: '600px',
 			pointerEvents: 'none',
 			border: '3px solid pink',
 			backgroundColor: 'transparent',
+			backgroundImage: `url(${ croppedUrl })`,
 			backgroundRepeat: 'no-repeat',
 			backgroundPosition: 'center',
 			backgroundSize: 'cover',
+			// transform: `rotate(${imagePreviewRotation}deg)`
 		};
 
-		let canvasAndBackground = {
-			position: 'fixed',
-			width: '100%',
-			height: '100%',
-			display: 'fixed',
-			backgroundImage: croppedUrl ? `url(${ croppedUrl })` : 'none',
-			transform: `rotate(${imagePreviewRotation}deg`,
-			backgroundRepeat: 'no-repeat'
+		//TODO: need to transform image before going to base64, not change the styling here
+
+		let noUrlStyle = {
+			width: '800px',
+			height: '600px',
+			pointerEvents: 'none',
+			border: '3px solid pink',
 		};
 
 		return (
-			<div style={ componentWrapper }>
-				<div style={ canvasAndBackground }>
-					<canvas
-						ref={ (ref) => (this.canvas = ref) }
-						onMouseDown={ this.onMouseDown }
-						onMouseLeave={ this.endPaintEvent }
-						onMouseUp={ this.endPaintEvent }
-						onMouseMove={ this.onMouseMove }
-					/>
-				</div>
+			<div style={ croppedUrl ? urlStyle : noUrlStyle }>
+				<canvas
+					style={ this.props.textEditOpen ? textOpenStyle : textClosedStyle }
+					ref={ (ref) => (this.canvas = ref) }
+					onMouseDown={ this.onMouseDown }
+					onMouseLeave={ this.endPaintEvent }
+					onMouseUp={ this.endPaintEvent }
+					onMouseMove={ this.onMouseMove }
+				/>
 			</div>
 		);
 	}
