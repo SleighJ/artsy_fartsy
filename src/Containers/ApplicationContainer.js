@@ -124,6 +124,8 @@ class ApplicationContainer extends Component {
 
 		const { color, width, textEditOpen, fontSize, selectedTextEdit, textEditObj, selectedPicture, selectedFont, croppedUrl, textColor, imagePreviewRotation } = this.state;
 
+		console.log('appContainer '+textEditOpen);
+
 		return (
 			<div>
 
