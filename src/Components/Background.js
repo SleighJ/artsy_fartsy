@@ -34,6 +34,9 @@ class Background extends Component {
 		const { selectedPicture } = this.props;
 		const { croppedUrl } = this.state;
 
+		console.log('aloha broha')
+		console.log(selectedPicture)
+
 		//if a picture has been selected but not yet stored (ie, theres a new background picture selected)
 		if (selectedPicture != this.state.selectedPicture) {
 			this.setState({ selectedPicture }, ()=>this.uploadBackground(selectedPicture))
@@ -180,7 +183,7 @@ class Background extends Component {
 										ref={ this.imagePreviewCanvasRef }
 									>
 									</canvas>
-									<Button onClick={ ()=>this.rotateImagePreview() }>Rotate</Button>
+									{/*<Button onClick={ ()=>this.rotateImagePreview() }>Rotate</Button>*/}
 								</Grid.Column>
 								<Button style={{margin: '5%'}} onClick={ this.handleDone }>Done</Button>
 							</Grid.Row>

@@ -3,7 +3,7 @@ import Canvas from '../Components/Canvas';
 import Text from '../Components/Text';
 import Background from "../Components/Background";
 
-import { Header, Modal } from 'semantic-ui-react';
+import { Header, Modal, Grid } from 'semantic-ui-react';
 import 'react-image-crop/dist/ReactCrop.css';
 
 class CanvasContainer extends Component {
@@ -45,8 +45,6 @@ class CanvasContainer extends Component {
 	};
 
 	getRefFromCanvas = (ref) => {
-		console.log('yolo')
-		console.log(ref)
 		this.setState({
 			canvasRef: ref,
 		})
@@ -68,40 +66,50 @@ class CanvasContainer extends Component {
 			clearBackground,
 			getCroppedUrlFromBackground,
 			getBackgroundRotation,
+			backgroundColor,
 		} = this.props;
 
 		return (
-			<div id={'text-canvas-wrapper'} ref={ this.textCanvasWrapper } style={{ margin: 'auto', width: '70%', height: '70%', padding: '10px' }}>
+			<div id={'text-canvas-wrapper'} ref={ this.textCanvasWrapper } style={{ margin: 'auto', width: '70%', height: '70%', padding: '50px' }}>
 
-				<Modal open={ selectedPicture } basic size='small'>
-					<Header icon='cloud upload' content='Please Crop Your Background' align={'center'}/>
-					<Modal.Content>
-						<Background
-							selectedPicture={ selectedPicture }
-							clearBackground={ clearBackground }
-							getCroppedUrlFromBackground={ getCroppedUrlFromBackground }
-							getBackgroundRotation={ getBackgroundRotation }
-						/>
-					</Modal.Content>
-				</Modal>
+				<Grid>
+					<Grid.Column>
+						<Grid.Row>
+							<Modal open={ selectedPicture } basic size='small'>
+								<Header icon='cloud upload' content='Please Crop Your Background' align={'center'}/>
+								<Modal.Content>
+									<Background
+										selectedPicture={ selectedPicture }
+										clearBackground={ clearBackground }
+										getCroppedUrlFromBackground={ getCroppedUrlFromBackground }
+										getBackgroundRotation={ getBackgroundRotation }
+									/>
+								</Modal.Content>
+							</Modal>
 
-				<Text
-					fontSize={ fontSize }
-					selectedFont={ selectedFont }
-					textEditOpen={ textEditOpen }
-					textColor={ textColor }
-					setTextState={ setTextState }
-					getEditTextSelect={ getEditTextSelect }
-					canvasRef={ this.state.canvasRef }
-				/>
-				<Canvas
-					color={ color }
-					width={ width != null ? width : 1 }
-					croppedUrl={ this.state.croppedUrl }
-					imagePreviewRotation={ this.props.imagePreviewRotation }
-					textEditOpen={ textEditOpen }
-					getRefFromCanvas={ this.getRefFromCanvas }
-				/>
+							<Text
+								fontSize={ fontSize }
+								selectedFont={ selectedFont }
+								textEditOpen={ textEditOpen }
+								textColor={ textColor }
+								setTextState={ setTextState }
+								getEditTextSelect={ getEditTextSelect }
+								canvasRef={ this.state.canvasRef }
+							/>
+							<Canvas
+								color={ color }
+								width={ width != null ? width : 1 }
+								backgroundColor={ backgroundColor }
+								croppedUrl={ this.state.croppedUrl }
+								imagePreviewRotation={ this.props.imagePreviewRotation }
+								textEditOpen={ textEditOpen }
+								getRefFromCanvas={ this.getRefFromCanvas }
+							/>
+						</Grid.Row>
+					</Grid.Column>
+				</Grid>
+
+
 
 			</div>
 		);

@@ -23,6 +23,7 @@ class SubComponentContainer extends Component {
 				/>,
 
 				<BackgroundSubComponent
+					getBackgroundColor={ this.props.getBackgroundColor }
 					addBackground={ this.props.addBackground }
 				/>,
 

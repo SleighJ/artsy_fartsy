@@ -221,6 +221,7 @@ class Sidebar extends Component {
 													getSizeFromBrush={ this.props.getSizeFromBrush }
 													addBackground={ this.props.addBackground }
 													getTextColor={ this.props.getTextColor }
+													getBackgroundColor={ this.props.getBackgroundColor }
 
 													//for text
 													selectedTextEdit={this.props.selectedTextEdit}

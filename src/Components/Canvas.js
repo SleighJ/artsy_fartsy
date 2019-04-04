@@ -23,6 +23,7 @@ class Canvas extends PureComponent {
 			width: null,
 			background: null,
 			imagePreviewRotation: 0,
+			backgroundColor: 'transparent',
 		};
 	}
 
@@ -53,6 +54,7 @@ class Canvas extends PureComponent {
 			width:this.props.width,
 			croppedUrl: this.props.croppedUrl,
 			imagePreviewRotation: this.props.imagePreviewRotation,
+			backgroundColor: this.props.backgroundColor,
 		});
 
 		this.ctx.lineWidth = this.props.width;
@@ -132,26 +134,24 @@ class Canvas extends PureComponent {
 
 	render() {
 
-		const { croppedUrl, imagePreviewRotation } = this.state;
+		const { croppedUrl, backgroundColor } = this.state;
 
 		let urlStyle = {
 			width: '800px',
 			height: '600px',
 			pointerEvents: 'none',
 			border: '3px solid pink',
-			backgroundColor: 'transparent',
+			backgroundColor: `${ this.state.backgroundColor }`,
 			backgroundImage: `url(${ croppedUrl })`,
 			backgroundRepeat: 'no-repeat',
 			backgroundPosition: 'center',
 			backgroundSize: 'cover',
-			// transform: `rotate(${imagePreviewRotation}deg)`
 		};
-
-		//TODO: need to transform image before going to base64, not change the styling here
 
 		let noUrlStyle = {
 			width: '800px',
 			height: '600px',
+			backgroundColor: `${ this.state.backgroundColor }`,
 			pointerEvents: 'none',
 			border: '3px solid pink',
 		};

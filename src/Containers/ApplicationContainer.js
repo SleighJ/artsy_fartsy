@@ -73,7 +73,7 @@ class ApplicationContainer extends Component {
 
 	getBackgroundRotation = (rotation) => {
 		this.setState({
-			imagePreviewRotation: rotation
+			imagePreviewRotation: rotation,
 		})
 	};
 
@@ -81,6 +81,12 @@ class ApplicationContainer extends Component {
 	getCroppedUrlFromBackground = (newURL) => {
 		this.setState({
 			croppedUrl: newURL,
+		})
+	};
+
+	getBackgroundColor = (color) => {
+		this.setState({
+			backgroundColor: color,
 		})
 	};
 
@@ -114,7 +120,6 @@ class ApplicationContainer extends Component {
 	};
 
 	getTextColor = (color) => {
-		// console.log(color)
 		this.setState({
 			textColor: color,
 		})
@@ -122,7 +127,7 @@ class ApplicationContainer extends Component {
 
 	render() {
 
-		const { color, width, textEditOpen, fontSize, selectedTextEdit, textEditObj, selectedPicture, selectedFont, croppedUrl, textColor, imagePreviewRotation } = this.state;
+		const { color, width, textEditOpen, fontSize, selectedTextEdit, textEditObj, selectedPicture, selectedFont, croppedUrl, textColor, imagePreviewRotation, backgroundColor } = this.state;
 
 		return (
 			<div>
@@ -132,6 +137,7 @@ class ApplicationContainer extends Component {
 						//functions
 						getSizeFromBrush={ this.getSizeFromBrush }
 						getColorFromPalette={ this.getColorFromPalette }
+						getBackgroundColor={ this.getBackgroundColor }
 						addBackground={ this.addBackground }
 						uploadBackground={ this.uploadBackground }
 						setTextState={ this.setTextState }
@@ -162,6 +168,7 @@ class ApplicationContainer extends Component {
 						//global state values
 						color={ color }
 						width={ width }
+						backgroundColor={ backgroundColor }
 						selectedPicture={ selectedPicture }
 						imagePreviewRotation={ imagePreviewRotation }
 						croppedUrl={ croppedUrl }
