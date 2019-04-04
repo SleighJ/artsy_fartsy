@@ -71,7 +71,7 @@ class CanvasContainer extends Component {
 		} = this.props;
 
 		return (
-			<div id={'text-canvas-wrapper'} ref={ this.textCanvasWrapper } style={{ marginLeft: '13%', marginRight: 'none', backgroundColor: 'rbga(0, 0, 0, 0.5)' }}>
+			<div id={'text-canvas-wrapper'} ref={ this.textCanvasWrapper } style={{ margin: 'auto', width: '50%' }}>
 
 				<Modal open={ selectedPicture } basic size='small'>
 					<Header icon='cloud upload' content='Please Crop Your Background' align={'center'}/>

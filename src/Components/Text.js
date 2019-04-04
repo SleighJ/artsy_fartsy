@@ -60,7 +60,7 @@ class Text extends PureComponent {
 
 				//create one
 				let input = document.createElement('input');
-				// let ref = this.props.canvasRef ? this.props.canvasRef : null;
+				const canvasRef = this.props.canvasRef.current;
 				input.type = 'text';
 				input.id = `addTextInput-${ this.state.textInputId }`;
 				input.style.position = 'fixed';
@@ -69,11 +69,7 @@ class Text extends PureComponent {
 				input.style.marginLeft = '13%';
 				input.autofocus = true;
 				input.onkeydown = this.handleTextEnter;
-
-				this.props.canvasRef.current.appendChild(input);
-
-				console.log(this.props.canvasRef)
-				// this.props.canvasRef.appendChild(input);
+				canvasRef.appendChild(input);
 
 				//save the coordinants of this click event for use in the next event
 				let clickCoords = {
@@ -93,6 +89,7 @@ class Text extends PureComponent {
 			} else {
 				//get the currently open input element and its value
 				const input = document.getElementById(`addTextInput-${ this.state.textInputId }`);
+				const canvasRef = this.props.canvasRef.current;
 				const value = input.value;
 
 				//if there is a value in the input, save it when user clicks away
@@ -113,13 +110,13 @@ class Text extends PureComponent {
 						hasInput: false,
 						textInputId: increment,
 						input: [...prevState.input, inputObj],
-					}), ()=>document.body.removeChild(input));
+					}), ()=>canvasRef.removeChild(input));
 
 				} else {
 					//if there is no value, turn 'hasInput' off and remove the input
 					this.setState({
 						hasInput: false,
-					}, ()=>document.body.removeChild(input));
+					}, ()=>canvasRef.removeChild(input));
 				}
 			}
 		//if there is a selectedText and the user is editing a text element
