@@ -70,8 +70,6 @@ class CanvasContainer extends Component {
 			getBackgroundRotation,
 		} = this.props;
 
-		//TODO: YA MAFCK, U NEED THIS REF TO BE AN ELEMENT IN CANVAS BRUHHHHHGGGGGSSS, WRITE A CALLBACK IN THIS, PASS IT TO TEXT, WHEN IT GETS CALLED PUT IT IN THE STATE HERE, THEN PASS THE STATE VALUE TO CANVAS
-
 		return (
 			<div id={'text-canvas-wrapper'} ref={ this.textCanvasWrapper } style={{ marginLeft: '13%', marginRight: 'none', backgroundColor: 'rbga(0, 0, 0, 0.5)' }}>
 
