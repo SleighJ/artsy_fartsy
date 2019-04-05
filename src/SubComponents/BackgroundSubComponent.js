@@ -1,15 +1,25 @@
 import React, { PureComponent } from 'react';
 import Colors from '../Static/Colors';
+
+import { Grid, Button } from 'semantic-ui-react';
+
 class BackgroundSubComponent extends PureComponent {
 	constructor(props) {
 		super(props);
 
 		this.state = {
+			uploadActive: false,
 			selectedFile: null,
 			displayColors: false,
 			selectedColor: 'transparent',
 		}
 	}
+
+	uploadFile = () => {
+		this.setState({
+			uploadActive: true,
+		}, ()=>this.props.backgroundUploadStatus(true))
+	};
 
 	handleBackgroundFile = (file) => {
 		this.setState({
@@ -47,6 +57,7 @@ class BackgroundSubComponent extends PureComponent {
 
 		return (
 			<div>
+				<Button onClick={ ()=>this.uploadFile()}>Upload File</Button>
 				<input type={'file'} id={ 'backgroundInput' } onChange={ (e)=>this.handleBackgroundFile(e.target.files[0]) } multiple={ false } accept={ '.png' }></input>
 					<div style={{ border: '1px solid black', height: '20px', width: '20px', display: 'inline-block', backgroundColor: `${ this.state.selectedColor }` }} onClick={ ()=>this.displayColors() }>
 						{

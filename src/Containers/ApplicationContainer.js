@@ -22,6 +22,7 @@ class ApplicationContainer extends Component {
 			selectedTextEdit: null,
 			textEditObj: null,
 			textColor: null,
+			uploadActive: false,
 		}
 	}
 
@@ -56,6 +57,12 @@ class ApplicationContainer extends Component {
 	getSizeFromBrush = (width) => {
 		this.setState({
 			width: width,
+		})
+	};
+
+	backgroundUploadStatus = (status) => {
+		this.setState({
+			uploadActive: status,
 		})
 	};
 
@@ -127,7 +134,23 @@ class ApplicationContainer extends Component {
 
 	render() {
 
-		const { color, width, textEditOpen, fontSize, selectedTextEdit, textEditObj, selectedPicture, selectedFont, croppedUrl, textColor, imagePreviewRotation, backgroundColor } = this.state;
+		const {
+			color,
+			width,
+			textEditOpen,
+			fontSize,
+			selectedTextEdit,
+			textEditObj,
+			selectedPicture,
+			selectedFont,
+			croppedUrl,
+			textColor,
+			imagePreviewRotation,
+			backgroundColor,
+			uploadActive
+		} = this.state;
+
+		console.log(this.state)
 
 		return (
 			<div>
@@ -138,12 +161,15 @@ class ApplicationContainer extends Component {
 						getSizeFromBrush={ this.getSizeFromBrush }
 						getColorFromPalette={ this.getColorFromPalette }
 						getBackgroundColor={ this.getBackgroundColor }
+
+						//TODO: remove add background from this part of application
 						addBackground={ this.addBackground }
 						uploadBackground={ this.uploadBackground }
 						setTextState={ this.setTextState }
 						setFontSize={ this.setFontSize }
 						setFont={ this.setFont }
 						getTextColor={ this.getTextColor }
+						backgroundUploadStatus={ this.backgroundUploadStatus }
 
 						//global state values
 						fontSize={ fontSize }
@@ -159,6 +185,7 @@ class ApplicationContainer extends Component {
 				<Fragment>
 					<CanvasContainer
 						//functions
+						addBackground={ this.addBackground }
 						setTextState={ this.setTextState }
 						getEditTextSelect={ this.getEditTextSelect }
 						clearBackground={ this.clearBackground }
@@ -168,6 +195,7 @@ class ApplicationContainer extends Component {
 						//global state values
 						color={ color }
 						width={ width }
+						uploadActive={ uploadActive }
 						backgroundColor={ backgroundColor }
 						selectedPicture={ selectedPicture }
 						imagePreviewRotation={ imagePreviewRotation }

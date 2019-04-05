@@ -13,6 +13,7 @@ class CanvasContainer extends Component {
 		this.textCanvasWrapper = React.createRef();
 
 		this.state = {
+			selectedPicture: null,
 			croppedUrl: null,
 			modalOpen: null,
 			canvasRef: null,
@@ -50,6 +51,12 @@ class CanvasContainer extends Component {
 		})
 	};
 
+	handleBackgroundFile = (file) => {
+		this.setState({
+			selectedPicture: file,
+		}, ()=>this.props.addBackground(file))
+	};
+
 	render() {
 
 		const {
@@ -67,6 +74,7 @@ class CanvasContainer extends Component {
 			getCroppedUrlFromBackground,
 			getBackgroundRotation,
 			backgroundColor,
+			uploadActive,
 		} = this.props;
 
 		return (
@@ -75,17 +83,27 @@ class CanvasContainer extends Component {
 				<Grid>
 					<Grid.Column>
 						<Grid.Row>
-							<Modal open={ selectedPicture } basic size='small'>
-								<Header icon='cloud upload' content='Please Crop Your Background' align={'center'}/>
-								<Modal.Content>
-									<Background
-										selectedPicture={ selectedPicture }
-										clearBackground={ clearBackground }
-										getCroppedUrlFromBackground={ getCroppedUrlFromBackground }
-										getBackgroundRotation={ getBackgroundRotation }
-									/>
-								</Modal.Content>
-							</Modal>
+							{ this.props.uploadActive ?
+								!this.state.selectedPicture ?
+								<Modal open={uploadActive} basic size='small'>
+									<Header icon='cloud upload' content='Please Crop Your Background' align={'center'}/>
+									<Modal.Content>
+										<input type={'file'} id={ 'backgroundInput' } onChange={ (e)=>this.handleBackgroundFile(e.target.files[0]) } multiple={ false } accept={ '.png' }></input>
+									</Modal.Content>
+								</Modal>
+								:
+								<Modal open={selectedPicture} basic size='small'>
+									<Header icon='cloud upload' content='Please Crop Your Background' align={'center'}/>
+									<Modal.Content>
+										<Background
+											selectedPicture={selectedPicture}
+											clearBackground={clearBackground}
+											getCroppedUrlFromBackground={getCroppedUrlFromBackground}
+											getBackgroundRotation={getBackgroundRotation}
+										/>
+									</Modal.Content>
+								</Modal>
+							: null }
 
 							<Text
 								fontSize={ fontSize }

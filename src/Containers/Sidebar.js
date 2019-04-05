@@ -222,6 +222,7 @@ class Sidebar extends Component {
 													addBackground={ this.props.addBackground }
 													getTextColor={ this.props.getTextColor }
 													getBackgroundColor={ this.props.getBackgroundColor }
+													backgroundUploadStatus={ this.props.backgroundUploadStatus }
 
 													//for text
 													selectedTextEdit={this.props.selectedTextEdit}

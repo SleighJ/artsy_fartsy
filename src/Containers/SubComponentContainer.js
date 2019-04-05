@@ -23,6 +23,7 @@ class SubComponentContainer extends Component {
 				/>,
 
 				<BackgroundSubComponent
+					backgroundUploadStatus={ this.props.backgroundUploadStatus }
 					getBackgroundColor={ this.props.getBackgroundColor }
 					addBackground={ this.props.addBackground }
 				/>,
