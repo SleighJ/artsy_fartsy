@@ -1,7 +1,8 @@
 import React, { PureComponent } from 'react';
 import Colors from '../Static/Colors';
 
-import { Grid, Button } from 'semantic-ui-react';
+import {Grid, Button, Dropdown} from 'semantic-ui-react';
+import Fonts from "../Static/Fonts";
 
 class BackgroundSubComponent extends PureComponent {
 	constructor(props) {
@@ -11,7 +12,7 @@ class BackgroundSubComponent extends PureComponent {
 			uploadActive: false,
 			selectedFile: null,
 			displayColors: false,
-			selectedColor: 'transparent',
+			selectedColor: 'white',
 		}
 	}
 
@@ -19,12 +20,6 @@ class BackgroundSubComponent extends PureComponent {
 		this.setState({
 			uploadActive: true,
 		}, ()=>this.props.backgroundUploadStatus(true))
-	};
-
-	handleBackgroundFile = (file) => {
-		this.setState({
-			selectedFile: file,
-		}, ()=>this.props.addBackground(file))
 	};
 
 	displayColors = () => {
@@ -45,43 +40,39 @@ class BackgroundSubComponent extends PureComponent {
 
 	clearBackground = () => {
 		this.setState({
-			selectedColor: 'transparent',
+			selectedColor: 'white',
 			selectedFile: null,
 		}, ()=>this.props.getBackgroundColor(this.state.selectedColor));
 	};
-
 
 	//simple component storing an input for adding files
 	render() {
 		const { addBackground } = this.props;
 
 		return (
-			<div>
-				<Button onClick={ ()=>this.uploadFile()}>Upload File</Button>
-				<input type={'file'} id={ 'backgroundInput' } onChange={ (e)=>this.handleBackgroundFile(e.target.files[0]) } multiple={ false } accept={ '.png' }></input>
-					<div style={{ border: '1px solid black', height: '20px', width: '20px', display: 'inline-block', backgroundColor: `${ this.state.selectedColor }` }} onClick={ ()=>this.displayColors() }>
-						{
-							this.state.displayColors ?
-								Colors.map(( color, i ) => {
-									let id = `background-color-${color}`;
-									return (
-										<div
-											id={ id }
-											onClick={ this.selectedColor }
-											style={{
-												display: 'inline-block',
-												height: '20px',
-												width: '20px',
-												backgroundColor: `${ color }`
-											}}
-										></div>
-									)
-								})
-							: null
-						}
-					</div>
-				<button onClick={ ()=>this.clearBackground() }>Clear</button>
-			</div>
+				<Grid align={'center'}>
+					<Grid.Row style={{ paddingBottom: '0' }}>
+						<Grid.Column>
+							<Button onClick={ ()=>this.uploadFile()}>Upload File</Button>
+						</Grid.Column>
+					</Grid.Row>
+					<Grid.Row>
+						<Grid.Column>
+							<Dropdown style={{ backgroundColor: `${ this.state.selectedColor }`, color: 'lightGrey', width: '8rem', height: '2.8rem', borderRadius: '.3rem' }} placeholder={ 'Pick a Color' } onClick={ ()=>this.displayColors() }>
+								<Dropdown.Menu scrolling options={ Colors }>
+									{ this.state.displayColors ?
+										Colors.map(( color, i ) => {
+											let id = `background-color-${ color }-${ i }`;
+											return (
+												<Dropdown.Item style={{ backgroundColor: `${ color }`, width: '7rem' }} onClick={ this.selectedColor }></Dropdown.Item>
+											)
+										}) : null
+									}
+								</Dropdown.Menu>
+							</Dropdown>
+						</Grid.Column>
+					</Grid.Row>
+				</Grid>
 		);
 	}
 }
