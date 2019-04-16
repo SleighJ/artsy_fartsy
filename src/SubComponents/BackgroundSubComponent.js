@@ -46,6 +46,7 @@ class BackgroundSubComponent extends PureComponent {
 	};
 
 	//simple component storing an input for adding files
+
 	render() {
 		const { addBackground } = this.props;
 
