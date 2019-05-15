@@ -3,35 +3,30 @@ import React, { Component } from 'react';
 import Text from '../Components/Text';
 import Background from '../Components/Background';
 //SubComponents
-import BackgroundSubComponent from '../SubComponents/BackgroundSubComponent';
-import TextSubComponent from "../SubComponents/TextSubComponent";
 import Palette from '../SubComponents/Palette';
 import Brushes from '../SubComponents/Brushes';
+import SideBarLogo from '../SubComponents/SideBarLogo';
 //npm
 import 'react-image-crop/dist/ReactCrop.css';
-import { Grid } from 'semantic-ui-react';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faPaintBrush } from '@fortawesome/free-solid-svg-icons';
 import SubComponentContainer from "./SubComponentContainer";
+import { Button } from 'semantic-ui-react';
 
 const buttonStyle = {
 	border: 'none',
 	backgroundColor: 'inherit',
 	color: 'white',
 	fontFamily: 'helvetica',
-	fontSize:' 12px',
+	fontSize:' 16px',
 	fontStyle: 'italic',
 	fontWeight: 'bold',
-	display: 'list-item'
+	display: 'list-item',
 };
 
 const buttonContainerStyle = {
-	margin: '10%',
 	textAlign: 'center',
 };
 
 const hoveredButtonContainerStyle = {
-	margin: '10%',
 	textAlign: 'center',
 	backgroundColor: 'grey',
 };
@@ -56,7 +51,7 @@ const componentContainerStyle = {
 
 const sidebarOpen = {
 	backgroundColor: 'lightGrey',
-	width: '13%',
+	width: '18%',
 	height: '100%',
 	position: 'fixed',
 };
@@ -184,60 +179,58 @@ class Sidebar extends Component {
 
 		return (
 			<div style={ sidebarOpen }>
-				<div style={{ width: '100%', height: '10%', marginBottom: '25%', marginTop: '25%'}}>
-					<Grid>
-						<Grid.Row style={{margin: '10%'}} columns={1}>
-							<Grid.Column align={'center'}>
-								<FontAwesomeIcon icon={ faPaintBrush } style={{ height: '3rem', width: '3rem', color: `${this.state.color}`, margin: 'auto',}}></FontAwesomeIcon>
-							</Grid.Column>
-						</Grid.Row>
-					</Grid>
-				</div>
-
-				{
-					this.state.subComponentArray.map((subComponent, i) => {
-						let id = i;
-						return (
-							<div>
-								<div
-									id={ id }
-									key={ i }
-									onMouseOver={ ()=>this.buttonContainerSelect(id) }
-									onMouseLeave={ ()=>this.buttonContainerUnSelect() }
-									onClick={ (e)=>this.buttonClickSelect(e.target.id, id) }
-									style={ this.state.clicked == id ? clickedButtonContainerStyle : this.state.hovered == id ? hoveredButtonContainerStyle : buttonContainerStyle }
-								>
-									<button id={ id } style={ buttonStyle }>{ subComponent.name }</button>
-								</div>
-
+				<SideBarLogo
+					brushColor={ this.state.color }
+					backgroundColor={ null }
+				/>
+				<div>
+					{
+						this.state.subComponentArray.map((subComponent, i) => {
+							let id = i;
+							return (
 								<div>
-									{
-										clicked == id ?
-											<div style={ componentContainerStyle }>
-												<SubComponentContainer
-													clicked={this.state.clicked}
-													getColorFromPalette={this.props.getColorFromPalette}
-													color={ this.props.color }
-													getSizeFromBrush={ this.props.getSizeFromBrush }
-													addBackground={ this.props.addBackground }
-													getTextColor={ this.props.getTextColor }
-													getBackgroundColor={ this.props.getBackgroundColor }
-													backgroundUploadStatus={ this.props.backgroundUploadStatus }
+									<div
+										id={ id }
+										key={ i }
+										onMouseOver={ ()=>this.buttonContainerSelect(id) }
+										onMouseLeave={ ()=>this.buttonContainerUnSelect() }
+										onClick={ (e)=>this.buttonClickSelect(e.target.id, id) }
+										style={ this.state.clicked == id ? clickedButtonContainerStyle : this.state.hovered == id ? hoveredButtonContainerStyle : buttonContainerStyle }
+									>
+										<Button id={ id } style={ buttonStyle }>{ subComponent.name }</Button>
+									</div>
 
-													//for text
-													selectedTextEdit={this.props.selectedTextEdit}
-													setFont={ this.props.setFont }
-													setFontSize={ this.props.setFontSize }
-													textEditObj={ this.props.textEditObj }
-												/>
-											</div>
-										: null
-									}
+									<div className={'subcomponent-container'}>
+										{
+											clicked == id ?
+												<div style={ componentContainerStyle }>
+													<SubComponentContainer
+														clicked={this.state.clicked}
+														getColorFromPalette={this.props.getColorFromPalette}
+														color={ this.props.color }
+														getSizeFromBrush={ this.props.getSizeFromBrush }
+														addBackground={ this.props.addBackground }
+														getTextColor={ this.props.getTextColor }
+														getBackgroundColor={ this.props.getBackgroundColor }
+														backgroundUploadStatus={ this.props.backgroundUploadStatus }
+														croppedUrl={ this.props.croppedUrl }
+														clearCroppedUrl={ this.props.clearCroppedUrl }
+
+														//for text
+														selectedTextEdit={this.props.selectedTextEdit}
+														setFont={ this.props.setFont }
+														setFontSize={ this.props.setFontSize }
+														textEditObj={ this.props.textEditObj }
+													/>
+												</div>
+											: null
+										}
+									</div>
 								</div>
-							</div>
-						)
-					})
-				}
+							)
+						})
+					}
+				</div>
 			</div>
 		);
 	}

@@ -1,7 +1,7 @@
 import React, { PureComponent } from 'react';
-import Colors from '../Static/Colors';
 
-import {Grid, Button, Dropdown} from 'semantic-ui-react';
+import { Grid, Button } from 'semantic-ui-react';
+import { SketchPicker } from 'react-color';
 import Fonts from "../Static/Fonts";
 
 class BackgroundSubComponent extends PureComponent {
@@ -11,6 +11,7 @@ class BackgroundSubComponent extends PureComponent {
 		this.state = {
 			uploadActive: false,
 			selectedFile: null,
+			fileUploaded: null,
 			displayColors: false,
 			selectedColor: 'white',
 		}
@@ -22,30 +23,18 @@ class BackgroundSubComponent extends PureComponent {
 		}, ()=>this.props.backgroundUploadStatus(true))
 	};
 
-	displayColors = () => {
-		this.setState({
-			displayColors: !this.state.displayColors,
-		})
+	removeFile = () => {
+		this.props.clearCroppedUrl();
 	};
 
-	selectedColor = ({ nativeEvent }) => {
-		const { target } = nativeEvent;
-
-		const color = target.style.backgroundColor;
+	setColor = (color) => {
+		let selectedColor = color.hex;
 
 		this.setState({
-			selectedColor: color,
-		}, ()=>this.props.getBackgroundColor(this.state.selectedColor))
+			selectedColor: selectedColor,
+			metaColor: color,
+		}, ()=>this.props.getBackgroundColor(selectedColor));
 	};
-
-	clearBackground = () => {
-		this.setState({
-			selectedColor: 'white',
-			selectedFile: null,
-		}, ()=>this.props.getBackgroundColor(this.state.selectedColor));
-	};
-
-	//simple component storing an input for adding files
 
 	render() {
 		const { addBackground } = this.props;
@@ -54,23 +43,20 @@ class BackgroundSubComponent extends PureComponent {
 				<Grid align={'center'}>
 					<Grid.Row style={{ paddingBottom: '0' }}>
 						<Grid.Column>
-							<Button onClick={ ()=>this.uploadFile()}>Upload File</Button>
+							{
+							this.props.croppedUrl ?
+								<Button onClick={ this.removeFile }>Remove File</Button>
+								:
+								<Button onClick={ ()=>this.uploadFile()}>Upload File</Button>
+							}
 						</Grid.Column>
 					</Grid.Row>
 					<Grid.Row>
 						<Grid.Column>
-							<Dropdown style={{ backgroundColor: `${ this.state.selectedColor }`, color: 'lightGrey', width: '8rem', height: '2.8rem', borderRadius: '.3rem' }} placeholder={ 'Pick a Color' } onClick={ ()=>this.displayColors() }>
-								<Dropdown.Menu scrolling options={ Colors }>
-									{ this.state.displayColors ?
-										Colors.map(( color, i ) => {
-											let id = `background-color-${ color }-${ i }`;
-											return (
-												<Dropdown.Item style={{ backgroundColor: `${ color }`, width: '7rem' }} onClick={ this.selectedColor }></Dropdown.Item>
-											)
-										}) : null
-									}
-								</Dropdown.Menu>
-							</Dropdown>
+							<SketchPicker
+								color={ this.state.selectedColor ? this.state.selectedColor : 'white' }
+								onChangeComplete={ this.setColor }
+							/>
 						</Grid.Column>
 					</Grid.Row>
 				</Grid>

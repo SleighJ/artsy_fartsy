@@ -60,6 +60,7 @@ class ApplicationContainer extends Component {
 		})
 	};
 
+	//tracks the status of background.js's file upload functionality
 	backgroundUploadStatus = (status) => {
 		this.setState({
 			uploadActive: status,
@@ -71,10 +72,17 @@ class ApplicationContainer extends Component {
 		this.setState({ selectedPicture })
 	};
 
-	//facilitates state changes to remove a background
+	//facilitates state changes to remove a background from background.js
 	clearBackground = () => {
 		this.setState({
 			selectedPicture: null,
+		})
+	};
+
+	//facilitates state changes to remove a background URL after one has been created (backgroundSubComponent)
+	clearCroppedUrl = () => {
+		this.setState({
+			croppedUrl: null,
 		})
 	};
 
@@ -150,8 +158,6 @@ class ApplicationContainer extends Component {
 			uploadActive
 		} = this.state;
 
-		console.log(this.state)
-
 		return (
 			<div>
 
@@ -161,6 +167,7 @@ class ApplicationContainer extends Component {
 						getSizeFromBrush={ this.getSizeFromBrush }
 						getColorFromPalette={ this.getColorFromPalette }
 						getBackgroundColor={ this.getBackgroundColor }
+						clearCroppedUrl={ this.clearCroppedUrl }
 
 						//TODO: remove add background from this part of application
 						addBackground={ this.addBackground }

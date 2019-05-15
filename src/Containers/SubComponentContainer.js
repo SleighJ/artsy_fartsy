@@ -12,36 +12,32 @@ class SubComponentContainer extends Component {
 	}
 
 	pickComponentToRender = () => {
-
 		const subComponents = [
-				<Palette
-					getColorFromPalette={ this.props.getColorFromPalette }
-				/>,
-
-				<Brushes color={ this.props.color }
-						 getSizeFromBrush={ this.props.getSizeFromBrush }
-				/>,
-
-				<BackgroundSubComponent
-					backgroundUploadStatus={ this.props.backgroundUploadStatus }
-					getBackgroundColor={ this.props.getBackgroundColor }
-					addBackground={ this.props.addBackground }
-				/>,
-
-				<TextSubComponent
-					selectedTextEdit={this.props.selectedTextEdit}
-					setFont={ this.props.setFont }
-					setFontSize={ this.props.setFontSize }
-					selectedTextEdit={ this.props.selectedTextEdit }
-					textEditObj={ this.props.textEditObj }
-					getTextColor={ this.props.getTextColor }
-				/>,
-			];
+			<Palette
+				getColorFromPalette={ this.props.getColorFromPalette }
+			/>,
+			<Brushes color={ this.props.color }
+					 getSizeFromBrush={ this.props.getSizeFromBrush }
+			/>,
+			<BackgroundSubComponent
+				croppedUrl={ this.props.croppedUrl }
+				clearCroppedUrl={ this.props.clearCroppedUrl }
+				backgroundUploadStatus={ this.props.backgroundUploadStatus }
+				getBackgroundColor={ this.props.getBackgroundColor }
+				addBackground={ this.props.addBackground }
+			/>,
+			<TextSubComponent
+				selectedTextEdit={this.props.selectedTextEdit}
+				setFont={ this.props.setFont }
+				setFontSize={ this.props.setFontSize }
+				selectedTextEdit={ this.props.selectedTextEdit }
+				textEditObj={ this.props.textEditObj }
+				getTextColor={ this.props.getTextColor }
+			/>,
+		];
 
 		let subComponent = subComponents[this.props.clicked];
-
 		return subComponent;
-
 	};
 
 

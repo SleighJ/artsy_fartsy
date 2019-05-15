@@ -34,9 +34,6 @@ class Background extends Component {
 		const { selectedPicture } = this.props;
 		const { croppedUrl } = this.state;
 
-		console.log('aloha broha')
-		console.log(selectedPicture)
-
 		//if a picture has been selected but not yet stored (ie, theres a new background picture selected)
 		if (selectedPicture != this.state.selectedPicture) {
 			this.setState({ selectedPicture }, ()=>this.uploadBackground(selectedPicture))
