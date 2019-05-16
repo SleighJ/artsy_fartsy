@@ -205,8 +205,10 @@ class Sidebar extends Component {
 											clicked == id ?
 												<div style={ componentContainerStyle }>
 													<SubComponentContainer
-														clicked={this.state.clicked}
-														getColorFromPalette={this.props.getColorFromPalette}
+														clicked={ this.state.clicked }
+														getColorFromPalette={ this.props.getColorFromPalette }
+														getPaletteColorPickerState={ this.props.getPaletteColorPickerState }
+														paletteColorPickerState={ this.props.paletteColorPickerState }
 														color={ this.props.color }
 														getSizeFromBrush={ this.props.getSizeFromBrush }
 														addBackground={ this.props.addBackground }

@@ -23,6 +23,7 @@ class ApplicationContainer extends Component {
 			textEditObj: null,
 			textColor: null,
 			uploadActive: false,
+			paletteColorPickerState: null,
 		}
 	}
 
@@ -50,6 +51,13 @@ class ApplicationContainer extends Component {
 	getColorFromPalette = (color) => {
 		this.setState({
 			color: color,
+		})
+	};
+
+	//retrieves last state of color picker so component can re-open with previous state intact
+	getPaletteColorPickerState = (colorPickerState) => {
+		this.setState({
+			paletteColorPickerState: colorPickerState,
 		})
 	};
 
@@ -155,7 +163,8 @@ class ApplicationContainer extends Component {
 			textColor,
 			imagePreviewRotation,
 			backgroundColor,
-			uploadActive
+			uploadActive,
+			paletteColorPickerState,
 		} = this.state;
 
 		return (
@@ -168,6 +177,7 @@ class ApplicationContainer extends Component {
 						getColorFromPalette={ this.getColorFromPalette }
 						getBackgroundColor={ this.getBackgroundColor }
 						clearCroppedUrl={ this.clearCroppedUrl }
+						getPaletteColorPickerState={ this.getPaletteColorPickerState }
 
 						//TODO: remove add background from this part of application
 						addBackground={ this.addBackground }
@@ -179,6 +189,7 @@ class ApplicationContainer extends Component {
 						backgroundUploadStatus={ this.backgroundUploadStatus }
 
 						//global state values
+						paletteColorPickerState={ paletteColorPickerState }
 						fontSize={ fontSize }
 						textEditOpen={ textEditOpen }
 						selectedTextEdit={ selectedTextEdit }

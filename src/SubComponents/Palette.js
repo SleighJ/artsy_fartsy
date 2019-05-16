@@ -16,18 +16,45 @@ class Palette extends PureComponent {
 
 		this.state = {
 			selectedColor: this.props.color,
-			metaColor: null,
+			paletteColorPickerState: this.props.paletteColorPickerState,
 		}
 	}
 
-	componentDidUpdate = (prevProps, prevState) => {
-		//TODO: figure out how to get access to colorpicker on load and inject previous state/props
-		// console.log(prevProps, prevState);
+	// componentDidUpdate = (prevProps, prevState) => {
+	// 	//TODO: figure out how to get access to colorpicker on load and inject previous state/props
+	// 	// console.log(prevProps, prevState);
+	// 	const colorPicker = this.colorPickerRef.current;
+	//
+	// 	console.log('updating')
+	// 	// console.log(colorPicker)
+	// 	console.log(colorPicker.state)
+	//
+	//
+	// 	// if (prevState.pastState) {
+	// 	// 	console.log('PREVIOUS STATE OF COLOR PICKER')
+	// 	// 	console.log(prevState.pastState)
+	// 	// }
+	// };
+
+	componentDidMount = () => {
+		console.log('mounted --> should contain color from unMounting')
+		console.log(this.props)
+		console.log('check for data in state')
+		console.log(this.state)
 	};
+
+	componentWillUnmount = () => {
+		console.log('unMounting')
+		const colorPicker = this.colorPickerRef.current;
+		const colorPickerState = colorPicker.state;
+
+		this.props.getPaletteColorPickerState(colorPickerState);
+	};
+
+
 
 	//tells parent which color is selected
 	provideColorToParent = ( color ) => {
-		// console.log(color);
 		let selectedColor = color.hex;
 
 		this.setState({
@@ -42,7 +69,7 @@ class Palette extends PureComponent {
 				<div style={ colorWrapperStyle }>
 					<SketchPicker
 						ref={ this.colorPickerRef }
-						color={ this.state.selectedColor ? this.state.selectedColor : '#000000' }
+						color={ this.state.selectedColor ? this.state.selectedColor : this.state.paletteColorPickerState ? this.state.paletteColorPickerState : '#000000'}
 						onChangeComplete={ this.provideColorToParent }
 					/>
 				</div>
