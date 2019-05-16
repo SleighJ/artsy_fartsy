@@ -20,37 +20,15 @@ class Palette extends PureComponent {
 		}
 	}
 
-	// componentDidUpdate = (prevProps, prevState) => {
-	// 	//TODO: figure out how to get access to colorpicker on load and inject previous state/props
-	// 	// console.log(prevProps, prevState);
-	// 	const colorPicker = this.colorPickerRef.current;
-	//
-	// 	console.log('updating')
-	// 	// console.log(colorPicker)
-	// 	console.log(colorPicker.state)
-	//
-	//
-	// 	// if (prevState.pastState) {
-	// 	// 	console.log('PREVIOUS STATE OF COLOR PICKER')
-	// 	// 	console.log(prevState.pastState)
-	// 	// }
-	// };
-
-	componentDidMount = () => {
-		console.log('mounted --> should contain color from unMounting')
-		console.log(this.props)
-		console.log('check for data in state')
-		console.log(this.state)
-	};
-
+	//provides parent with state of color pick on closing so it can
+	//be loaded to state via props upon reopening thus allowing component
+	//to load with state it closed with
 	componentWillUnmount = () => {
-		console.log('unMounting')
 		const colorPicker = this.colorPickerRef.current;
 		const colorPickerState = colorPicker.state;
 
 		this.props.getPaletteColorPickerState(colorPickerState);
 	};
-
 
 
 	//tells parent which color is selected
