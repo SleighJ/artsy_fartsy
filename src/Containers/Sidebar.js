@@ -15,20 +15,23 @@ const buttonStyle = {
 	border: 'none',
 	backgroundColor: 'inherit',
 	color: 'white',
-	fontFamily: 'helvetica',
-	fontSize:' 16px',
-	fontStyle: 'italic',
+	fontFamily: 'Larsseit, Roboto, Verdana',
+	fontSize:' 18px',
 	fontWeight: 'bold',
 	display: 'list-item',
 };
 
 const buttonContainerStyle = {
 	textAlign: 'center',
+	margin: 'auto',
+	display: 'grid',
 };
 
 const hoveredButtonContainerStyle = {
 	textAlign: 'center',
 	backgroundColor: 'grey',
+	margin: 'auto',
+	display: 'grid',
 };
 
 const clickedButtonContainerStyle = {
@@ -36,10 +39,11 @@ const clickedButtonContainerStyle = {
 	backgroundColor: 'grey',
 	color: 'white',
 	fontFamily: 'helvetica',
-	fontSize:' 12px',
+	// fontSize:' 12px',
 	fontStyle: 'italic',
 	fontWeight: 'bold',
-	margin: '10%',
+	margin: 'auto',
+	display: 'grid',
 };
 
 const componentContainerStyle = {
@@ -51,7 +55,7 @@ const componentContainerStyle = {
 
 const sidebarOpen = {
 	backgroundColor: 'lightGrey',
-	width: '18%',
+	width: '16.75%',
 	height: '100%',
 	position: 'fixed',
 };
