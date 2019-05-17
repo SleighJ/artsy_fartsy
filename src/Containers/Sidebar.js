@@ -10,6 +10,8 @@ import SideBarLogo from '../SubComponents/SideBarLogo';
 import 'react-image-crop/dist/ReactCrop.css';
 import SubComponentContainer from "./SubComponentContainer";
 import { Button } from 'semantic-ui-react';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faPalette, faPaintBrush, faImage, faFont } from "@fortawesome/free-solid-svg-icons";
 
 const buttonStyle = {
 	border: 'none',
@@ -55,7 +57,7 @@ const componentContainerStyle = {
 
 const sidebarOpen = {
 	backgroundColor: 'lightGrey',
-	width: '16.75%',
+	width: '17%',
 	height: '100%',
 	position: 'fixed',
 };
@@ -74,15 +76,19 @@ class Sidebar extends Component {
 			subComponentArray: [
 				{
 					name: 'Palette',
+					icon: faPalette,
 				},
 				{
 					name: 'Brushes',
+					icon: faPaintBrush,
 				},
 				{
 					name: 'Background',
+					icon: faImage,
 				},
 				{
 					name: 'Text',
+					icon: faFont,
 				},
 			]
 		}
@@ -201,7 +207,10 @@ class Sidebar extends Component {
 										onClick={ (e)=>this.buttonClickSelect(e.target.id, id) }
 										style={ this.state.clicked == id ? clickedButtonContainerStyle : this.state.hovered == id ? hoveredButtonContainerStyle : buttonContainerStyle }
 									>
-										<Button id={ id } style={ buttonStyle }>{ subComponent.name }</Button>
+										<Button id={ id } style={ buttonStyle }>
+											<FontAwesomeIcon icon={subComponent.icon} />
+											{ subComponent.name }
+										</Button>
 									</div>
 
 									<div className={'subcomponent-container'}>

@@ -2,7 +2,7 @@ import React, { PureComponent } from 'react';
 import { SketchPicker } from 'react-color';
 
 let colorWrapperStyle = {
-	margin: '1%',
+	margin: '2%',
 	height: 'fit-content',
 };
 
