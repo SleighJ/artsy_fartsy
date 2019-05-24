@@ -9,43 +9,51 @@ import SideBarLogo from '../SubComponents/SideBarLogo';
 //npm
 import 'react-image-crop/dist/ReactCrop.css';
 import SubComponentContainer from "./SubComponentContainer";
-import { Button } from 'semantic-ui-react';
+import { Button, Grid } from 'semantic-ui-react';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPalette, faPaintBrush, faImage, faFont } from "@fortawesome/free-solid-svg-icons";
 
+const iconStyle = {
+	marginLeft: '2rem',
+	color: 'white',
+	fontSize: '22px',
+};
+
 const buttonStyle = {
+	marginTop: '.5rem',
+	marginBottom: '.5rem',
+	padding: '0',
 	border: 'none',
 	backgroundColor: 'inherit',
 	color: 'white',
 	fontFamily: 'Larsseit, Roboto, Verdana',
-	fontSize:' 18px',
+	fontSize:' 22px',
 	fontWeight: 'bold',
-	display: 'list-item',
 };
 
 const buttonContainerStyle = {
-	textAlign: 'center',
-	margin: 'auto',
-	display: 'grid',
+	marginTop: '.5rem',
+	marginBottom: '.5rem',
+	padding: '0',
+	alignItems: 'center',
 };
 
 const hoveredButtonContainerStyle = {
-	textAlign: 'center',
+	padding: '0',
+	marginRight: '5.4%',
 	backgroundColor: 'grey',
-	margin: 'auto',
-	display: 'grid',
+	alignItems: 'center',
+	marginTop: '.5rem',
+	marginBottom: '.5rem',
 };
 
 const clickedButtonContainerStyle = {
-	border: 'none',
+	padding: '0',
+	marginRight: '5.4%',
 	backgroundColor: 'grey',
-	color: 'white',
-	fontFamily: 'helvetica',
-	// fontSize:' 12px',
-	fontStyle: 'italic',
-	fontWeight: 'bold',
-	margin: 'auto',
-	display: 'grid',
+	marginTop: '.5rem',
+	marginBottom: '.5rem',
+	alignItems: 'center',
 };
 
 const componentContainerStyle = {
@@ -199,48 +207,58 @@ class Sidebar extends Component {
 							let id = i;
 							return (
 								<div>
-									<div
-										id={ id }
-										key={ i }
-										onMouseOver={ ()=>this.buttonContainerSelect(id) }
-										onMouseLeave={ ()=>this.buttonContainerUnSelect() }
-										onClick={ (e)=>this.buttonClickSelect(e.target.id, id) }
-										style={ this.state.clicked == id ? clickedButtonContainerStyle : this.state.hovered == id ? hoveredButtonContainerStyle : buttonContainerStyle }
-									>
-										<Button id={ id } style={ buttonStyle }>
-											<FontAwesomeIcon icon={subComponent.icon} />
-											{ subComponent.name }
-										</Button>
-									</div>
+									<Grid>
 
-									<div className={'subcomponent-container'}>
-										{
-											clicked == id ?
-												<div style={ componentContainerStyle }>
-													<SubComponentContainer
-														clicked={ this.state.clicked }
-														getColorFromPalette={ this.props.getColorFromPalette }
-														getPaletteColorPickerState={ this.props.getPaletteColorPickerState }
-														paletteColorPickerState={ this.props.paletteColorPickerState }
-														color={ this.props.color }
-														getSizeFromBrush={ this.props.getSizeFromBrush }
-														addBackground={ this.props.addBackground }
-														getTextColor={ this.props.getTextColor }
-														getBackgroundColor={ this.props.getBackgroundColor }
-														backgroundUploadStatus={ this.props.backgroundUploadStatus }
-														croppedUrl={ this.props.croppedUrl }
-														clearCroppedUrl={ this.props.clearCroppedUrl }
+										<Grid.Row
+											column={2}
+											id={ id }
+											key={ i }
+											onMouseOver={ ()=>this.buttonContainerSelect(id) }
+											onMouseLeave={ ()=>this.buttonContainerUnSelect() }
+											onClick={ (e)=>this.buttonClickSelect(e.target.id, id) }
+											style={ this.state.clicked == id ? clickedButtonContainerStyle : this.state.hovered == id ? hoveredButtonContainerStyle : buttonContainerStyle }
+										>
+											<div className={'inner-row-element-container'} style={{ display: 'flex', margin: '0', alignItems: 'center' }}>
+												<Grid.Column>
+													<FontAwesomeIcon style={ iconStyle } icon={subComponent.icon} />
+												</Grid.Column>
 
-														//for text
-														selectedTextEdit={this.props.selectedTextEdit}
-														setFont={ this.props.setFont }
-														setFontSize={ this.props.setFontSize }
-														textEditObj={ this.props.textEditObj }
-													/>
-												</div>
-											: null
-										}
-									</div>
+												<Grid.Column>
+													<Button id={ id } style={ buttonStyle }>{ subComponent.name }</Button>
+												</Grid.Column>
+											</div>
+
+										</Grid.Row>
+
+										<div className={'subcomponent-container'}>
+											{
+												clicked == id ?
+													<div style={ componentContainerStyle }>
+														<SubComponentContainer
+															clicked={ this.state.clicked }
+															getColorFromPalette={ this.props.getColorFromPalette }
+															getPaletteColorPickerState={ this.props.getPaletteColorPickerState }
+															paletteColorPickerState={ this.props.paletteColorPickerState }
+															color={ this.props.color }
+															getSizeFromBrush={ this.props.getSizeFromBrush }
+															addBackground={ this.props.addBackground }
+															getTextColor={ this.props.getTextColor }
+															getBackgroundColor={ this.props.getBackgroundColor }
+															backgroundUploadStatus={ this.props.backgroundUploadStatus }
+															croppedUrl={ this.props.croppedUrl }
+															clearCroppedUrl={ this.props.clearCroppedUrl }
+
+															//for text
+															selectedTextEdit={this.props.selectedTextEdit}
+															setFont={ this.props.setFont }
+															setFontSize={ this.props.setFontSize }
+															textEditObj={ this.props.textEditObj }
+														/>
+													</div>
+												: null
+											}
+										</div>
+									</Grid>
 								</div>
 							)
 						})
