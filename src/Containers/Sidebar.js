@@ -14,7 +14,8 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPalette, faPaintBrush, faImage, faFont } from "@fortawesome/free-solid-svg-icons";
 
 const iconStyle = {
-	marginLeft: '2rem',
+	marginLeft: '1rem',
+	marginRight: '1rem',
 	color: 'white',
 	fontSize: '22px',
 };
@@ -32,6 +33,7 @@ const buttonStyle = {
 };
 
 const buttonContainerStyle = {
+	marginLeft: '1rem',
 	marginTop: '.5rem',
 	marginBottom: '.5rem',
 	padding: '0',
@@ -40,7 +42,8 @@ const buttonContainerStyle = {
 
 const hoveredButtonContainerStyle = {
 	padding: '0',
-	marginRight: '5.4%',
+	marginLeft: '1rem',
+	marginRight: '1rem',
 	backgroundColor: 'grey',
 	alignItems: 'center',
 	marginTop: '.5rem',
@@ -49,8 +52,9 @@ const hoveredButtonContainerStyle = {
 
 const clickedButtonContainerStyle = {
 	padding: '0',
-	marginRight: '5.4%',
 	backgroundColor: 'grey',
+	marginLeft: '1rem',
+	marginRight: '1rem',
 	marginTop: '.5rem',
 	marginBottom: '.5rem',
 	alignItems: 'center',
@@ -218,7 +222,7 @@ class Sidebar extends Component {
 											onClick={ (e)=>this.buttonClickSelect(e.target.id, id) }
 											style={ this.state.clicked == id ? clickedButtonContainerStyle : this.state.hovered == id ? hoveredButtonContainerStyle : buttonContainerStyle }
 										>
-											<div className={'inner-row-element-container'} style={{ display: 'flex', margin: '0', alignItems: 'center' }}>
+											<div className={'inner-row-element-container'} style={{ display: 'flex', margin: '1rem', alignItems: 'center' }}>
 												<Grid.Column>
 													<FontAwesomeIcon style={ iconStyle } icon={subComponent.icon} />
 												</Grid.Column>
