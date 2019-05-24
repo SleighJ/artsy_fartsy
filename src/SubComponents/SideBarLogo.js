@@ -6,7 +6,7 @@ import { faPaintBrush } from "@fortawesome/free-solid-svg-icons";
 
 const SideBarLogo = (props) => {
 	return (
-		<div style={{ width: '100%', height: '9rem', marginBottom: '25%', marginTop: '25%'}}>
+		<div style={{ width: '100%', height: '9rem', marginBottom: '2rem', marginTop: '1rem'}}>
 			<Grid>
 				<Grid.Row style={{margin: '10%'}} columns={1}>
 					<Grid.Column align={'center'}>

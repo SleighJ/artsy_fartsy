@@ -28,7 +28,7 @@ const buttonStyle = {
 	backgroundColor: 'inherit',
 	color: 'white',
 	fontFamily: 'Larsseit, Roboto, Verdana',
-	fontSize:' 22px',
+	fontSize:' 20px',
 	fontWeight: 'bold',
 };
 
@@ -222,7 +222,7 @@ class Sidebar extends Component {
 											onClick={ (e)=>this.buttonClickSelect(e.target.id, id) }
 											style={ this.state.clicked == id ? clickedButtonContainerStyle : this.state.hovered == id ? hoveredButtonContainerStyle : buttonContainerStyle }
 										>
-											<div className={'inner-row-element-container'} style={{ display: 'flex', margin: '1rem', alignItems: 'center' }}>
+											<div className={'inner-row-element-container'} style={{ display: 'flex', marginTop: '.5rem', marginBottom: '.5rem', marginLeft: '1rem', alignItems: 'center' }}>
 												<Grid.Column>
 													<FontAwesomeIcon style={ iconStyle } icon={subComponent.icon} />
 												</Grid.Column>
