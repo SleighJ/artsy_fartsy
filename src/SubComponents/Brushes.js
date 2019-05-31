@@ -2,23 +2,13 @@ import React, { PureComponent } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPaintBrush } from '@fortawesome/free-solid-svg-icons';
 
-let brushWrapperStyle = {
-	lineHeight: '0',
-	fontSize: '0',
-	height: 'fit-content',
-	overflow: 'scroll',
-	border: '10px solid lightgrey',
-	textAlign: 'center',
-};
-
-
 class Brushes extends PureComponent {
 	constructor(props) {
 		super(props);
 
 		this.state = {
 			widthArray: [],
-			lineWidth: null,
+			hovered: null,
 		}
 	}
 
@@ -50,9 +40,11 @@ class Brushes extends PureComponent {
 
 		return (
 
-			<div style={brushWrapperStyle}>
-				{ this.state.widthArray.map((entry, i) => {
+			<div style={{display: 'flex'}}>
+				{
+					this.state.widthArray.map((entry, i) => {
 						let id = `brush-wrapper-${i}`;
+						let size = i + 1;
 						let iconStyle = {
 								color: this.props.color,
 								height: `${entry}rem`,
@@ -61,11 +53,23 @@ class Brushes extends PureComponent {
 								marginBottom: '1.5rem',
 							};
 						return (
-							<div key={ i } id={ id } style={ this.state.hovered == id ? {backgroundColor: 'grey'} : null } onMouseOver={ this.handleHovered } onClick={ ()=>this.props.getSizeFromBrush(i) }>
-								<FontAwesomeIcon id={ id } style={ iconStyle } icon={ faPaintBrush } onClick={ ()=>this.props.getSizeFromBrush(i) } />
+							<div
+								key={ i }
+								id={ id }
+								style={ this.state.hovered == id ? { backgroundColor: 'grey'} : null }
+								onMouseOver={ this.handleHovered }
+								onClick={ ()=>this.props.getSizeFromBrush(size) }
+							>
+								<FontAwesomeIcon
+									id={ id }
+									style={ iconStyle }
+									icon={ faPaintBrush }
+									onClick={ ()=>this.props.getSizeFromBrush(size) }
+								/>
 							</div>
 						)
-					}) }
+					})
+				}
 			</div>
 		);
 	}

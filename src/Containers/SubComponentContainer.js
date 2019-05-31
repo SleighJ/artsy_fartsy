@@ -1,7 +1,6 @@
 import React, {Component} from "react";
 
 import Palette from "../SubComponents/Palette";
-import Brushes from "../SubComponents/Brushes";
 import BackgroundSubComponent from "../SubComponents/BackgroundSubComponent";
 import TextSubComponent from "../SubComponents/TextSubComponent";
 
@@ -14,12 +13,13 @@ class SubComponentContainer extends Component {
 	pickComponentToRender = () => {
 		const subComponents = [
 			<Palette
+				//for brushes
+				color={ this.props.color }
+				getSizeFromBrush={ this.props.getSizeFromBrush }
+				//forPalette
 				paletteColorPickerState={ this.props.paletteColorPickerState }
 				getColorFromPalette={ this.props.getColorFromPalette }
 				getPaletteColorPickerState={ this.props.getPaletteColorPickerState }
-			/>,
-			<Brushes color={ this.props.color }
-					 getSizeFromBrush={ this.props.getSizeFromBrush }
 			/>,
 			<BackgroundSubComponent
 				croppedUrl={ this.props.croppedUrl }

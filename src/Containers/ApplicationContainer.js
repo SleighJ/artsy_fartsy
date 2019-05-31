@@ -63,6 +63,7 @@ class ApplicationContainer extends Component {
 
 	//allows the rest of the components to know what brush size is selected
 	getSizeFromBrush = (width) => {
+		console.log(width)
 		this.setState({
 			width: width,
 		})

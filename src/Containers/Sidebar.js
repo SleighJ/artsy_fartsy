@@ -91,10 +91,6 @@ class Sidebar extends Component {
 					icon: faPalette,
 				},
 				{
-					name: 'Brushes',
-					icon: faPaintBrush,
-				},
-				{
 					name: 'Background',
 					icon: faImage,
 				},

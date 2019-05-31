@@ -1,5 +1,6 @@
 import React, { PureComponent } from 'react';
 import { SketchPicker } from 'react-color';
+import Brushes from './Brushes';
 
 let colorWrapperStyle = {
 	margin: '2%',
@@ -47,6 +48,10 @@ class Palette extends PureComponent {
 						ref={ this.colorPickerRef }
 						color={ this.state.selectedColor ? this.state.selectedColor : this.state.paletteColorPickerState ? this.state.paletteColorPickerState : '#000000'}
 						onChangeComplete={ this.provideColorToParent }
+					/>
+					<Brushes
+						color={ this.props.color }
+						getSizeFromBrush={ this.props.getSizeFromBrush }
 					/>
 				</div>
 			</div>
