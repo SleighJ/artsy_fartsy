@@ -39,7 +39,7 @@ class Brushes extends PureComponent {
 
 		return (
 
-			<div style={{ marginTop: '1rem', borderRadius: '.5rem', backgroundColor: 'white' }}>
+			<div style={{ marginTop: '1rem', borderRadius: '.5rem', backgroundColor: 'white', boxShadow: 'rgba(0, 0, 0, 0.15) 0px 0px 0px 1px, rgba(0, 0, 0, 0.15) 0px 8px 16px' }}>
 			<div className={'brush-container'} style={{display: 'flex', backgroundColor: 'white', alignItems: 'center', height: '3.75rem', margin: '.25rem' }}>
 				{
 					this.state.widthArray.map((entry, i) => {
