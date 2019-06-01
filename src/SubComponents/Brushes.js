@@ -28,7 +28,6 @@ class Brushes extends PureComponent {
 	};
 
 	handleHovered = ({nativeEvent}) => {
-
 		const { target } = nativeEvent;
 
 		this.setState({
@@ -40,7 +39,8 @@ class Brushes extends PureComponent {
 
 		return (
 
-			<div style={{display: 'flex'}}>
+			<div style={{ marginTop: '1rem', borderRadius: '.5rem', backgroundColor: 'white' }}>
+			<div className={'brush-container'} style={{display: 'flex', backgroundColor: 'white', alignItems: 'center', height: '3.75rem', margin: '.25rem' }}>
 				{
 					this.state.widthArray.map((entry, i) => {
 						let id = `brush-wrapper-${i}`;
@@ -49,14 +49,12 @@ class Brushes extends PureComponent {
 								color: this.props.color,
 								height: `${entry}rem`,
 								width: '100%',
-								marginTop: '1.5rem',
-								marginBottom: '1.5rem',
 							};
 						return (
 							<div
 								key={ i }
 								id={ id }
-								style={ this.state.hovered == id ? { backgroundColor: 'grey'} : null }
+								style={ this.state.hovered == id ? { backgroundColor: 'grey', display: 'inherit', height: '80%', alignItems: 'inherit', borderRadius: '20%', } : { alignItems: 'center' } }
 								onMouseOver={ this.handleHovered }
 								onClick={ ()=>this.props.getSizeFromBrush(size) }
 							>
@@ -70,6 +68,7 @@ class Brushes extends PureComponent {
 						)
 					})
 				}
+			</div>
 			</div>
 		);
 	}
