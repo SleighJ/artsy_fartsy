@@ -116,6 +116,7 @@ class ApplicationContainer extends Component {
 
 	//tells the rest of the components whether the text component has been selected
 	setTextState = () => {
+		console.log('setTextState Called');
 		this.setState({
 			textEditOpen: !this.state.textEditOpen,
 		})

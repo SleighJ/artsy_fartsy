@@ -143,12 +143,13 @@ class Sidebar extends Component {
 
 	//handles the selection of components and communicating local state changes to the rest of the application
 	buttonClickSelect = (target, id) => {
-		const textComponentId = 3;
+		const textComponentId = 2;
 
 		//if anything has been clicked
 		if (this.state.clicked) {
 			//if this command is coming from the text component, turn on text
 			if (textComponentId == id || this.state.clicked == textComponentId) {
+				console.log('turning on text component')
 				this.props.setTextState()
 			}
 
@@ -180,6 +181,7 @@ class Sidebar extends Component {
 				//if this command is coming from the text component
 				if (textComponentId == id) {
 					//turn on text
+					console.log('turn on text')
 					this.props.setTextState()
 				}
 				//set clicked to the id and open the subComponent

@@ -113,12 +113,16 @@ class Canvas extends PureComponent {
 	//TODO: save functionality needs to be added
 	sendPaintData = async () => {
 
+		console.log('sendPaintData')
+
 		let body = {
 			line: this.line,
 			userId: this.userId,
 		};
 
 		body = JSON.stringify(body);
+
+		console.log(body)
 
 		const req = await fetch('http://localhost:4000/paint', {
 			method: 'POST',
@@ -127,6 +131,8 @@ class Canvas extends PureComponent {
 				'Content-Type': 'application/json',
 			},
 		});
+
+		console.log(req)
 
 		const res = await req.text();
 		this.line = [];
@@ -155,6 +161,9 @@ class Canvas extends PureComponent {
 			pointerEvents: 'none',
 			border: '3px solid pink',
 		};
+
+		console.log('canvas state and props')
+		console.log(this.state, this.props);
 
 		return (
 			<div id={'canvas-wrapper'} ref={ this.canvasWrapperRef } style={ croppedUrl ? urlStyle : noUrlStyle }>

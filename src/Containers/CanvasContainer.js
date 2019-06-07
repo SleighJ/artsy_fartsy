@@ -77,6 +77,9 @@ class CanvasContainer extends Component {
 			uploadActive,
 		} = this.props;
 
+		console.log('canvasContainer state and props')
+		console.log(this.state, this.props);
+
 		return (
 			<div id={'text-canvas-wrapper'} ref={ this.textCanvasWrapper } style={{ margin: 'auto', width: '70%', height: '70%', padding: '50px' }}>
 
