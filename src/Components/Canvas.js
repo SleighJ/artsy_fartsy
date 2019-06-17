@@ -1,13 +1,12 @@
 import React, { PureComponent } from 'react';
-
 import { v4 } from 'uuid';
 
 let textOpenStyle = {
-	pointerEvents: 'auto',
+	// pointerEvents: 'auto',
 };
 
 let textClosedStyle = {
-	pointerEvents: 'auto',
+	// pointerEvents: 'auto',
 	position: 'absolute',
 };
 
@@ -37,6 +36,8 @@ class Canvas extends PureComponent {
 
 	//on the mount, set width, height & initialize the canvas
 	componentDidMount = () => {
+
+		//for canvas
 		this.props.getRefFromCanvas(this.canvasWrapperRef);
 		// this.props.getRefFromCanvas(this.canvas);
 		this.canvas.width = 800;
@@ -129,6 +130,7 @@ class Canvas extends PureComponent {
 		});
 
 		const res = await req.text();
+		console.log(res)
 		this.line = [];
 	};
 
@@ -137,10 +139,6 @@ class Canvas extends PureComponent {
 		const { croppedUrl, backgroundColor } = this.state;
 
 		let urlStyle = {
-			width: '800px',
-			height: '600px',
-			pointerEvents: 'none',
-			border: '3px solid pink',
 			backgroundColor: `${ this.state.backgroundColor }`,
 			backgroundImage: `url(${ croppedUrl })`,
 			backgroundRepeat: 'no-repeat',
@@ -149,11 +147,7 @@ class Canvas extends PureComponent {
 		};
 
 		let noUrlStyle = {
-			width: '800px',
-			height: '600px',
 			backgroundColor: `${ this.state.backgroundColor }`,
-			pointerEvents: 'none',
-			border: '3px solid pink',
 		};
 
 		return (

@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import Canvas from '../Components/Canvas';
 import Text from '../Components/Text';
 import Background from "../Components/Background";
+import '../Components/CSS/cursor.css';
 
 import { Header, Modal, Grid } from 'semantic-ui-react';
 import 'react-image-crop/dist/ReactCrop.css';

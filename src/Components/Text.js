@@ -36,7 +36,7 @@ class Text extends PureComponent {
 				fontSize: parseInt(this.props.fontSize),
 				fontFamily: this.props.selectedFont,
 				textEditOpen: this.props.textEditOpen,
-			})
+			});
 		}
 
 		if (this.props.textColor != this.state.textColor) {

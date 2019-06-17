@@ -32,7 +32,6 @@ class ApplicationContainer extends Component {
 	}
 
 	// (compWillMount and callBackendAPI is not so important now, but needed for when I add the functionality to save your work)
-
 	// on the mount of the entire application, connect to the server that stores the canvas data plots
 	componentDidMount = () => {
 		this.fetchCustomCursor();
@@ -43,13 +42,15 @@ class ApplicationContainer extends Component {
 
 	// fetches server
 	callBackendAPI = async () => {
+
 		const response = await fetch('/paint');
 		const body = await response.json();
 
 		if (response.status !== 200) {
 			throw Error(body.message)
+		} else {
+			return body;
 		}
-		return body;
 	};
 
 	fetchCustomCursor = () => {

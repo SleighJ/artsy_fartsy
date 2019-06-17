@@ -79,7 +79,6 @@ class TextSubComponent extends Component {
 
 		const { fontFamily, fontSize } = this.state;
 
-
 		return (
 			<Grid style={{backgroundColor: 'transparent', margin: 0}} columns={2}>
 				<Grid.Row style={{ marginLeft: '5%', marginRight: '5%'}}>
