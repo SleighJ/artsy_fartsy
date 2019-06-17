@@ -28,6 +28,7 @@ class ApplicationContainer extends Component {
 			textColor: null,
 			uploadActive: false,
 			paletteColorPickerState: null,
+			customCursorURL: null,
 		}
 	}
 
@@ -64,7 +65,6 @@ class ApplicationContainer extends Component {
 		// Create a reference from an HTTPS URL
 		// Note that in the URL, characters are URL escaped!
 		const httpsReference = storage.refFromURL('https://firebasestorage.googleapis.com/v0/b/artsyfartsy-2ba80.appspot.com/o/custom_cursor%2Fcustom_cursor_img.png?alt=media&token=b2dbcd6a-c292-4459-9808-462bf9e079ca');
-		console.log(httpsReference);
 
 		httpsReference.getDownloadURL().then(function(url) {
 			// `url` is the download URL for 'images/stars.jpg'
@@ -76,11 +76,14 @@ class ApplicationContainer extends Component {
 				var blob = xhr.response;
 			};
 			xhr.open('GET', url);
+
+			this.setState({
+				customCursorURL: url,
+			});
+
 			xhr.send();
 
-			// Or inserted into an <img> element:
-			var img = document.getElementById('myimg');
-			img.src = url;
+
 		}).catch(function(error) {
 			// Handle any errors
 		});
@@ -204,6 +207,7 @@ class ApplicationContainer extends Component {
 			backgroundColor,
 			uploadActive,
 			paletteColorPickerState,
+			customCursorURL,
 		} = this.state;
 
 		return (
@@ -261,6 +265,7 @@ class ApplicationContainer extends Component {
 						fontSize={ fontSize }
 						selectedFont={ selectedFont }
 						textColor={ textColor }
+						customCursorURL={ customCursorURL }
 					/>
 				</Fragment>
 

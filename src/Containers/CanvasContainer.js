@@ -76,6 +76,7 @@ class CanvasContainer extends Component {
 			getBackgroundRotation,
 			backgroundColor,
 			uploadActive,
+			customCursorURL,
 		} = this.props;
 
 		return (
@@ -123,6 +124,7 @@ class CanvasContainer extends Component {
 								imagePreviewRotation={ this.props.imagePreviewRotation }
 								textEditOpen={ textEditOpen }
 								getRefFromCanvas={ this.getRefFromCanvas }
+								customCursorURL={ customCursorURL }
 							/>
 						</Grid.Row>
 					</Grid.Column>

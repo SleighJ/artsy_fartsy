@@ -1,6 +1,8 @@
 import React, { PureComponent } from 'react';
 import { v4 } from 'uuid';
 
+import './CSS/cursor.css';
+
 let textOpenStyle = {
 	// pointerEvents: 'auto',
 };
@@ -130,13 +132,14 @@ class Canvas extends PureComponent {
 		});
 
 		const res = await req.text();
-		console.log(res)
 		this.line = [];
 	};
 
 	render() {
 
 		const { croppedUrl, backgroundColor } = this.state;
+
+		// const { customCursorURL } = this.props;
 
 		let urlStyle = {
 			backgroundColor: `${ this.state.backgroundColor }`,
