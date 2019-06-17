@@ -28,7 +28,6 @@ class ApplicationContainer extends Component {
 	}
 
 	// (compWillMount and callBackendAPI is not so important now, but needed for when I add the functionality to save your work)
-
 	// on the mount of the entire application, connect to the server that stores the canvas data plots
 	componentDidMount = () => {
 		this.callBackendAPI()
@@ -38,13 +37,15 @@ class ApplicationContainer extends Component {
 
 	// fetches server
 	callBackendAPI = async () => {
+
 		const response = await fetch('/paint');
 		const body = await response.json();
 
 		if (response.status !== 200) {
 			throw Error(body.message)
+		} else {
+			return body;
 		}
-		return body;
 	};
 
 	//allows the rest of the components to know what color is selected
@@ -63,7 +64,6 @@ class ApplicationContainer extends Component {
 
 	//allows the rest of the components to know what brush size is selected
 	getSizeFromBrush = (width) => {
-		console.log(width)
 		this.setState({
 			width: width,
 		})
@@ -116,7 +116,6 @@ class ApplicationContainer extends Component {
 
 	//tells the rest of the components whether the text component has been selected
 	setTextState = () => {
-		console.log('setTextState Called');
 		this.setState({
 			textEditOpen: !this.state.textEditOpen,
 		})

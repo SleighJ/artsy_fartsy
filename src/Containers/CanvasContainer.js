@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import Canvas from '../Components/Canvas';
 import Text from '../Components/Text';
 import Background from "../Components/Background";
+import '../Components/CSS/cursor.css';
 
 import { Header, Modal, Grid } from 'semantic-ui-react';
 import 'react-image-crop/dist/ReactCrop.css';
@@ -76,9 +77,6 @@ class CanvasContainer extends Component {
 			backgroundColor,
 			uploadActive,
 		} = this.props;
-
-		console.log('canvasContainer state and props')
-		console.log(this.state, this.props);
 
 		return (
 			<div id={'text-canvas-wrapper'} ref={ this.textCanvasWrapper } style={{ margin: 'auto', width: '70%', height: '70%', padding: '50px' }}>

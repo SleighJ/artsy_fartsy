@@ -36,7 +36,7 @@ class Text extends PureComponent {
 				fontSize: parseInt(this.props.fontSize),
 				fontFamily: this.props.selectedFont,
 				textEditOpen: this.props.textEditOpen,
-			})
+			});
 		}
 
 		if (this.props.textColor != this.state.textColor) {
@@ -355,9 +355,6 @@ class Text extends PureComponent {
 	render() {
 
 		const { input, textColor } = this.state;
-
-		console.log('TEXT state and props');
-		console.log(this.state, this.props);
 
 		return (
 			<div id={'text-wrapper'} style={ textWrapperStyle } onClick={ this.addText }>
