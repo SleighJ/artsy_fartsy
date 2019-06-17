@@ -4,6 +4,10 @@ import CanvasContainer from './CanvasContainer';
 import Sidebar from './Sidebar';
 import '../CSS/ApplicationContainer.css';
 
+import firebase from 'firebase';
+import { storage } from '../Firebase/Firebase';
+
+
 class ApplicationContainer extends Component {
 	constructor(props) {
 		super(props);
@@ -31,6 +35,7 @@ class ApplicationContainer extends Component {
 
 	// on the mount of the entire application, connect to the server that stores the canvas data plots
 	componentDidMount = () => {
+		this.fetchCustomCursor();
 		this.callBackendAPI()
 			.then(res => this.setState({ data: res.express }))
 			.catch(err => console.log(err));
@@ -45,6 +50,39 @@ class ApplicationContainer extends Component {
 			throw Error(body.message)
 		}
 		return body;
+	};
+
+	fetchCustomCursor = () => {
+		// Create a reference with an initial file path and name
+		const storage = firebase.storage();
+		const pathReference = storage.ref('custom_cursor/custom_cursor_img.png');
+
+		// Create a reference from a Google Cloud Storage URI
+		const gsReference = storage.refFromURL('gs://bucket/images/stars.jpg')
+
+		// Create a reference from an HTTPS URL
+		// Note that in the URL, characters are URL escaped!
+		const httpsReference = storage.refFromURL('https://firebasestorage.googleapis.com/v0/b/artsyfartsy-2ba80.appspot.com/o/custom_cursor%2Fcustom_cursor_img.png?alt=media&token=b2dbcd6a-c292-4459-9808-462bf9e079ca');
+		console.log(httpsReference);
+
+		httpsReference.getDownloadURL().then(function(url) {
+			// `url` is the download URL for 'images/stars.jpg'
+
+			// This can be downloaded directly:
+			var xhr = new XMLHttpRequest();
+			xhr.responseType = 'blob';
+			xhr.onload = function(event) {
+				var blob = xhr.response;
+			};
+			xhr.open('GET', url);
+			xhr.send();
+
+			// Or inserted into an <img> element:
+			var img = document.getElementById('myimg');
+			img.src = url;
+		}).catch(function(error) {
+			// Handle any errors
+		});
 	};
 
 	//allows the rest of the components to know what color is selected
@@ -63,7 +101,6 @@ class ApplicationContainer extends Component {
 
 	//allows the rest of the components to know what brush size is selected
 	getSizeFromBrush = (width) => {
-		console.log(width)
 		this.setState({
 			width: width,
 		})
@@ -116,7 +153,6 @@ class ApplicationContainer extends Component {
 
 	//tells the rest of the components whether the text component has been selected
 	setTextState = () => {
-		console.log('setTextState Called');
 		this.setState({
 			textEditOpen: !this.state.textEditOpen,
 		})

@@ -356,9 +356,6 @@ class Text extends PureComponent {
 
 		const { input, textColor } = this.state;
 
-		console.log('TEXT state and props');
-		console.log(this.state, this.props);
-
 		return (
 			<div id={'text-wrapper'} style={ textWrapperStyle } onClick={ this.addText }>
 				{ input ?

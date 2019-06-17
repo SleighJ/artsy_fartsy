@@ -79,8 +79,6 @@ class TextSubComponent extends Component {
 
 		const { fontFamily, fontSize } = this.state;
 
-		console.log('TSC state and props ');
-		console.log(this.state, this.props);
 
 		return (
 			<Grid style={{backgroundColor: 'transparent', margin: 0}} columns={2}>
