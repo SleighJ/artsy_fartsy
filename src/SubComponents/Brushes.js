@@ -39,36 +39,36 @@ class Brushes extends PureComponent {
 
 		return (
 
-			<div style={{ marginTop: '1rem', borderRadius: '.5rem', backgroundColor: 'white', boxShadow: 'rgba(0, 0, 0, 0.15) 0px 0px 0px 1px, rgba(0, 0, 0, 0.15) 0px 8px 16px' }}>
-			<div className={'brush-container'} style={{display: 'flex', backgroundColor: 'white', alignItems: 'center', height: '3.75rem', margin: '.25rem' }}>
-				{
-					this.state.widthArray.map((entry, i) => {
-						let id = `brush-wrapper-${i}`;
-						let size = i + 1;
-						let iconStyle = {
-								color: this.props.color,
-								height: `${entry}rem`,
-								width: '100%',
-							};
-						return (
-							<div
-								key={ i }
-								id={ id }
-								style={ this.state.hovered == id ? { backgroundColor: 'grey', display: 'inherit', height: '80%', alignItems: 'inherit', borderRadius: '20%', } : { alignItems: 'center' } }
-								onMouseOver={ this.handleHovered }
-								onClick={ ()=>this.props.getSizeFromBrush(size) }
-							>
-								<FontAwesomeIcon
+			<div style={{ border: '.25px solid white', marginTop: '1rem', marginBottom: '1rem', borderRadius: '.5rem', backgroundColor: 'white', boxShadow: 'rgba(0, 0, 0, 0.15) 0px 0px 0px 1px, rgba(0, 0, 0, 0.15) 0px 8px 16px' }}>
+				<div className={'brush-container'} style={{display: 'flex', backgroundColor: 'white', alignItems: 'center', height: '3.75rem', margin: '.25rem' }}>
+					{
+						this.state.widthArray.map((entry, i) => {
+							let id = `brush-wrapper-${i}`;
+							let size = i + 1;
+							let iconStyle = {
+									color: this.props.color,
+									height: `${entry}rem`,
+									width: '100%',
+								};
+							return (
+								<div
+									key={ i }
 									id={ id }
-									style={ iconStyle }
-									icon={ faPaintBrush }
+									style={ this.state.hovered == id ? { backgroundColor: 'grey', display: 'inherit', height: '80%', alignItems: 'inherit', borderRadius: '20%', } : { alignItems: 'center' } }
+									onMouseOver={ this.handleHovered }
 									onClick={ ()=>this.props.getSizeFromBrush(size) }
-								/>
-							</div>
-						)
-					})
-				}
-			</div>
+								>
+									<FontAwesomeIcon
+										id={ id }
+										style={ iconStyle }
+										icon={ faPaintBrush }
+										onClick={ ()=>this.props.getSizeFromBrush(size) }
+									/>
+								</div>
+							)
+						})
+					}
+				</div>
 			</div>
 		);
 	}
