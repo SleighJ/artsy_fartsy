@@ -2,8 +2,5 @@
     width: 800px;
     height: 600px;
     border: 3px solid pink;
-    cursor: url('https://firebasestorage.googleapis.com/v0/b/artsyfartsy-2ba80.appspot.com/o/custom_cursor%2Fcustom_cursor_img.png?alt=media&token=b2dbcd6a-c292-4459-9808-462bf9e079ca'), auto;
-
-    /*cursor: cell;*/
-    /*cursor: url('../../Pictures/paintcursor.png'), auto;*/
+    cursor: url('https://firebasestorage.googleapis.com/v0/b/artsyfartsy-2ba80.appspot.com/o/custom_cursor%2Fcustom_cursor_img.png?alt=media&token=b2dbcd6a-c292-4459-9808-462bf9e079ca') 40 84, auto;
 }
