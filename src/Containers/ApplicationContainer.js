@@ -35,7 +35,6 @@ class ApplicationContainer extends Component {
 	// (compWillMount and callBackendAPI is not so important now, but needed for when I add the functionality to save your work)
 	// on the mount of the entire application, connect to the server that stores the canvas data plots
 	componentDidMount = () => {
-		this.fetchCustomCursor();
 		this.callBackendAPI()
 			.then(res => this.setState({ data: res.express }))
 			.catch(err => console.log(err));
@@ -52,41 +51,6 @@ class ApplicationContainer extends Component {
 		} else {
 			return body;
 		}
-	};
-
-	fetchCustomCursor = () => {
-		// Create a reference with an initial file path and name
-		const storage = firebase.storage();
-		const pathReference = storage.ref('custom_cursor/custom_cursor_img.png');
-
-		// Create a reference from a Google Cloud Storage URI
-		const gsReference = storage.refFromURL('gs://bucket/images/stars.jpg')
-
-		// Create a reference from an HTTPS URL
-		// Note that in the URL, characters are URL escaped!
-		const httpsReference = storage.refFromURL('https://firebasestorage.googleapis.com/v0/b/artsyfartsy-2ba80.appspot.com/o/custom_cursor%2Fcustom_cursor_img.png?alt=media&token=b2dbcd6a-c292-4459-9808-462bf9e079ca');
-
-		httpsReference.getDownloadURL().then(function(url) {
-			// `url` is the download URL for 'images/stars.jpg'
-
-			// This can be downloaded directly:
-			var xhr = new XMLHttpRequest();
-			xhr.responseType = 'blob';
-			xhr.onload = function(event) {
-				var blob = xhr.response;
-			};
-			xhr.open('GET', url);
-
-			this.setState({
-				customCursorURL: url,
-			});
-
-			xhr.send();
-
-
-		}).catch(function(error) {
-			// Handle any errors
-		});
 	};
 
 	//allows the rest of the components to know what color is selected
