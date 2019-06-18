@@ -180,7 +180,6 @@ class Background extends Component {
 										ref={ this.imagePreviewCanvasRef }
 									>
 									</canvas>
-									{/*<Button onClick={ ()=>this.rotateImagePreview() }>Rotate</Button>*/}
 								</Grid.Column>
 								<Button style={{margin: '5%'}} onClick={ this.handleDone }>Done</Button>
 							</Grid.Row>

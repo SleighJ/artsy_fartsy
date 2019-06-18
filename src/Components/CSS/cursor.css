@@ -2,5 +2,13 @@
     width: 800px;
     height: 600px;
     border: 3px solid pink;
-    cursor: url('https://firebasestorage.googleapis.com/v0/b/artsyfartsy-2ba80.appspot.com/o/custom_cursor%2Fcustom_cursor_img.png?alt=media&token=b2dbcd6a-c292-4459-9808-462bf9e079ca') 40 84, auto;
+    cursor: url('https://firebasestorage.googleapis.com/v0/b/artsyfartsy-2ba80.appspot.com/o/custom_cursor%2Fcustom_cursor_img.png?alt=media&token=609bbb76-78ec-442f-a107-3f7deeaa963b') 40 84, auto;
+}
+
+#text-wrapper {
+    position: fixed;
+    height: 600px;
+    width: 800px;
+    outline: none;
+    cursor: url('https://firebasestorage.googleapis.com/v0/b/artsyfartsy-2ba80.appspot.com/o/custom_cursor%2Fcustom_font_cursor_2.png?alt=media&token=aca29e7b-ba8a-474a-8761-4f5186c8dd3c') 200 200, auto;
 }

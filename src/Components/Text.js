@@ -1,13 +1,8 @@
 import React, { PureComponent } from 'react';
 import ReactDOM from 'react-dom';
 
-const textWrapperStyle = {
- 	position: 'fixed',
-	height: '600px',
-	width: '800px',
-	pointerEvents: 'auto',
-	outline: 'none',
-};
+import './CSS/cursor.css';
+
 
 class Text extends PureComponent {
 	constructor(props) {
@@ -50,8 +45,9 @@ class Text extends PureComponent {
 	addText = ({nativeEvent}) => {
 
 		//get corresponding x and y values from the click event
-		const { offsetX, offsetY, x, y } = nativeEvent;
+		const { offsetX, offsetY, x, y, clientX, clientY } = nativeEvent;
 
+		console.log(nativeEvent);
 		//if there is no selectedText and user is not editing any text
 		if (!this.state.clickedText && !this.state.editedText) {
 
@@ -64,8 +60,8 @@ class Text extends PureComponent {
 				input.type = 'text';
 				input.id = `addTextInput-${ this.state.textInputId }`;
 				input.style.position = 'fixed';
-				input.style.left = (offsetX) + 'px';
-				input.style.top = (offsetY) + 'px';
+				input.style.left = (offsetX + 75) + 'px';
+				input.style.top = (offsetY + 23) + 'px';
 				input.style.marginLeft = '13%';
 				input.autofocus = true;
 				input.onkeydown = this.handleTextEnter;
@@ -354,10 +350,10 @@ class Text extends PureComponent {
 
 	render() {
 
-		const { input, textColor } = this.state;
+		const { input } = this.state;
 
 		return (
-			<div id={'text-wrapper'} style={ textWrapperStyle } onClick={ this.addText }>
+			<div id={'text-wrapper'} onClick={ this.addText }>
 				{ input ?
 					input.map((inputEntry, i) => {
 						let id = inputEntry.id;

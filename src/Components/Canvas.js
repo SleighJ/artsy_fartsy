@@ -137,9 +137,7 @@ class Canvas extends PureComponent {
 
 	render() {
 
-		const { croppedUrl, backgroundColor } = this.state;
-
-		// const { customCursorURL } = this.props;
+		const { croppedUrl } = this.state;
 
 		let urlStyle = {
 			backgroundColor: `${ this.state.backgroundColor }`,
