@@ -2,12 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="d68a3988-1699-4615-855b-8ba7d7af9206" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Components/Background.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/Components/Background.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Components/CSS/cursor.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/Components/CSS/cursor.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Components/Canvas.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/Components/Canvas.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Components/Text.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/Components/Text.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Containers/CanvasContainer.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/Containers/CanvasContainer.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/SubComponents/BackgroundSubComponent.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/SubComponents/BackgroundSubComponent.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/SubComponents/Palette.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/SubComponents/Palette.js" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -32,7 +29,7 @@
           <entry key="env" value="4" />
           <entry key="firebaserc" value="1" />
           <entry key="html" value="1" />
-          <entry key="js" value="37" />
+          <entry key="js" value="40" />
           <entry key="json" value="4" />
           <entry key="png" value="3" />
           <entry key="ts" value="2" />
@@ -46,7 +43,7 @@
           <entry key="HTML" value="1" />
           <entry key="Image" value="3" />
           <entry key="JSON" value="4" />
-          <entry key="JavaScript" value="37" />
+          <entry key="JavaScript" value="40" />
           <entry key="PLAIN_TEXT" value="1" />
           <entry key="TypeScript" value="2" />
           <entry key="XML" value="1" />
@@ -62,7 +59,7 @@
         <counts>
           <entry key="css" value="529" />
           <entry key="env" value="3" />
-          <entry key="js" value="15127" />
+          <entry key="js" value="15583" />
           <entry key="json" value="2" />
         </counts>
       </usages-collector>
@@ -71,7 +68,7 @@
           <entry key=".env file" value="3" />
           <entry key="CSS" value="529" />
           <entry key="JSON" value="2" />
-          <entry key="JavaScript" value="15127" />
+          <entry key="JavaScript" value="15583" />
         </counts>
       </usages-collector>
     </session>
@@ -79,21 +76,9 @@
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/Containers/ApplicationContainer.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="473">
-              <caret line="50" column="16" selection-start-line="50" selection-start-column="16" selection-end-line="50" selection-end-column="16" />
-              <folding>
-                <element signature="e#0#51#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/Containers/CanvasContainer.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1288">
+            <state relative-caret-position="-55">
               <caret line="93" column="33" lean-forward="true" selection-start-line="93" selection-start-column="33" selection-end-line="93" selection-end-column="33" />
               <folding>
                 <element signature="e#0#41#0" expanded="true" />
@@ -105,8 +90,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/Components/Background.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="411">
-              <caret line="182" selection-start-line="182" selection-end-line="182" />
+            <state relative-caret-position="-58">
+              <caret line="127" selection-start-line="127" selection-end-line="127" />
               <folding>
                 <element signature="e#0#39#0" expanded="true" />
               </folding>
@@ -135,14 +120,35 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/SubComponents/BackgroundSubComponent.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="602">
-              <caret line="41" selection-start-line="41" selection-end-line="41" />
+            <state relative-caret-position="390">
+              <caret line="59" column="104" selection-start-line="59" selection-start-column="104" selection-end-line="59" selection-end-column="104" />
               <folding>
                 <element signature="e#0#45#0" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/SubComponents/Palette.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="355">
+              <caret line="52" column="23" lean-forward="true" selection-start-line="52" selection-start-column="23" selection-end-line="52" selection-end-column="23" />
+              <folding>
+                <element signature="e#0#45#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/SubComponents/Brushes.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="338">
+              <caret line="41" column="176" lean-forward="true" selection-start-line="41" selection-start-column="25" selection-end-line="41" selection-end-column="176" />
             </state>
           </provider>
         </entry>
@@ -168,10 +174,10 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/Components/Text.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="296">
+            <state relative-caret-position="-64">
               <caret line="62" column="48" selection-start-line="62" selection-start-column="48" selection-end-line="62" selection-end-column="48" />
               <folding>
                 <element signature="e#0#45#0" expanded="true" />
@@ -222,10 +228,8 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/src/SubComponents/BackgroundSubComponent.js" />
         <option value="$PROJECT_DIR$/src/SubComponents/SideBarLogo.js" />
         <option value="$PROJECT_DIR$/src/Containers/SubComponentContainer.js" />
-        <option value="$PROJECT_DIR$/src/SubComponents/Palette.js" />
         <option value="$PROJECT_DIR$/src/SubComponents/Brushes.js" />
         <option value="$PROJECT_DIR$/src/Containers/Sidebar.js" />
         <option value="$PROJECT_DIR$/src/Components/CSS/Canvas.css" />
@@ -236,11 +240,13 @@
         <option value="$PROJECT_DIR$/src/SubComponents/TextSubComponent.js" />
         <option value="$PROJECT_DIR$/src/Containers/ApplicationContainer.js" />
         <option value="$PROJECT_DIR$/src/Components/CSS/text.css" />
-        <option value="$PROJECT_DIR$/src/Components/Background.js" />
         <option value="$PROJECT_DIR$/src/Components/Canvas.js" />
         <option value="$PROJECT_DIR$/src/Containers/CanvasContainer.js" />
         <option value="$PROJECT_DIR$/src/Components/CSS/cursor.css" />
         <option value="$PROJECT_DIR$/src/Components/Text.js" />
+        <option value="$PROJECT_DIR$/src/Components/Background.js" />
+        <option value="$PROJECT_DIR$/src/SubComponents/Palette.js" />
+        <option value="$PROJECT_DIR$/src/SubComponents/BackgroundSubComponent.js" />
       </list>
     </option>
   </component>
@@ -367,12 +373,12 @@
       <updated>1557936761495</updated>
       <workItem from="1557936762857" duration="52065000" />
       <workItem from="1560793175192" duration="9470000" />
-      <workItem from="1560878050818" duration="4908000" />
+      <workItem from="1560878050818" duration="7405000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="66443000" />
+    <option name="totallyTimeSpent" value="68940000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -387,7 +393,7 @@
     <frame x="0" y="0" width="1680" height="1050" extended-state="0" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.12332112" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.12332112" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="npm" order="2" side_tool="true" />
       <window_info id="Favorites" order="3" side_tool="true" />
@@ -403,7 +409,7 @@
       <window_info anchor="bottom" id="GraphQL" order="9" weight="0.32959184" />
       <window_info anchor="bottom" id="Database Changes" order="10" show_stripe_button="false" />
       <window_info anchor="bottom" id="TypeScript" order="11" />
-      <window_info active="true" anchor="bottom" id="Terminal" order="12" visible="true" weight="0.32959184" />
+      <window_info anchor="bottom" id="Terminal" order="12" visible="true" weight="0.32959184" />
       <window_info anchor="bottom" id="Event Log" order="13" side_tool="true" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
@@ -429,20 +435,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="210">
           <caret line="581" column="13" selection-start-line="581" selection-start-column="13" selection-end-line="581" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/SubComponents/Brushes.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="525">
-          <caret line="37" column="14" lean-forward="true" selection-start-line="37" selection-start-column="14" selection-end-line="37" selection-end-column="14" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/SubComponents/Palette.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-261">
-          <caret line="6" column="26" selection-start-line="6" selection-start-column="26" selection-end-line="6" selection-end-column="26" />
         </state>
       </provider>
     </entry>
@@ -555,16 +547,6 @@
     <entry file="file://$PROJECT_DIR$/src/Components/CSS/text.css">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/SubComponents/BackgroundSubComponent.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="602">
-          <caret line="41" selection-start-line="41" selection-end-line="41" />
-          <folding>
-            <element signature="e#0#45#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/Containers/SubComponentContainer.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="450">
@@ -579,26 +561,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="150">
           <caret line="13" column="25" lean-forward="true" selection-start-line="13" selection-end-line="14" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Components/Background.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="411">
-          <caret line="182" selection-start-line="182" selection-end-line="182" />
-          <folding>
-            <element signature="e#0#39#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Containers/CanvasContainer.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1288">
-          <caret line="93" column="33" lean-forward="true" selection-start-line="93" selection-start-column="33" selection-end-line="93" selection-end-column="33" />
-          <folding>
-            <element signature="e#0#41#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -621,8 +583,55 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/Components/Text.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="296">
+        <state relative-caret-position="-64">
           <caret line="62" column="48" selection-start-line="62" selection-start-column="48" selection-end-line="62" selection-end-column="48" />
+          <folding>
+            <element signature="e#0#45#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Containers/CanvasContainer.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-55">
+          <caret line="93" column="33" lean-forward="true" selection-start-line="93" selection-start-column="33" selection-end-line="93" selection-end-column="33" />
+          <folding>
+            <element signature="e#0#41#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/SubComponents/Brushes.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="338">
+          <caret line="41" column="176" lean-forward="true" selection-start-line="41" selection-start-column="25" selection-end-line="41" selection-end-column="176" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/SubComponents/Palette.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="355">
+          <caret line="52" column="23" lean-forward="true" selection-start-line="52" selection-start-column="23" selection-end-line="52" selection-end-column="23" />
+          <folding>
+            <element signature="e#0#45#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Components/Background.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-58">
+          <caret line="127" selection-start-line="127" selection-end-line="127" />
+          <folding>
+            <element signature="e#0#39#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/SubComponents/BackgroundSubComponent.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="390">
+          <caret line="59" column="104" selection-start-line="59" selection-start-column="104" selection-end-line="59" selection-end-column="104" />
           <folding>
             <element signature="e#0#45#0" expanded="true" />
           </folding>

@@ -5,6 +5,7 @@ import Brushes from './Brushes';
 let colorWrapperStyle = {
 	margin: '2%',
 	height: 'fit-content',
+	paddingBottom: '2%',
 };
 
 class Palette extends PureComponent {

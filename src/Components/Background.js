@@ -126,17 +126,6 @@ class Background extends Component {
 		}, ()=>this.props.getCroppedUrlFromBackground(newURL))
 	};
 
-	// //sets rotation amount in local state, passes value to parent so rotation can be changed on canvas
-	// rotateImagePreview = () => {
-	//
-	// 	let currentRotation = this.state.imagePreviewRotation;
-	// 	let nextRotation = currentRotation + 90;
-	//
-	// 	this.setState({
-	// 		imagePreviewRotation: nextRotation,
-	// 	}, ()=>this.props.getBackgroundRotation(nextRotation) )
-	// };
-
 	render() {
 
 		const { imagePreviewRotation } = this.state;
