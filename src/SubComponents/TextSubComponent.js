@@ -145,6 +145,7 @@ class TextSubComponent extends Component {
 
 						<SketchPicker
 							onChangeComplete={ (e)=>this.selectColor(e) }
+							color={ this.state.textColor }
 						/>
 
 				</Grid.Row>
