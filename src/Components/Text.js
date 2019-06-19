@@ -16,6 +16,7 @@ class Text extends PureComponent {
 			clickedText: null,
 			dragging: null,
 			editedText: null,
+			hoveringText: null,
 			textColor: 'black',
 		}
 	}
@@ -41,16 +42,12 @@ class Text extends PureComponent {
 
 	//handles adding text to the canvas by adding it to the state so it can be mapped in render()
 	addText = ({nativeEvent}) => {
-
 		//get corresponding x and y values from the click event
 		const { offsetX, offsetY, x, y } = nativeEvent;
-
 		//if there is no selectedText and user is not editing any text
 		if (!this.state.clickedText && !this.state.editedText) {
-			console.log('0')
 			//if there is no input on the screen
 			if (!this.state.hasInput) {
-				console.log(nativeEvent)
 				//create one
 				let input = document.createElement('input');
 				const canvasRef = this.props.canvasRef.current;
@@ -79,7 +76,6 @@ class Text extends PureComponent {
 
 			//handle if user clicks away from input
 			} else {
-				console.log('3')
 				//get the currently open input element and its value
 				const input = document.getElementById(`addTextInput-${ this.state.textInputId }`);
 				const canvasRef = this.props.canvasRef.current;
@@ -87,7 +83,6 @@ class Text extends PureComponent {
 
 				//if there is a value in the input, save it when user clicks away
 				if (value) {
-					console.log('4')
 					const increment = this.state.textInputId+1;
 
 					let inputObj = {
@@ -107,7 +102,6 @@ class Text extends PureComponent {
 					}), ()=>canvasRef.removeChild(input));
 
 				} else {
-					console.log('5')
 					//if there is no value, turn 'hasInput' off and remove the input
 					this.setState({
 						hasInput: false,
@@ -116,7 +110,6 @@ class Text extends PureComponent {
 			}
 		//if there is a selectedText and the user is editing a text element
 		} else {
-			console.log('6')
 			// if the user clicks on the text wrapper instead of a text element, de-select the edited text.
 			if (nativeEvent.target.id == 'text-wrapper') {
 
@@ -321,7 +314,6 @@ class Text extends PureComponent {
 
 	//handles user deselecting a textComponent after editing
 	resetEditState = ({ nativeEvent }) => {
-
 		// get changes in data from the clicked object
 		let id = nativeEvent.target.id;
 		let text = nativeEvent.target.firstChild.data;
@@ -347,12 +339,26 @@ class Text extends PureComponent {
 		})
 	};
 
+	onMouseOver = ({nativeEvent}) => {
+		const { target } = nativeEvent;
+		const id = target.id;
+
+		// console.log(id);
+		this.setState({
+			hoveringText: id,
+		});
+	};
+
 	render() {
 
 		const { input } = this.state;
 
 		return (
-			<div id={'text-wrapper'} onClick={ this.addText }>
+			<div id={'text-wrapper'}
+				 onClick={ this.addText }
+				 onMouseOver={ this.onMouseOver }
+				 style={{ cursor: this.state.hoveringText == 'text-wrapper' ? null : 'crosshair' }}
+			>
 				{ input ?
 					input.map((inputEntry, i) => {
 						let id = inputEntry.id;
@@ -363,6 +369,8 @@ class Text extends PureComponent {
 								id={ id }
 								key={ i }
 								value={ inputEntry.text }
+								// onMouseOver={ this.onMouseOver }
+								// onMouseLeave={ this.onMouseLeave }
 								onDoubleClick={ this.state.editedText == id ? this.resetEditState : this.setEditState }
 								onMouseDown={ ()=>this.setDragIdToState(id) }
 								onDragStart={ ()=>this.onDragStart(id) }
@@ -376,7 +384,7 @@ class Text extends PureComponent {
 									overflow: 'hidden',
 									containment: 'parent',
 									outline: 'none',
-									cursor: `${ this.state.dragging == id ? 'move' : 'arrow' }`,
+									// cursor: `${ console.log(this.state.hoveringText, id) }`,
 									backgroundColor: `${this.state.editedText == id ? 'rgb(255,255,0)' : 'transparent'}`,
 									height: `${ this.state.editedText == id ? `${ this.state.fontSize }px` : `${ inputEntry.fontSize }px` }`,
 									fontSize: `${ this.state.editedText == id ? `${ this.state.fontSize }px` : `${ inputEntry.fontSize }px` }`,
