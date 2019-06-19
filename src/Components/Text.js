@@ -43,23 +43,22 @@ class Text extends PureComponent {
 	addText = ({nativeEvent}) => {
 
 		//get corresponding x and y values from the click event
-		const { offsetX, offsetY, x, y, clientX, clientY } = nativeEvent;
+		const { offsetX, offsetY, x, y } = nativeEvent;
 
 		//if there is no selectedText and user is not editing any text
 		if (!this.state.clickedText && !this.state.editedText) {
-
+			console.log('0')
 			//if there is no input on the screen
 			if (!this.state.hasInput) {
-
+				console.log(nativeEvent)
 				//create one
 				let input = document.createElement('input');
 				const canvasRef = this.props.canvasRef.current;
 				input.type = 'text';
 				input.id = `addTextInput-${ this.state.textInputId }`;
 				input.style.position = 'fixed';
-				input.style.left = (offsetX + 75) + 'px';
-				input.style.top = (offsetY + 23) + 'px';
-				input.style.marginLeft = '13%';
+				input.style.left = (x) + 'px';
+				input.style.top = (y) + 'px';
 				input.autofocus = true;
 				input.onkeydown = this.handleTextEnter;
 				canvasRef.appendChild(input);
@@ -80,6 +79,7 @@ class Text extends PureComponent {
 
 			//handle if user clicks away from input
 			} else {
+				console.log('3')
 				//get the currently open input element and its value
 				const input = document.getElementById(`addTextInput-${ this.state.textInputId }`);
 				const canvasRef = this.props.canvasRef.current;
@@ -87,6 +87,7 @@ class Text extends PureComponent {
 
 				//if there is a value in the input, save it when user clicks away
 				if (value) {
+					console.log('4')
 					const increment = this.state.textInputId+1;
 
 					let inputObj = {
@@ -106,6 +107,7 @@ class Text extends PureComponent {
 					}), ()=>canvasRef.removeChild(input));
 
 				} else {
+					console.log('5')
 					//if there is no value, turn 'hasInput' off and remove the input
 					this.setState({
 						hasInput: false,
@@ -114,6 +116,7 @@ class Text extends PureComponent {
 			}
 		//if there is a selectedText and the user is editing a text element
 		} else {
+			console.log('6')
 			// if the user clicks on the text wrapper instead of a text element, de-select the edited text.
 			if (nativeEvent.target.id == 'text-wrapper') {
 
@@ -246,7 +249,6 @@ class Text extends PureComponent {
 
 	//handles ability to edit text font and size (and eventually modification of text and delete)
 	setEditState = (e) => {
-
 		const { target } = e;
 
 		//if the targeted click is not on an element that the user is editing...

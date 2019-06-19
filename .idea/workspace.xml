@@ -2,7 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="d68a3988-1699-4615-855b-8ba7d7af9206" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/src/SubComponents/TextSubComponent.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/SubComponents/TextSubComponent.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Components/CSS/cursor.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/Components/CSS/cursor.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Components/Text.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/Components/Text.js" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -55,18 +57,18 @@
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
-          <entry key="css" value="529" />
+          <entry key="css" value="567" />
           <entry key="env" value="3" />
-          <entry key="js" value="16557" />
+          <entry key="js" value="16834" />
           <entry key="json" value="2" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
           <entry key=".env file" value="3" />
-          <entry key="CSS" value="529" />
+          <entry key="CSS" value="567" />
           <entry key="JSON" value="2" />
-          <entry key="JavaScript" value="16557" />
+          <entry key="JavaScript" value="16834" />
         </counts>
       </usages-collector>
     </session>
@@ -112,7 +114,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/Components/Canvas.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1167">
+            <state relative-caret-position="1941">
               <caret line="141" column="12" selection-start-line="141" selection-start-column="12" selection-end-line="141" selection-end-column="12" />
               <folding>
                 <element signature="e#0#45#0" expanded="true" />
@@ -125,7 +127,7 @@
         <entry file="file://$PROJECT_DIR$/src/Components/CSS/cursor.css">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="180">
-              <caret line="12" column="190" selection-start-line="12" selection-start-column="190" selection-end-line="12" selection-end-column="190" />
+              <caret line="12" column="188" selection-start-line="12" selection-start-column="188" selection-end-line="12" selection-end-column="188" />
             </state>
           </provider>
         </entry>
@@ -148,11 +150,11 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/Components/Text.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="705">
-              <caret line="47" selection-start-line="47" selection-end-line="47" />
+            <state relative-caret-position="85">
+              <caret line="58" column="47" selection-start-line="58" selection-start-column="47" selection-end-line="58" selection-end-column="47" />
               <folding>
                 <element signature="e#0#45#0" expanded="true" />
               </folding>
@@ -172,10 +174,10 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/SubComponents/TextSubComponent.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="370">
+            <state relative-caret-position="966">
               <caret line="147" column="56" selection-start-line="147" selection-start-column="56" selection-end-line="147" selection-end-column="56" />
               <folding>
                 <element signature="e#0#41#0" expanded="true" />
@@ -193,7 +195,6 @@
       <find>&lt;Brushes</find>
       <find>hovered</find>
       <find>lineWidth</find>
-      <find>addText</find>
       <find>state.textEditOpen</find>
       <find>localhost</find>
       <find>texteditopen</find>
@@ -218,6 +219,7 @@
       <find>import fire</find>
       <find>,</find>
       <find>https://firebasestorage.googleapis.com/v0/b/artsyfartsy</find>
+      <find>addText</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -238,13 +240,13 @@
         <option value="$PROJECT_DIR$/src/Components/CSS/text.css" />
         <option value="$PROJECT_DIR$/src/Components/Canvas.js" />
         <option value="$PROJECT_DIR$/src/Containers/CanvasContainer.js" />
-        <option value="$PROJECT_DIR$/src/Components/CSS/cursor.css" />
         <option value="$PROJECT_DIR$/src/Components/Background.js" />
         <option value="$PROJECT_DIR$/src/SubComponents/Palette.js" />
         <option value="$PROJECT_DIR$/src/SubComponents/Brushes.js" />
         <option value="$PROJECT_DIR$/src/SubComponents/BackgroundSubComponent.js" />
-        <option value="$PROJECT_DIR$/src/Components/Text.js" />
         <option value="$PROJECT_DIR$/src/SubComponents/TextSubComponent.js" />
+        <option value="$PROJECT_DIR$/src/Components/CSS/cursor.css" />
+        <option value="$PROJECT_DIR$/src/Components/Text.js" />
       </list>
     </option>
   </component>
@@ -365,12 +367,12 @@
       <updated>1557936761495</updated>
       <workItem from="1557936762857" duration="52065000" />
       <workItem from="1560793175192" duration="9470000" />
-      <workItem from="1560878050818" duration="10344000" />
+      <workItem from="1560878050818" duration="12871000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="71879000" />
+    <option name="totallyTimeSpent" value="74406000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -539,23 +541,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/Components/CSS/cursor.css">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="180">
-          <caret line="12" column="190" selection-start-line="12" selection-start-column="190" selection-end-line="12" selection-end-column="190" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Components/Canvas.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1167">
-          <caret line="141" column="12" selection-start-line="141" selection-start-column="12" selection-end-line="141" selection-end-column="12" />
-          <folding>
-            <element signature="e#0#45#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/Containers/CanvasContainer.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-55">
@@ -600,16 +585,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/Components/Text.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="705">
-          <caret line="47" selection-start-line="47" selection-end-line="47" />
-          <folding>
-            <element signature="e#0#45#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/SubComponents/BackgroundSubComponent.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="288">
@@ -622,10 +597,37 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/SubComponents/TextSubComponent.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="370">
+        <state relative-caret-position="966">
           <caret line="147" column="56" selection-start-line="147" selection-start-column="56" selection-end-line="147" selection-end-column="56" />
           <folding>
             <element signature="e#0#41#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Components/Canvas.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1941">
+          <caret line="141" column="12" selection-start-line="141" selection-start-column="12" selection-end-line="141" selection-end-column="12" />
+          <folding>
+            <element signature="e#0#45#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Components/CSS/cursor.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="180">
+          <caret line="12" column="188" selection-start-line="12" selection-start-column="188" selection-end-line="12" selection-end-column="188" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Components/Text.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="85">
+          <caret line="58" column="47" selection-start-line="58" selection-start-column="47" selection-end-line="58" selection-end-column="47" />
+          <folding>
+            <element signature="e#0#45#0" expanded="true" />
           </folding>
         </state>
       </provider>
