@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import Colors from '../Static/Colors';
 
 import { Grid, Dropdown } from "semantic-ui-react";
+import { SketchPicker } from 'react-color';
+
 import Fonts from "../Static/Fonts";
 
 class TextSubComponent extends Component {
@@ -40,7 +42,15 @@ class TextSubComponent extends Component {
 				this.props.getTextColor(textColor)
 			)
 		}
+		// allows text color to default to black
+		if (prevProps.textColor != this.props.textColor) {
+			this.setState({
+				textColor: this.props.textColor,
+			})
+		}
 
+
+		// communicates with DOM actions in canvas.js/text.js for switching from one color to the next
 		if (this.state.textColor != prevState.textColor) {
 			this.props.getTextColor(this.state.textColor);
 		}
@@ -66,13 +76,18 @@ class TextSubComponent extends Component {
 		})
 	};
 
-	selectColor = ({nativeEvent}) => {
-		const { target } = nativeEvent;
-		const color = target.style.backgroundColor;
+	selectColor = (color) => {
+		const selectedColor = color.hex;
 
 		this.setState({
-			textColor: color,
-		}, ()=>this.openTextColor() )
+			textColor: selectedColor,
+		})
+		// const { target } = nativeEvent;
+		// const color = target.style.backgroundColor;
+		//
+		// this.setState({
+		// 	textColor: color,
+		// }, ()=>this.openTextColor() )
 	};
 
 	render() {
@@ -111,21 +126,27 @@ class TextSubComponent extends Component {
 					</Grid.Column>
 				</Grid.Row>
 				<Grid.Row columns={2}>
-					<Grid.Column width={4}>
-						<div style={{height: '20px', width: '20px', border: '1px solid black', display: 'inline-block', backgroundColor: `${ this.state.textColor ? this.state.textColor : 'black' }`}} onClick={ ()=>this.openTextColor() }></div>
-					</Grid.Column>
-						{ this.state.openFontColor ?
-							<Grid.Column width={12}>
-								<div style={{ position: 'fixed', height: '100px', width: '80px', display: 'inline-block', border: '1px solid black', overflowY: 'scroll' }}>
-									{ Colors.map((color, i) => {
-										let id = `font-color-${i}-${color}`;
-										return (
-											<div key={ i } id={ id } value={ color } onClick={ this.selectColor } style={{height: '20px', width: '20px', backgroundColor: `${ color }`, display: 'inline-block' }}></div>
-										)
-									}) }
-								</div>
-							</Grid.Column>
-						: null }
+					{/*<Grid.Column width={4}>*/}
+						{/*<div style={{height: '20px', width: '20px', border: '1px solid black', display: 'inline-block', backgroundColor: `${ this.state.textColor ? this.state.textColor : 'black' }`}} onClick={ ()=>this.openTextColor() }></div>*/}
+					{/*</Grid.Column>*/}
+
+						{/*{ this.state.openFontColor ?*/}
+							{/*<Grid.Column width={12}>*/}
+								{/*<div style={{ position: 'fixed', height: '100px', width: '80px', display: 'inline-block', border: '1px solid black', overflowY: 'scroll' }}>*/}
+									{/*{ Colors.map((color, i) => {*/}
+										{/*let id = `font-color-${i}-${color}`;*/}
+										{/*return (*/}
+											{/*<div key={ i } id={ id } value={ color } onClick={ this.selectColor } style={{height: '20px', width: '20px', backgroundColor: `${ color }`, display: 'inline-block' }}></div>*/}
+										{/*)*/}
+									{/*}) }*/}
+								{/*</div>*/}
+							{/*</Grid.Column>*/}
+						{/*: null }*/}
+
+						<SketchPicker
+							onChangeComplete={ (e)=>this.selectColor(e) }
+						/>
+
 				</Grid.Row>
 			</Grid>
 		);

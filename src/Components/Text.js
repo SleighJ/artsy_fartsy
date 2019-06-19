@@ -1,8 +1,6 @@
 import React, { PureComponent } from 'react';
-import ReactDOM from 'react-dom';
 
 import './CSS/cursor.css';
-
 
 class Text extends PureComponent {
 	constructor(props) {
@@ -47,7 +45,6 @@ class Text extends PureComponent {
 		//get corresponding x and y values from the click event
 		const { offsetX, offsetY, x, y, clientX, clientY } = nativeEvent;
 
-		console.log(nativeEvent);
 		//if there is no selectedText and user is not editing any text
 		if (!this.state.clickedText && !this.state.editedText) {
 
