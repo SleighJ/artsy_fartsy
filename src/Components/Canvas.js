@@ -4,11 +4,9 @@ import { v4 } from 'uuid';
 import './CSS/cursor.css';
 
 let textOpenStyle = {
-	// pointerEvents: 'auto',
 };
 
 let textClosedStyle = {
-	// pointerEvents: 'auto',
 	position: 'absolute',
 };
 

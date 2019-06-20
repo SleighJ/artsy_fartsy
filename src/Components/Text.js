@@ -59,13 +59,11 @@ class Text extends PureComponent {
 				input.autofocus = true;
 				input.onkeydown = this.handleTextEnter;
 				canvasRef.appendChild(input);
-
 				//save the coordinants of this click event for use in the next event
 				let clickCoords = {
 					x: x,
 					y: y,
 				};
-
 				//let component know that there is an active input and store the
 				// coordinants of this click in case the user clicks away
 				this.setState({
@@ -73,14 +71,12 @@ class Text extends PureComponent {
 					previousClickCoords: clickCoords,
 				});
 				input.focus();
-
 			//handle if user clicks away from input
 			} else {
 				//get the currently open input element and its value
 				const input = document.getElementById(`addTextInput-${ this.state.textInputId }`);
 				const canvasRef = this.props.canvasRef.current;
 				const value = input.value;
-
 				//if there is a value in the input, save it when user clicks away
 				if (value) {
 					const increment = this.state.textInputId+1;
@@ -93,14 +89,12 @@ class Text extends PureComponent {
 						fontSize: this.state.fontSize,
 						fontFamily: this.state.fontFamily,
 					};
-
 					//save changes so that obj can be rendered on screen
 					this.setState(prevState => ({
 						hasInput: false,
 						textInputId: increment,
 						input: [...prevState.input, inputObj],
 					}), ()=>canvasRef.removeChild(input));
-
 				} else {
 					//if there is no value, turn 'hasInput' off and remove the input
 					this.setState({

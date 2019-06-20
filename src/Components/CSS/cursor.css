@@ -10,6 +10,5 @@
     height: 600px;
     width: 800px;
     outline: none;
-    cursor: url('https://firebasestorage.googleapis.com/v0/b/artsyfartsy-2ba80.appspot.com/o/custom_cursor%2Fcustom_font_cursor_2.png?alt=media&token=aca29e7b-ba8a-474a-8761-4f5186c8dd3c'), auto;
-    /*cursor: crosshair;*/
+    cursor: url('https://firebasestorage.googleapis.com/v0/b/artsyfartsy-2ba80.appspot.com/o/custom_cursor%2Fcustom_font_cursor_2.png?alt=media&token=aca29e7b-ba8a-474a-8761-4f5186c8dd3c') 20 15, auto;
 }
