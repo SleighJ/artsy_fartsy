@@ -75,6 +75,8 @@ class CanvasContainer extends Component {
 			getBackgroundRotation,
 			backgroundColor,
 			uploadActive,
+			// turnOffText,
+			selectedSubComponent,
 		} = this.props;
 
 		return (
@@ -110,6 +112,8 @@ class CanvasContainer extends Component {
 								selectedFont={ selectedFont }
 								textEditOpen={ textEditOpen }
 								textColor={ textColor }
+								selectedSubComponent={ selectedSubComponent }
+								// turnOffText={ turnOffText }
 								setTextState={ setTextState }
 								getEditTextSelect={ getEditTextSelect }
 								canvasRef={ this.state.canvasRef }

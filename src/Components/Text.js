@@ -2,6 +2,8 @@ import React, { PureComponent } from 'react';
 
 import './CSS/cursor.css';
 
+const pageName = 'TEXT';
+
 class Text extends PureComponent {
 	constructor(props) {
 		super(props);
@@ -38,6 +40,21 @@ class Text extends PureComponent {
 				textColor: this.props.textColor,
 			})
 		}
+
+		console.log(this.props.selectedSubComponent, pageName)
+		//turns off all functionality in text component
+		if (this.props.selectedSubComponent != pageName) {
+			console.log('selectedComponent does not equal TEXT')
+			this.setState({
+				clickedText: null,
+				editedText: null,
+				dragging: null,
+				hasInput: null,
+				textEditOpen: null,
+
+			})
+		}
+		console.log('selectedComponent does equal TEXT');
 	};
 
 	//handles adding text to the canvas by adding it to the state so it can be mapped in render()

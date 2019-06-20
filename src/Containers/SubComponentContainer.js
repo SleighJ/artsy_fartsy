@@ -13,6 +13,7 @@ class SubComponentContainer extends Component {
 	pickComponentToRender = () => {
 		const subComponents = [
 			<Palette
+				clicked={ this.props.clicked }
 				//for brushes
 				color={ this.props.color }
 				getSizeFromBrush={ this.props.getSizeFromBrush }
@@ -22,6 +23,7 @@ class SubComponentContainer extends Component {
 				getPaletteColorPickerState={ this.props.getPaletteColorPickerState }
 			/>,
 			<BackgroundSubComponent
+				clicked={ this.props.clicked }
 				croppedUrl={ this.props.croppedUrl }
 				clearCroppedUrl={ this.props.clearCroppedUrl }
 				backgroundUploadStatus={ this.props.backgroundUploadStatus }
@@ -29,6 +31,8 @@ class SubComponentContainer extends Component {
 				addBackground={ this.props.addBackground }
 			/>,
 			<TextSubComponent
+				// turnOffText={ this.props.turnOffText }
+				clicked={ this.props.clicked }
 				selectedTextEdit={this.props.selectedTextEdit}
 				setFont={ this.props.setFont }
 				setFontSize={ this.props.setFontSize }

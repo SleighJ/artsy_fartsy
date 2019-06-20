@@ -29,6 +29,8 @@ class ApplicationContainer extends Component {
 			uploadActive: false,
 			paletteColorPickerState: null,
 			customCursorURL: null,
+			// turnOffText: null,
+			selectedSubComponent: null,
 		}
 	}
 
@@ -140,6 +142,38 @@ class ApplicationContainer extends Component {
 		})
 	};
 
+	// turnOffText = () => {
+	// 	console.log('turnOffText Called')
+	// 	this.setState({
+	// 		turnOffText: true,
+	// 	})
+	// };
+
+	clickedSubComponent = (subComponentId) => {
+		switch(subComponentId) {
+			case 0 :
+				this.setState({
+					selectedSubComponent: 'PALETTE',
+				});
+				break;
+			case 1 :
+				this.setState({
+					selectedSubComponent: 'BACKGROUND',
+				});
+				break;
+			case 2 :
+				this.setState({
+					selectedSubComponent: 'TEXT',
+				});
+				break;
+			default :
+				this.setState({
+					selectedSubComponent: null,
+				})
+				console.log('default '+subComponentId);
+		}
+	};
+
 	//saves data from newlySelectedObj from Text.js so it can be passed to textSubComponent.js and update based on state changes in Text.js
 	getEditTextSelect = (newlySelectedObj) => {
 		this.setState({
@@ -172,6 +206,8 @@ class ApplicationContainer extends Component {
 			uploadActive,
 			paletteColorPickerState,
 			customCursorURL,
+			// turnOffText,
+			selectedSubComponent,
 		} = this.state;
 
 		return (
@@ -185,6 +221,8 @@ class ApplicationContainer extends Component {
 						getBackgroundColor={ this.getBackgroundColor }
 						clearCroppedUrl={ this.clearCroppedUrl }
 						getPaletteColorPickerState={ this.getPaletteColorPickerState }
+						clickedSubComponent={ this.clickedSubComponent }
+						// turnOffText={ this.turnOffText }
 
 						//TODO: remove add background from this part of application
 						addBackground={ this.addBackground }
@@ -197,6 +235,7 @@ class ApplicationContainer extends Component {
 
 						//global state values
 						paletteColorPickerState={ paletteColorPickerState }
+						selectedSubComponent={ selectedSubComponent }
 						fontSize={ fontSize }
 						textEditOpen={ textEditOpen }
 						selectedTextEdit={ selectedTextEdit }
@@ -230,6 +269,8 @@ class ApplicationContainer extends Component {
 						selectedFont={ selectedFont }
 						textColor={ textColor }
 						customCursorURL={ customCursorURL }
+						// turnOffText={ turnOffText }
+						selectedSubComponent={ selectedSubComponent }
 					/>
 				</Fragment>
 

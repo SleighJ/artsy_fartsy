@@ -48,8 +48,6 @@ class TextSubComponent extends Component {
 				textColor: this.props.textColor,
 			})
 		}
-
-
 		// communicates with DOM actions in canvas.js/text.js for switching from one color to the next
 		if (this.state.textColor != prevState.textColor) {
 			this.props.getTextColor(this.state.textColor);
@@ -82,17 +80,15 @@ class TextSubComponent extends Component {
 		this.setState({
 			textColor: selectedColor,
 		})
-		// const { target } = nativeEvent;
-		// const color = target.style.backgroundColor;
-		//
-		// this.setState({
-		// 	textColor: color,
-		// }, ()=>this.openTextColor() )
 	};
 
 	render() {
 
 		const { fontFamily, fontSize } = this.state;
+
+		// console.log('state and props in TSC');
+		// console.log(this.state)
+		// console.log(this.props)
 
 		return (
 			<Grid style={{backgroundColor: 'transparent', margin: 0}} columns={2}>
@@ -125,29 +121,11 @@ class TextSubComponent extends Component {
 						</input>
 					</Grid.Column>
 				</Grid.Row>
-				<Grid.Row columns={2}>
-					{/*<Grid.Column width={4}>*/}
-						{/*<div style={{height: '20px', width: '20px', border: '1px solid black', display: 'inline-block', backgroundColor: `${ this.state.textColor ? this.state.textColor : 'black' }`}} onClick={ ()=>this.openTextColor() }></div>*/}
-					{/*</Grid.Column>*/}
-
-						{/*{ this.state.openFontColor ?*/}
-							{/*<Grid.Column width={12}>*/}
-								{/*<div style={{ position: 'fixed', height: '100px', width: '80px', display: 'inline-block', border: '1px solid black', overflowY: 'scroll' }}>*/}
-									{/*{ Colors.map((color, i) => {*/}
-										{/*let id = `font-color-${i}-${color}`;*/}
-										{/*return (*/}
-											{/*<div key={ i } id={ id } value={ color } onClick={ this.selectColor } style={{height: '20px', width: '20px', backgroundColor: `${ color }`, display: 'inline-block' }}></div>*/}
-										{/*)*/}
-									{/*}) }*/}
-								{/*</div>*/}
-							{/*</Grid.Column>*/}
-						{/*: null }*/}
-
-						<SketchPicker
-							onChangeComplete={ (e)=>this.selectColor(e) }
-							color={ this.state.textColor }
-						/>
-
+				<Grid.Row>
+					<SketchPicker
+						onChangeComplete={ (e)=>this.selectColor(e) }
+						color={ this.state.textColor }
+					/>
 				</Grid.Row>
 			</Grid>
 		);

@@ -102,7 +102,12 @@ class Sidebar extends Component {
 		}
 	}
 
-	componentDidUpdate = (prevProps) => {
+	componentDidUpdate = (prevProps, prevState) => {
+		//if new subcomponent is clicked, tell the parenting container so subComponent functionality turns on/off on selection
+		if (prevState.clicked != this.state.clicked) {
+			this.props.clickedSubComponent(this.state.clicked);
+		}
+
 		//if the incoming value of croppedUrl does not equal that of the local state, set it to the local state and close the subcomponent div
 		if (this.props.croppedUrl != this.state.croppedUrl) {
 			this.setState({
@@ -194,6 +199,12 @@ class Sidebar extends Component {
 	render() {
 
 		const { clicked } = this.state;
+
+		// console.log('state and props in SIDEBAR');
+		// console.log(this.state)
+		// console.log(this.props)
+		// console.log('clicked in sidebar');
+		// console.log(clicked)
 
 		return (
 			<div style={ sidebarOpen }>
