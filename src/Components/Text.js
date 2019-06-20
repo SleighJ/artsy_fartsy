@@ -337,7 +337,6 @@ class Text extends PureComponent {
 		const { target } = nativeEvent;
 		const id = target.id;
 
-		// console.log(id);
 		this.setState({
 			hoveringText: id,
 		});
@@ -363,8 +362,6 @@ class Text extends PureComponent {
 								id={ id }
 								key={ i }
 								value={ inputEntry.text }
-								// onMouseOver={ this.onMouseOver }
-								// onMouseLeave={ this.onMouseLeave }
 								onDoubleClick={ this.state.editedText == id ? this.resetEditState : this.setEditState }
 								onMouseDown={ ()=>this.setDragIdToState(id) }
 								onDragStart={ ()=>this.onDragStart(id) }
@@ -378,7 +375,7 @@ class Text extends PureComponent {
 									overflow: 'hidden',
 									containment: 'parent',
 									outline: 'none',
-									// cursor: `${ console.log(this.state.hoveringText, id) }`,
+									cursor: `${ this.state.editedText == id ? 'grab' : null }`,
 									backgroundColor: `${this.state.editedText == id ? 'rgb(255,255,0)' : 'transparent'}`,
 									height: `${ this.state.editedText == id ? `${ this.state.fontSize }px` : `${ inputEntry.fontSize }px` }`,
 									fontSize: `${ this.state.editedText == id ? `${ this.state.fontSize }px` : `${ inputEntry.fontSize }px` }`,
