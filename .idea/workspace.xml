@@ -2,13 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="d68a3988-1699-4615-855b-8ba7d7af9206" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Components/Text.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/Components/Text.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Containers/ApplicationContainer.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/Containers/ApplicationContainer.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Containers/CanvasContainer.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/Containers/CanvasContainer.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Containers/Sidebar.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/Containers/Sidebar.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Containers/SubComponentContainer.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/Containers/SubComponentContainer.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/SubComponents/TextSubComponent.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/SubComponents/TextSubComponent.js" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -63,7 +58,7 @@
         <counts>
           <entry key="css" value="577" />
           <entry key="env" value="3" />
-          <entry key="js" value="19882" />
+          <entry key="js" value="20229" />
           <entry key="json" value="2" />
         </counts>
       </usages-collector>
@@ -72,7 +67,7 @@
           <entry key=".env file" value="3" />
           <entry key="CSS" value="577" />
           <entry key="JSON" value="2" />
-          <entry key="JavaScript" value="19882" />
+          <entry key="JavaScript" value="20229" />
         </counts>
       </usages-collector>
     </session>
@@ -82,8 +77,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/Containers/ApplicationContainer.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="161">
-              <caret line="249" column="33" selection-start-line="249" selection-start-column="33" selection-end-line="249" selection-end-column="33" />
+            <state relative-caret-position="-489">
+              <caret line="40" column="42" selection-start-line="40" selection-start-column="42" selection-end-line="40" selection-end-column="42" />
               <folding>
                 <element signature="e#0#51#0" expanded="true" />
               </folding>
@@ -139,8 +134,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/Components/Text.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="163">
-              <caret line="46" column="71" selection-start-line="46" selection-start-column="71" selection-end-line="46" selection-end-column="71" />
+            <state relative-caret-position="283">
+              <caret line="45" column="12" selection-start-line="45" selection-start-column="12" selection-end-line="45" selection-end-column="12" />
               <folding>
                 <element signature="e#0#45#0" expanded="true" />
               </folding>
@@ -200,7 +195,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>&lt;Brushes</find>
       <find>hovered</find>
       <find>lineWidth</find>
       <find>state.textEditOpen</find>
@@ -228,8 +222,9 @@
       <find>https://firebasestorage.googleapis.com/v0/b/artsyfartsy</find>
       <find>addText</find>
       <find>clickedText</find>
-      <find>editedText</find>
       <find>turnOffText</find>
+      <find>selectedCompon</find>
+      <find>editedText</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -254,8 +249,8 @@
         <option value="$PROJECT_DIR$/src/Containers/SubComponentContainer.js" />
         <option value="$PROJECT_DIR$/src/SubComponents/TextSubComponent.js" />
         <option value="$PROJECT_DIR$/src/Containers/Sidebar.js" />
-        <option value="$PROJECT_DIR$/src/Containers/ApplicationContainer.js" />
         <option value="$PROJECT_DIR$/src/Containers/CanvasContainer.js" />
+        <option value="$PROJECT_DIR$/src/Containers/ApplicationContainer.js" />
         <option value="$PROJECT_DIR$/src/Components/Text.js" />
       </list>
     </option>
@@ -388,7 +383,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="84305000" />
+    <option name="totallyTimeSpent" value="86093000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -403,7 +398,7 @@
     <frame x="0" y="0" width="1680" height="1050" extended-state="0" />
     <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.12332112" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.12332112" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="npm" order="2" side_tool="true" />
       <window_info id="Favorites" order="3" side_tool="true" />
@@ -419,7 +414,7 @@
       <window_info anchor="bottom" id="GraphQL" order="9" weight="0.32959184" />
       <window_info anchor="bottom" id="Database Changes" order="10" show_stripe_button="false" />
       <window_info anchor="bottom" id="TypeScript" order="11" />
-      <window_info anchor="bottom" id="Terminal" order="12" visible="true" weight="0.32959184" />
+      <window_info active="true" anchor="bottom" id="Terminal" order="12" visible="true" weight="0.32959184" />
       <window_info anchor="bottom" id="Event Log" order="13" side_tool="true" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
@@ -619,16 +614,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/Containers/ApplicationContainer.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="161">
-          <caret line="249" column="33" selection-start-line="249" selection-start-column="33" selection-end-line="249" selection-end-column="33" />
-          <folding>
-            <element signature="e#0#51#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/Containers/CanvasContainer.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="284">
@@ -639,10 +624,20 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/Containers/ApplicationContainer.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-489">
+          <caret line="40" column="42" selection-start-line="40" selection-start-column="42" selection-end-line="40" selection-end-column="42" />
+          <folding>
+            <element signature="e#0#51#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/Components/Text.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="163">
-          <caret line="46" column="71" selection-start-line="46" selection-start-column="71" selection-end-line="46" selection-end-column="71" />
+        <state relative-caret-position="283">
+          <caret line="45" column="12" selection-start-line="45" selection-start-column="12" selection-end-line="45" selection-end-column="12" />
           <folding>
             <element signature="e#0#45#0" expanded="true" />
           </folding>

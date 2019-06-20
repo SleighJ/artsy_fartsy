@@ -37,6 +37,9 @@ class ApplicationContainer extends Component {
 	// (compWillMount and callBackendAPI is not so important now, but needed for when I add the functionality to save your work)
 	// on the mount of the entire application, connect to the server that stores the canvas data plots
 	componentDidMount = () => {
+
+		console.log([1,2].concat(3).pop())
+
 		this.callBackendAPI()
 			.then(res => this.setState({ data: res.express }))
 			.catch(err => console.log(err));

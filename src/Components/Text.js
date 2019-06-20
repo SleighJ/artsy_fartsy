@@ -41,10 +41,14 @@ class Text extends PureComponent {
 			})
 		}
 
-		console.log(this.props.selectedSubComponent, pageName)
-		//turns off all functionality in text component
+		//if selectedSubComponent has changed turn off all functionality in this component
 		if (this.props.selectedSubComponent != pageName) {
-			console.log('selectedComponent does not equal TEXT')
+
+			if (this.state.hasInput) {
+				const inputId = `addTextInput-${this.state.textInputId}`;
+				document.getElementById(inputId).remove();
+			}
+
 			this.setState({
 				clickedText: null,
 				editedText: null,
@@ -54,7 +58,7 @@ class Text extends PureComponent {
 
 			})
 		}
-		console.log('selectedComponent does equal TEXT');
+		// console.log('selectedComponent does equal TEXT');
 	};
 
 	//handles adding text to the canvas by adding it to the state so it can be mapped in render()
