@@ -7,7 +7,7 @@ let textOpenStyle = {
 };
 
 let textClosedStyle = {
-	position: 'absolute',
+	position: 'sticky',
 };
 
 class Canvas extends PureComponent {
@@ -28,7 +28,6 @@ class Canvas extends PureComponent {
 
 	// This component needs a bit of work. I tried to refactor these global variables
 	// into the local state but the component updates very frequently and causes issues.
-
 	isPainting = false;
 	line = [];
 	userId = v4();
@@ -102,7 +101,7 @@ class Canvas extends PureComponent {
 	};
 
 	// sets isPainting to false and posts the data to the server
-	// TODO: save functionality needs to be added
+	// TODO: save functionality needs to be added?
 	endPaintEvent = () => {
 		if (this.isPainting) {
 			this.isPainting = false;
@@ -111,7 +110,7 @@ class Canvas extends PureComponent {
 	};
 
 	//saves painting data to db
-	//TODO: save functionality needs to be added
+	//TODO: save functionality needs to be added? needs to be switched to firebase?
 	sendPaintData = async () => {
 
 		let body = {
@@ -138,7 +137,6 @@ class Canvas extends PureComponent {
 		const { croppedUrl } = this.state;
 
 		let urlStyle = {
-			backgroundColor: `${ this.state.backgroundColor }`,
 			backgroundImage: `url(${ croppedUrl })`,
 			backgroundRepeat: 'no-repeat',
 			backgroundPosition: 'center',
@@ -148,6 +146,9 @@ class Canvas extends PureComponent {
 		let noUrlStyle = {
 			backgroundColor: `${ this.state.backgroundColor }`,
 		};
+
+		console.log('from CANVAS')
+		console.log(croppedUrl)
 
 		return (
 			<div id={'canvas-wrapper'} ref={ this.canvasWrapperRef } style={ croppedUrl ? urlStyle : noUrlStyle }>

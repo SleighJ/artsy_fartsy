@@ -113,6 +113,8 @@ class ApplicationContainer extends Component {
 
 	//gets the url for the cropped image from background.js component
 	getCroppedUrlFromBackground = (newURL) => {
+		console.log('getCroppedUrlFromBackground called');
+		console.log(newURL)
 		this.setState({
 			croppedUrl: newURL,
 		})
@@ -172,8 +174,7 @@ class ApplicationContainer extends Component {
 			default :
 				this.setState({
 					selectedSubComponent: null,
-				})
-				console.log('default '+subComponentId);
+				});
 		}
 	};
 

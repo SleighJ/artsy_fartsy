@@ -1,14 +1,21 @@
 import React, {Component} from "react";
 import ReactCrop from "react-image-crop";
-import { storage } from '../Firebase/Firebase';
 import {
 	base64StringtoFile,
 	extractImageFileExtensionFromBase64,
 	image64toCanvasRef,
-	} from "../Static/Base64";
+} from "../Static/Base64";
 
-import { Grid, Dimmer, Loader, Image, Segment, Button } from 'semantic-ui-react';
-
+import { storage } from '../Firebase/Firebase';
+import moment from 'moment';
+import {
+	Grid,
+	Dimmer,
+	Loader,
+	Image,
+	Segment,
+	Button
+} from 'semantic-ui-react';
 
 class Background extends Component {
 	constructor(props){
@@ -55,33 +62,7 @@ class Background extends Component {
 		}
 	};
 
-	//posts original picture to firebase db in base64 (my db could use a little work at this point) and gives it an accessible url
-	uploadBackground = async (pic) => {
-
-		const uploadTask = storage.ref(`images/${ pic.name }`).put(pic);
-		uploadTask.on('state_changed', (snapshot) => {
-			this.setState({
-				loadingBackground: true,
-			})
-		}, (error) => {
-			console.log(error)
-		}, () => {
-			storage.ref('images').child(pic.name).getDownloadURL().then(url => {
-				const reader = new FileReader();
-				reader.addEventListener('load', () => {
-					this.setState({
-						unCroppedImg64: reader.result,
-						unCroppedFireBaseUrl: url,
-						loadingBackground: false,
-					})
-
-				}, false);
-				reader.readAsDataURL(pic);
-			})
-		});
-	};
-
-	//saves cropped image to state
+	//saves cropping data/ratio to state
 	backgroundResize = (crop) => {
 		this.setState({
 			crop: crop,
@@ -103,13 +84,38 @@ class Background extends Component {
 		image64toCanvasRef(canvasRef, imageSrc, pixelCrop);
 	};
 
-	//creates url for cropped base64
+	//posts original picture to firebase db in base64 (my db could use a little work at this point) and gives it an accessible url
+	uploadBackground = async (pic) => {
+		const uploadTask = storage.ref(`images/${ pic.name }`).put(pic);
+		uploadTask.on('state_changed', (snapshot) => {
+			this.setState({
+				loadingBackground: true,
+			})
+		}, (error) => {
+			console.log('Oops.. thats embarrassing, '+error);
+		}, () => {
+			storage.ref('images').child(pic.name).getDownloadURL().then(url => {
+				const reader = new FileReader();
+				reader.addEventListener('load', () => {
+					this.setState({
+						unCroppedImg64: reader.result,
+						unCroppedFireBaseUrl: url,
+						loadingBackground: false,
+					})
+				}, false);
+				reader.readAsDataURL(pic);
+			})
+		});
+	};
+
+	//creates url for cropped base64 string
 	handleDone = () => {
 		const canvasRef = this.imagePreviewCanvasRef.current;
 		const { unCroppedImg64 } = this.state;
 		const fileExt = extractImageFileExtensionFromBase64(unCroppedImg64);
 		const img64 = canvasRef.toDataURL('image/' + fileExt);
-		const fileName = 'preview.'+fileExt;
+		const time = moment().format('MMMM Do YYYY, h:mm:ss a');
+		const fileName = time+fileExt;
 		const croppedFile = base64StringtoFile(img64, fileName);
 
 		let binaryData = [];
@@ -126,8 +132,8 @@ class Background extends Component {
 		}, ()=>this.props.getCroppedUrlFromBackground(newURL))
 	};
 
-	render() {
 
+	render() {
 		const { imagePreviewRotation } = this.state;
 
 		let rotationStyle= {
@@ -178,8 +184,6 @@ class Background extends Component {
 				}
 			</div>
 		)
-
-
 	}
 }
 
